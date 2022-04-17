@@ -1,2 +1,3 @@
-در پروداکت سرویسز متد مربوط به اسلایدر شرط موجودی وارد شود خط 310 && pr.count > 0
-
+Website design project with asp.net core 5 language
+Developer: Bijan Shafiee
+Supervisor: Dr.Deldari
