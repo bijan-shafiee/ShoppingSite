@@ -1,0 +1,124 @@
+﻿
+@model IEnumerable<ShowfaqViewmodel>
+
+@{
+    Layout = null;
+}
+
+<div class="faq">
+    <h2 class="params-headline">
+        پرسش و پاسخ
+        <span>پرسش خود را در مورد محصول مطرح نمایید</span>
+    </h2>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div id="hidden">
+            <span> پاسخ به :</span>
+            <span id="username"></span>
+            <span class="text-info mr-3" style="cursor:pointer;" id="cancell" onclick="CancelAnswer()">انصراف</span>
+        </div>
+        <form asp-action="AddQustionOrAnswer" id="submitform" method="post" class="form-faq">
+            <input type="hidden" name="questionId" id="questionId" />
+            <input type="hidden" name="productid" id="productId" value="@TempData["productid"]" />
+            <div class="form-faq-row mt-4">
+                <div class="form-faq-col">
+                    <div class="ui-textarea">
+                        <textarea name="text" id="text" title="متن سوال"
+                                  class="ui-textarea-field"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-faq-row mt-4">
+                <div class="form-faq-col form-faq-col-submit">
+                    <button class="btn-tertiary btn btn-secondary" type="button" onclick="AddQuestionOrAnswer()">
+                        ثبت
+                        پرسش
+                    </button>
+                    <div class="form-faq-col-agreement d-inline-block mr-5">
+                        <div class="form-auth-row">
+                            <label for="#" class="ui-checkbox mt-1">
+                                <input type="checkbox" value="1" name="login" id="remember">
+                                <span class="ui-checkbox-check"></span>
+                            </label>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-warning">برای ثبت پرسش لطفا ,ارد سایت شوید .</div>
+    }
+
+
+    <div id="product-questions-list">
+        @foreach (var item in Model.GroupBy(q => q.questionid))
+        {
+            <div class="questions-list">
+                <ul class="faq-list">
+                    <li class="is-question">
+                        <div class="section">
+                            <div class="faq-header">
+                                <span class="icon-faq">?</span>
+                                <p class="h5">
+                                    پرسش :
+                                    <span>@item.First().usernameq</span>
+                                </p>
+                            </div>
+                            <p>
+                                @item.First().descriptionq
+                            </p>
+                            <div class="faq-date">
+                                <em>@item.First().CreateDateq.MilatiToShamsi()</em>
+                            </div>
+                            @*<a data-username="@item.First().usernameq" data-qustionid="@item.First().questionid" style="cursor:pointer;" class="js-add-answer-btn addAnswer" onclick="AnswerButton(@item.First().questionid,@item.First().usernameq)">
+                                به این پرسش پاسخ
+                                دهید
+                            </a>*@
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            @foreach (var item2 in item)
+            {
+                if (item2.showAnswerVm.answerid > 0)
+                {
+                    <div class="questions-list answer-questions">
+                        <ul class="faq-list">
+                            <li class="is-question">
+                                <div class="section">
+                                    <div class="faq-header">
+                                        <span class="icon-faq">
+                                            <i class="mdi mdi-storefront"></i>
+                                        </span>
+                                        <p class="h5">
+                                            پاسخ فروشنده :
+                                            <span>@item2.showAnswerVm.usernamea</span>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        @item2.showAnswerVm.descriptiona
+                                    </p>
+                                    <div class="faq-date">
+                                        <em>@item2.showAnswerVm.CreateDatea?.MilatiToShamsi()</em>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                }
+
+            }
+
+        }
+
+
+    </div>
+</div>
+
+<script>
+    $("#hidden").hide();
+    //SubmitForm();
+</script>

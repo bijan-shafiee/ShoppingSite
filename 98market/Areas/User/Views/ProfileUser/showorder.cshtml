@@ -1,0 +1,105 @@
+﻿
+@model IEnumerable<showorderForUser>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var information = ViewBag.information as informationAccountViewmodel;
+}
+
+
+<!-- profile------------------------------->
+<div class="container-main">
+    <div class="d-block">
+        <section class="profile-home">
+            <div class="col-lg">
+                <div class="post-item-profile order-1 d-block">
+                    <div class="col-lg-3 col-md-3 col-xs-12 pr">
+                        <partial name="_SidebarUser" model="information">
+
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-xs-12 pl">
+                        <div class="profile-content">
+                            <div class="profile-stats">
+                                <div class="table-orders">
+                                    <table class="table table-profile-orders">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">شماره سفارش</th>
+                                                <th scope="col">تاریخ ثبت سفارش</th>
+                                                <th scope="col">وضعیت</th>
+                                                <th scope="col">مجموع</th>
+                                                <th scope="col">جزئیات</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="order-code">DKC-@item.cartid</td>
+                                                    <td>@item.createdate</td>
+                                                    <td class="Waiting @(item.ispaye?"text-success":"text-danger")">@(item.ispaye? "پرداخت شده": "پرداخت نشده")</td>
+                                                    <td class="totla">
+                                                        <span class="amount">
+                                                            @item.totalprice
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="detail"><a href="/showDetailorders/@item.cartid" class="btn btn-secondary d-block">نمایش جزئیات</a></td>
+                                                </tr>
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    
+                                        <div class="profile-orders">
+                                            <div class="collapse">
+                                                @foreach (var item in Model)
+                                                {
+                                                    <div class="profile-orders-item">
+                                                        <div class="profile-orders-header">
+
+                                                            <a href="/showDetailorders/@item.cartid" class="profile-orders-header-details">
+                                                                <div class="profile-orders-header-summary">
+                                                                    <div class="profile-orders-header-row">
+                                                                        <span class="profile-orders-header-id" style="text-align: center; font-size: 14px; color: black;">DKC-@item.cartid</span>
+                                                                        <span class="Waiting @(item.ispaye ? "text-success" : "text-danger")">@(item.ispaye ? "پرداخت شده" : "پرداخت نشده")</span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <!-- <hr class="ui-separator"> -->
+                                                            <div class="profile-orders-header-data">
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-label">تاریخ ثبت سفارش</div>
+                                                                    <div class="profile-info-value">@item.createdate</div>
+                                                                </div>
+                                                                @*<div class="profile-info-row">
+                            <div class="profile-info-label">مبلغ قابل پرداخت</div>
+                            <div class="profile-info-value">@item.totalprice</div>
+                        </div>*@
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-label">مبلغ کل</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="amount">
+                                                                            @item.totalprice
+                                                                            <span>تومان</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    }
+                                                </div>
+                                        </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- profile------------------------------->

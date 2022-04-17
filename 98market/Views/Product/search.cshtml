@@ -1,0 +1,339 @@
+﻿
+
+@model IEnumerable<product>
+@{
+    List<Category> category = ViewBag.category;
+    List<brand> brand = ViewBag.brand;
+
+    string text = ViewBag.text;
+    int sort = ViewBag.sort;
+    List<int> categoryid = ViewBag.categoryid;
+    List<int> brandid = ViewBag.brandid;
+    List<PropertyName> propertyNames = ViewBag.PropertyNames as List<PropertyName>;
+    List<int> propertyValues = ViewBag.PropertyValues as List<int>;
+}
+
+<!-- arshive-product----------------------->
+<div class="container-main">
+    <div class="d-block">
+        <div class="page-content page-row">
+            <div class="main-row">
+                <div id="breadcrumb">
+                    <i class="mdi mdi-home"></i>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">خانه</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">آرشیو محصولات</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <!-- start sidebar--------------------->
+                <form asp-action="search" method="get" id="form">
+                    <input type="hidden" name="text" value="@text" />
+                    <input type="hidden" name="sort" id="sort" />
+                    <input type="hidden"name="minprice"id="minprice" />
+                    <input type="hidden"name="maxprice" id="maxprice" />
+                    <div class="col-lg-3 col-md-3 col-xs-12 pr sticky-sidebar">
+                        <div class="shop-archive-sidebar">
+                            <div class="sidebar-archive mb-3">
+                                <section class="widget-product-categories">
+                                    <header class="cat-header">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-block text-right" data-toggle="collapse" href="#headingOne" role="button" aria-expanded="false" aria-controls="headingOne">
+                                                دسته بندی محصولات
+                                                <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+                                        </h2>
+                                    </header>
+                                    <div class="product-filter">
+                                        <div class="card">
+                                            <div class="collapse show" id="headingOne">
+                                                <div class="card-main mb-0">
+                                                    @foreach (var item in category)
+                                                    {
+                                                        if (categoryid.Contains(item.Categoryid))
+                                                        {
+                                                            <div class="form-auth-row">
+                                                                <label for="#" class="ui-checkbox">
+                                                                    <input checked="checked" onchange="submitform()" type="checkbox" value="@item.Categoryid" name="categoryid" id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember" class="remember-me">@item.CategoryFaTitle</label>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="form-auth-row">
+                                                                <label for="#" class="ui-checkbox">
+                                                                    <input onchange="submitform()" type="checkbox" value="@item.Categoryid" name="categoryid" id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember" class="remember-me">@item.CategoryFaTitle</label>
+                                                            </div>
+                                                        }
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="widget-product-categories">
+                                    <header class="cat-header">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-block text-right" data-toggle="collapse" href="#headingTwo" role="button" aria-expanded="false" aria-controls="headingTwo">
+                                                برند ها
+                                                <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+                                        </h2>
+                                    </header>
+                                    <div class="product-filter">
+                                        <div class="card">
+                                            <div class="collapse show" id="headingTwo">
+                                                <div class="card-main mb-0">
+                                                    @foreach (var item in brand)
+                                                    {
+
+                                                        if (brandid.Contains(item.brandid))
+                                                        {
+                                                            <div class="form-auth-row">
+                                                                <label for="#" class="ui-checkbox">
+                                                                    <input onchange="submitform()" checked="checked" type="checkbox" value="@item.brandid" name="brandid" id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember" class="remember-me">@item.brandname</label>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="form-auth-row">
+                                                                <label for="#" class="ui-checkbox">
+                                                                    <input onchange="submitform()" type="checkbox" value="@item.brandid" name="brandid" id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember" class="remember-me">@item.brandname</label>
+                                                            </div>
+                                                        }
+
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                @foreach (var item in propertyNames)
+                                {
+                                    <section class="widget-product-categories">
+                                        <header class="cat-header">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-block text-right" data-toggle="collapse" href="#headingTwo" role="button" aria-expanded="false" aria-controls="headingTwo">
+                                                    @item.PropertyTitle
+                                                    <i class="mdi mdi-chevron-down"></i>
+                                                </button>
+                                            </h2>
+                                        </header>
+                                        <div class="product-filter">
+                                            <div class="card">
+                                                <div class="collapse show" id="headingTwo">
+                                                    <div class="card-main mb-0">
+                                                        @foreach (var title in item.PropertyValues)
+                                                        {
+
+                                                            if (propertyValues.Contains(title.PropertyValueId))
+                                                            {
+                                                                <div class="form-auth-row">
+                                                                    <label for="#" class="ui-checkbox">
+                                                                        <input onchange="submitform()" checked="checked" type="checkbox" value="@title.PropertyValueId" name="propertyValues" id="remember">
+                                                                        <span class="ui-checkbox-check"></span>
+                                                                    </label>
+                                                                    <label for="remember" class="remember-me">@title.propertyvalue</label>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="form-auth-row">
+                                                                    <label for="#" class="ui-checkbox">
+                                                                        <input onchange="submitform()" type="checkbox" value="@title.PropertyValueId" name="propertyValues" id="remember">
+                                                                        <span class="ui-checkbox-check"></span>
+                                                                    </label>
+                                                                    <label for="remember" class="remember-me">@title.propertyvalue</label>
+                                                                </div>
+                                                            }
+
+                                                        }
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                }
+                                <section class="widget-product-categories">
+                                    <header class="cat-header">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-block text-right collapsed" data-toggle="collapse" href="#headingThree" role="button" aria-expanded="false" aria-controls="headingThree">
+                                                محدوده قیمت
+                                                <i class="mdi mdi-chevron-down"></i>
+                                            </button>
+                                        </h2>
+                                    </header>
+                                    <div class="product-filter">
+                                        <div class="card">
+                                            <div class="collapse show" id="headingThree">
+                                                <div class="card-main mb-0">
+                                                    <div class="box-data">
+                                                        <form action="">
+                                                            <div class="mt-5 mb-4">
+                                                                <div id="slider-non-linear-step"></div>
+                                                            </div>
+                                                            <div class="filter-range mt-2 mb-2 pr">
+                                                                <span>قیمت: </span>
+                                                                <span class="example-val" id="slider-non-linear-step-value"></span> تومان
+                                                            </div>
+                                                            <div class="mt-2 pl">
+                                                                <button class="btn btn-range click">
+                                                                    اعمال
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-xs-12 pl">
+                        <div class="shop-archive-content mt-3 d-block">
+                            <div class="archive-header">
+                                <h2 class="archive-header-title">آرشیو محصولات</h2>
+                                <div class="sort-tabs mt-0 d-inline-block pr">
+                                    <h4>مرتب‌سازی بر اساس :</h4>
+                                </div>
+                                <div class="nav-sort-tabs-res">
+                                    <ul class="nav sort-tabs-options" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link @(sort==1?"active":"")" onclick="submitform(1)" id="Most-visited-tab" data-toggle="tab" href="#Most-visited" role="tab" aria-controls="Most-visited" aria-selected="true">پربازدیدترین</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="submitform(2)" class="nav-link @(sort==2?"active":"")" id="Bestselling-tab" data-toggle="tab" href="#Bestselling" role="tab" aria-controls="Bestselling" aria-selected="false">پرفروش‌ترین‌</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link @(sort==3?"active":"")" onclick="submitform(3)" id="Most-Popular-tab" data-toggle="tab" href="#Most-Popular" role="tab" aria-controls="Most-Popular" aria-selected="false">محبوب‌ترین</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="submitform(4)" class="nav-link @(sort==4?"active":"")" id="newest-tab" data-toggle="tab" href="#newest" role="tab" aria-controls="newest" aria-selected="false">جدیدترین</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="submitform(5)" class="nav-link @(sort==5?"active":"")" id="cheapest-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="cheapest" aria-selected="false">ارزان‌ترین</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="submitform(6)" class="nav-link @(sort==6?"active":"")" id="most-expensive-tab" data-toggle="tab" href="#most-expensive" role="tab" aria-controls="most-expensive" aria-selected="false">گران‌ترین</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product-items">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
+                                        <div class="row">
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="col-lg-3 col-md-3 col-xs-12 order-1 d-block mb-3">
+                                                    <section class="product-box product product-type-simple">
+                                                        <div class="thumb">
+                                                            <a href="/Product/Detail/@item.productid" class="d-block">
+                                                                @if (item.sepcialprice < item.mainprice)
+                                                                {
+                                                                    <div class="promotion-badge">فروش ویژه</div>
+                                                                }
+
+                                                                <div class="product-rate">
+                                                                    @for (int i = 0; i < item.producStart; i++)
+                                                                    {
+                                                                        <i class="fa fa-star active"></i>
+                                                                    }
+
+
+                                                                </div>
+                                                                @if (item.sepcialprice < item.mainprice)
+                                                                {
+                                                                    double round = Math.Round(100 - (Convert.ToDouble(item.sepcialprice.Value) / item.mainprice * 100));
+                                                                    <div class="discount-d">
+                                                                        <span>@round%</span>
+                                                                    </div>
+                                                                }
+
+                                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.Productimage" style="height: 190px;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="title">
+                                                            <a href="/Product/Detail/@item.productid"> @item.productFaTitle</a>
+                                                        </div>
+                                                        <div class="price">
+                                                            <span class="amount">
+                                                                @if (item.mainprice <= 0)
+                                                                {
+
+                                                                    <span> ناموجود </span>
+                                                                }
+                                                                else if (item.sepcialprice < item.mainprice)
+                                                                {
+                                                                    @item.sepcialprice
+                                                                    <span> تومان</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    @item.mainprice <span> تومان </span>
+                                                                }
+                                                            </span>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            }
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- arshive-product----------------------->
+
+
+@section SCripts{
+
+    <script>
+        function submitform(e) {
+            $("#sort").val(e);
+            $("#form").submit();
+        }
+
+        $(".click").click(function () {
+
+            var test = $(".example-val").text();
+            var split = test.split("-");
+            $("#minprice").val(split[0]);
+            $("#maxprice").val(split[1]);
+            $("#form").submit();
+        });
+
+    </script>
+
+}

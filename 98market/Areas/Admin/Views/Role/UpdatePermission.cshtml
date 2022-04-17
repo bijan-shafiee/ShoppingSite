@@ -1,0 +1,48 @@
+﻿
+
+@model _98market.DataLayer.Entities.Role.permission
+
+@{
+    ViewData["Title"] = "ویرایش دسترسی";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<_98market.DataLayer.Entities.Role.role> roles = ViewBag.Roles as List<_98market.DataLayer.Entities.Role.role>;
+    List<_98market.DataLayer.Entities.Role.role> rolesOfPermission = ViewBag.RolesOfPermission as List<_98market.DataLayer.Entities.Role.role>;
+}
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="UpdatePermission" method="post" style="margin-top:5%;" enctype="multipart/form-data">
+            <input type="hidden" asp-for="permissionid" />
+
+            @foreach (var item in roles)
+            {
+                <div class="form-group">
+                    <div class="checkbox">
+                        <input name="roleIds" id="remember-@item.roleid" type="checkbox" @(rolesOfPermission.Contains(item) ? "checked" : "") value="@item.roleid" data-parsley-multiple="remember-@item.roleid" data-parsley-id="13">
+                        <label for="remember-@item.roleid">@item.roltitle</label>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="permissionTitle" for="emailAddress">عنوان دسترسی</label>
+                <input asp-for="permissionTitle" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="permissionTitle" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/role/permissions" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>

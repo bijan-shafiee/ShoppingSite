@@ -1,0 +1,73 @@
+﻿
+@model IEnumerable<user>
+@using _98market.Core.ExtentionMethod
+
+@{
+    ViewData["Title"] = "کاربران";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-sm-12">
+    <div class="panel">
+        <div class="panel-body" style="margin-top:5%;">
+
+
+            <div class="editable-responsive">
+                <div id="datatable-editable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">#</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> ایمیل </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> نام و نام خانوادگی </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> تاریخ ثبت نام </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> شماره تماس  </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> دسترسی ها </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> آدرس ها </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() > 0)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                    <tr class="gradeX odd" role="row">
+                                        <td class="sorting_1">@item.userid</td>
+                                        <td class="sorting_1">@item.email</td>
+                                        <td class="sorting_1">@item.username @item.userfamily</td>
+                                        <td class="sorting_1">@item.CreateAccount.MilatiToShamsi()</td>
+                                        <td class="sorting_1">@item.phone</td>
+                                        <td class="sorting_1"><a href="/admin/user/roles/@item.userid" target="_blank">دسترسی ها</a></td>
+                                        <td class="sorting_1"><a href="/admin/user/addresses/@item.userid" target="_blank">آدرس ها</a></td>
+                                    </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr class="gradeX odd" role="row">
+                                            <td colspan="5" class="sorting_1">کاربری  موجود نمی باشد .</td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end: panel body -->
+
+    </div> <!-- end panel -->
+</div> <!-- end col-->
+@section Scripts{
+    <script src="~/CssSite/Js/sweetAlert.js"></script>
+
+}
+
+

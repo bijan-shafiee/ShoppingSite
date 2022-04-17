@@ -1,0 +1,133 @@
+﻿@model IEnumerable<MainSlider>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int Page = ViewBag.Page;
+    int slidercount = ViewBag.CountSlider;
+}
+
+
+<div class="col-sm-12">
+    <div class="panel">
+        <div class="panel-body" style="margin-top:6%;">
+            <div class="editable-responsive">
+                <div id="datatable-editable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="m-b-30">
+                                    <a href="~/Admin/Slider/AddSlider" id="addToTable" class="btn btn-primary waves-effect waves-light">افزودن <i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            @if (TempData["Result"] != null)
+                            {
+                                if (TempData["Result"].ToString() == "true")
+                                {
+                                    <div class="alert alert-success alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        ثبت اطلاعات با موفقیت انجام شد
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        !!! خطا در انجام عملیات!!!
+                                    </div>
+                                }
+                            }
+
+
+                            @if (TempData["NotFoundSlider"] !=null)
+                            {
+                                <script>
+                                    setTimeout(function () {
+                                        Swal.fire({
+                                            position: 'top-end',
+                                            icon: 'error',
+                                            title: 'اسلایدری با این مشخصات یافت نشد',
+                                            showConfirmButton: false,
+                                            timer: 5000
+                                        })
+                                    }, 50)
+                                </script>
+                            }
+                            <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 184px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">#</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 353px;" aria-label="مرورگر: activate to sort column ascending">تصویر اسلایدر</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 225px;" aria-label="سیستن عامل: activate to sort column ascending">عنوان اسلایدر</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 225px;" aria-label="سیستن عامل: activate to sort column ascending">ALT اسلایدر</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 106px;" aria-label="فعالیت">فعالیت</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() > 0)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="gradeX odd" role="row">
+                                                <td class="sorting_1">@item.Sliderid</td>
+                                                <td class="sorting_1"><img width="140px" height="130px" class="img-thumbnail" src="~/CssSite/ImageSite/slider-main/@item.SliderImg" /></td>
+                                                <td class="sorting_1">@item.SliderTitle</td>
+                                                <td class="sorting_1">@item.SliderAlt</td>
+
+                                                <td class="actions">
+                                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                                    <a href="~/Admin/Slider/UpdateSlider/@item.Sliderid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                    <a href="~/Admin/Slider/DeleteSlider/@item.Sliderid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr class="gradeX odd" role="row">
+                                            <td colspan="5" class="sorting_1">موردی یافت نشد !!!</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">Showing 1 to 10 of 80 entries</div>
+                        </div>
+                    <div class="col-sm-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="datatable-editable_paginate">
+                            <ul class="pagination">
+                                <li class="paginate_button previous " aria-controls="datatable-editable" tabindex="0" id="datatable-editable_previous">
+                                    <a href="/admin/slider/index?Page=1">صفحه اول </a>
+                                </li>
+                                @for (int i = 1; i <= slidercount; i++)
+                                {
+                                    <li class="paginate_button @(i == Page?"active":"")" aria-controls="datatable-editable" tabindex="0">
+                                        <a href="/admin/slider/index?Page=@i">@i</a>
+                                    </li>
+                                }
+                                <li class="paginate_button next" aria-controls="datatable-editable" tabindex="0" id="datatable-editable_next">
+                                    <a href="/admin/slider/index?Page=@slidercount">صفحه آخر</a>
+                                </li>
+                            </ul>
+                             </div>
+                            </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: panel body -->
+
+    </div> <!-- end panel -->
+</div> <!-- end col-->
+@section Scripts{
+    <script src="~/CssSite/Js/sweetAlert.js"></script>
+}
+
+

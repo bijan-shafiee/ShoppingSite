@@ -1,0 +1,110 @@
+﻿
+@model IEnumerable<mycommentViewmodel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var information = ViewBag.information as informationAccountViewmodel;
+}
+<style>
+    .text-red {
+        color: #F83839;
+        font-weight: bold;
+    }
+
+    .text-green {
+        color: #00E091;
+        font-weight: bold
+    }
+</style>
+
+<!-- profile------------------------------->
+<div class="container-main">
+    <div class="d-block">
+        <section class="profile-home">
+            <div class="col-lg">
+                <div class="post-item-profile order-1 d-block">
+                    <div class="col-lg-3 col-md-3 col-xs-12 pr">
+                        <partial name="_SidebarUser" model="information" />
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-xs-12 pl">
+                        <div class="profile-content">
+                            <div class="profile-stats">
+                                <div class="profile-comment">
+                                    <table class="table table-borderless table-profile-comment">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">تصویر محصول</th>
+                                                <th scope="col">نام محصول</th>
+                                                <th scope="col">نظر</th>
+                                                <th scope="col">وضعیت</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th scope="row" class="th-img">
+                                                        <div class="thumb-img">
+                                                            <a href="#">
+                                                                <img src="/thumb/@item.productimage">
+                                                            </a>
+                                                            <div class="product-rate">
+                                                                @for (int i = 1; i <= item.productstar; i++)
+                                                                {
+                                                                    <i class="fa fa-star active"></i>
+                                                                }
+
+
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        @item.productFaTitle
+                                                    </td>
+                                                    <td>@item.commenttitle</td>
+                                                    <td>
+                                                        <span class="@(item.isactive?"text-green":"text-red")">@(item.isactive?"تایید شده":"تایید نشده")</span>
+                                                    </td>
+                                                
+                                                </tr>
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                    <div class="profile-comment-thumb">
+                                        <div class="profile-comment-img">
+                                            <a href="#">
+                                                <img src="assets/images/slider-product/SL1200_-300x300.jpg">
+                                            </a>
+                                        </div>
+                                        <div class="product-rate">
+                                            <i class="fa fa-star active"></i>
+                                            <i class="fa fa-star active"></i>
+                                            <i class="fa fa-star active"></i>
+                                            <i class="fa fa-star active"></i>
+                                            <i class="fa fa-star active"></i>
+                                        </div>
+                                        <div class="profile-comment-content">
+                                            <h4>
+                                                لپ تاپ چووی الترابوک 14 اینچ پرو
+                                                <span class="profile-comment-status-review">تایید شده</span>
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                                            </h4>
+                                            <ul class="profile-comment-actions mb-0">
+                                                <li>
+                                                    <button class="profile-comment-remove"><i class="fa fa-trash"></i></button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- profile------------------------------->

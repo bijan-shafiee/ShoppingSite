@@ -1,0 +1,400 @@
+﻿@model IEnumerable<CartViewmodel>
+@{
+    List<_98market.DataLayer.Entities.Address.Province> provinces = ViewBag.Provinces as List<_98market.DataLayer.Entities.Address.Province>;
+    ShowAddressForUserViewmodel address = ViewBag.Address as ShowAddressForUserViewmodel;
+    int chooseAddress = Convert.ToInt32(ViewBag.ChooseAddress);
+    int newPlaque = Convert.ToInt32(ViewBag.NewPlaque);
+    int newPostalCode = Convert.ToInt32(ViewBag.NewPostalCode);
+    int newUnit = Convert.ToInt32(ViewBag.NewUnit);
+    int province = Convert.ToInt32(ViewBag.Province);
+    int city = Convert.ToInt32(ViewBag.City);
+}
+<!-- checkout------------------------------>
+<div class="container-main">
+    <div class="d-block">
+        <section class="blog-checkout d-block order-1">
+            <div class="col-lg">
+                <div class="checkout woocommerce-checkout">
+                    <div class="content-checkout container">
+                        @*<div class="notices-wrapper">
+                            <div class="col-12">
+                                <div class="form-coupon-toggle">
+                                    <div class="info">
+                                        کد تخفیف دارید؟
+                                        <a href="javascript:void(0)" class="showcoupon">برای نوشتن کد اینجا کلیک کنید</a>
+                                    </div>
+                                    <div class="checkout-coupon form-coupon">
+                                        <p>اگر کد تخفیف دارید، لطفا وارد کنید.</p>
+                                        <form action="#" class="form-coupon">
+                                            <div class="form-row">
+                                                <input type="text" name="coupon-code" class="checkout-discount-code" placeholder="کد تخفیف">
+                                                <div class="append pl">
+                                                    <button class="btn-append btn btn-primary" type="submit">اعمال تخفیف</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="middle-container">
+                            <form action="/Checkout" method="post" class="form-checkout">
+                                <div class="text-danger" asp-validation-summary="All"></div>
+                                <input type="hidden" id="choose-address" name="chooseAddress" value="@chooseAddress" />
+                                @if (address != null)
+                                {
+                                    <input type="hidden" id="addressId" name="addressId" value="@address.addresid" />
+                                }
+                                <div class="col2-set" id="customer-details">
+                                    <div class="col-12">
+                                        <div class="billing-fields mt-4">
+                                            <h4>جزئیات صورتحساب</h4>
+                                            <div class="form-checkout-row">
+                                                @if (address == null)
+                                                {
+                                                    <style>
+                                                        .validate-required {
+                                                            opacity: 0.5;
+                                                            pointer-events: none;
+                                                        }
+                                                    </style>
+                                                    <div class="validate-required">
+                                                        <label for="name">نام تحویل گیرنده <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" id="name" name="recepientName" class="input-name-checkout form-control">
+                                                    </div>
+
+                                                    <div class="validate-required">
+                                                        <label for="phone-number">شماره موبایل <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" id="phone-number" name="phone" class="input-name-checkout form-control text-left">
+                                                    </div>
+
+
+                                                    <div class="validate-required">
+                                                        <label for="post-code">کد پستی <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" id="post-code" name="postalCode" class="input-name-checkout form-control" placeholder="کد پستی را بدون خط تیره بنویسید">
+                                                    </div>
+
+                                                    <div class="validate-required">
+                                                        <label for="Street">آدرس کامل <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" name="fullAddress" class="input-name-checkout form-control">
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="validate-required">
+                                                        <label for="name">نام تحویل گیرنده <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" id="name" name="recepientName" class="input-name-checkout form-control" value="@address.Recipientname">
+                                                    </div>
+
+                                                    <div class="validate-required">
+                                                        <label for="phone-number">شماره موبایل <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" id="phone-number" name="phone" class="input-name-checkout form-control text-left" value="@address.phone">
+                                                    </div>
+
+                                                    <label for="province">
+                                                        استان
+                                                        <abbr class="required" title="ضروری" style="color:red;">*</abbr>
+                                                    </label>
+                                                    <select name="newProvince" id="province" class="form-control">
+                                                        <option value="@address.provinceid">@address.provincename </option>
+                                                        @foreach (var item in provinces)
+                                                        {
+                                                            <option value="@item.provinceid">@item.provincename</option>
+                                                        }
+                                                    </select>
+
+                                                    <label for="city">
+                                                        شهر
+                                                        <abbr class="required" title="ضروری" style="color:red;">*</abbr>
+                                                    </label>
+                                                    <select name="newCity" id="city" class="form-control">
+                                                        <option class='option' value='"@address.cityid'>@address.cityname</option>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <option value="@address.cityid">@address.cityname</option>
+                                                        }
+                                                    </select>
+
+                                                    <div class="validate-required">
+                                                        <label for="post-code">کد پستی <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" id="post-code" name="postalCode" class="input-name-checkout form-control" placeholder="کد پستی را بدون خط تیره بنویسید" value="@address.postalCode">
+                                                    </div>
+
+
+
+                                                    <div class="validate-required">
+                                                        <label for="Street">آدرس کامل <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                        <input type="text" name="fullAddress" class="input-name-checkout form-control" value="@address.FullAddress">
+                                                    </div>
+                                                }
+
+                                                <div class="Order-another-shipping-address mt-5">
+                                                    <div class="Order-address d-inline-block">
+                                                        <button type="button" id="btn-collapse" class="btn btn-block text-right collapsed" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                            <span>آدرس جدید </span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="shipping-address">
+                                                        <div id="collapseExample">
+                                                            <div class="middle-container">
+                                                                <div class="form-checkout">
+                                                                    <div class="form-checkout-row">
+                                                                        <label for="name">نام تحویل گیرنده <abbr class="required" title="ضروری" style="color:red;">*</abbr></span></label>
+                                                                        <input type="text" id="name" name="newRecepientName" value="@ViewBag.RecepientName" class="input-name-checkout form-control">
+                                                                        <label for="phone-number">شماره موبایل <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                                        <input type="text" id="phone-number" name="newPhone" value="@ViewBag.Phone" class="input-name-checkout form-control text-left">
+                                                                        <label for="fixed-number">شماره تلفن ثابت <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                                        <input type="text" id="fixed-number" name="newLandLinePhone" value="@ViewBag.LandLinePhone" class="input-name-checkout form-control text-left">
+
+                                                                        <div class="form-checkout-valid-row">
+                                                                            <label for="province">
+                                                                                استان
+                                                                                <abbr class="required" title="ضروری" style="color:red;">*</abbr>
+                                                                            </label>
+                                                                            <select name="newProvince" id="province" class="form-control">
+                                                                                <option value="0">استان مورد نظر خود را انتخاب کنید </option>
+                                                                                @foreach (var item in provinces)
+                                                                                {
+                                                                                    <option value="@item.provinceid">@item.provincename</option>
+                                                                                }
+                                                                            </select>
+                                                                            <label for="bld-num">
+                                                                                پلاک
+                                                                                <abbr class="required" title="ضروری" style="color:red;">*</abbr>
+                                                                            </label>
+                                                                            <input type="text" id="bld-num" name="newPlaque" value="@newPlaque" class="input-name-checkout js-input-bld-num form-control">
+
+                                                                        </div>
+
+                                                                        <div class="form-checkout-valid-row">
+                                                                            <label for="city">
+                                                                                شهر
+                                                                                <abbr class="required" title="ضروری" style="color:red;">*</abbr>
+                                                                            </label>
+                                                                            <select name="newCity" id="city" class="form-control">
+                                                                                <option class='option' value='0'>شهر مورد نظر خود را انتخاب کنید</option>
+                                                                            </select>
+                                                                            <label for="apt-id">واحد</label>
+                                                                            <input type="text" id="apt-id" name="newUnit" value="@newUnit" class="input-name-checkout js-input-apt-id form-control">
+                                                                        </div>
+
+                                                                        <label for="post-code">کد پستی<abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                                        <input type="text" id="post-code" name="newPostalCode" value="@newPostalCode" class="input-name-checkout form-control" placeholder="کد پستی را بدون خط تیره بنویسید">
+
+                                                                    </div>
+
+                                                                    <label for="address">
+                                                                        آدرس کامل
+                                                                        <abbr class="required" title="ضروری" style="color:red;">*</abbr>
+                                                                    </label>
+                                                                    <textarea rows="5" cols="30" id="address" name="newFullAddress" class="textarea-name-checkout form-control" placeholder="شهرک،خیابان،کوچه و ...">@ViewBag.FullAddress</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <label for="address">
+                                                    توضیحات سفارش
+                                                    <span class="optional">(اختیاری)</span>
+                                                </label>
+                                                <textarea rows="5" cols="30" id="address" name="cartDescription" class="textarea-name-checkout form-control" placeholder="یادداشت ها درباره سفارش شما ، برای مثال نکات مهم برای تحویل بار "></textarea>
+
+                                            </div>
+                                                </div>
+                                    </div>
+                                </div>
+                                <h3 class="order-review-heading">سفارش شما</h3>
+                                <div class="checkout-review-order">
+                                    <table class="checkout-review-order-table table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="product-name">محصول</th>
+                                                <th scope="col" class="product-name">تعداد سفارش</th>
+                                                <th scope="col" class="product-price">قیمت واحد</th>
+                                                <th scope="col" class="product-price">قیمت کل</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                            <tr class="checkout-cart-item">
+                                                <td class="product-name">@item.productFaTitle</td>
+                                                <td class="product-name">@item.ordercount</td>
+                                                <td class="product-price text-info">
+                                                    <span class="amount">
+                                                        @item.ProductPrice.ToString("#,0")
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </td>
+                                                <td class="product-price text-info">
+                                                    <span class="amount">
+                                                        @*@item.ordercount* @item.ProductPrice.ToString("#,0")*@
+                                                        @Model.Sum(c => item.ProductPrice * item.ordercount ).ToString("#,0")
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                        <tr></tr>
+                                        <tfoot>
+                                            @*<tr class="order-total">
+                                                <th>حمل ونقل</th>
+                                                <td>
+
+                                                    <span class="amount">
+                                                        15000
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </td>
+                                            </tr>*@
+                                            <tr></tr>
+                                            <tr class="cart-subtotal">
+                                                <th>مجموع</th>
+                                                <td>
+                                                    <span class="amount">
+                                                        @Model.First().TotalPrice.ToString("#,0")
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr class="cart-discount">
+                                                <th>تخفیف شما از این خرید</th>
+                                                <td data-title=" تخفیف شما از این خرید ">
+                                                    <div class="price">
+                                                        <del>
+                                                            <span>
+                                                                @Model.Sum(c => c.PriceWithoutDiscount * c.ordercount).ToString("#,0")
+                                                                <span>تومان</span>
+                                                            </span>
+                                                        </del>
+                                                        <ins>
+                                                            <span class="amount">
+                                                                @Model.First().FinalPrice.ToString("#,0")
+                                                                <span>تومان</span>
+                                                            </span>
+                                                        </ins>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <ul class="checkout-payment-methods">
+                                        <li class="checkout-payment-method-item d-block">
+                                            <label for="#" class="outline-radio">
+                                                <input type="radio" name="payment_method" id="payment-option-online" checked>
+                                                <span class="outline-radio-check"></span>
+                                            </label>
+                                            <label for="#" class="shipping-totals-title-row">
+                                                <div class="shipping-totals-title">پرداخت اینترنتی هوشمند</div>
+                                            </label>
+                                        </li>
+                                       
+                                        <li class="checkout-payment-method-item d-block">
+                                            @*<label for="#" class="outline-radio">
+                                                <input type="radio" name="payment_method" id="payment-option-online" hidden>
+                                                <span class="outline-radio-check"></span>
+                                            </label>*@
+                                            
+                                            <label for="#" class="shipping-totals-title-row">
+                                                <strike>
+                                                    <div class="shipping-totals-title">افزایش اعتبار و پرداخت از کیف پول</div>
+                                                </strike>
+                                            </label>
+                                            
+                                        </li>
+
+
+                                        <li class="checkout-payment-method-item d-block">
+                                            @*<label for="#" class="outline-radio">
+                                                <input type="radio" name="payment_method" id="payment-option-online" hidden>
+                                                <span class="outline-radio-check"></span>
+                                            </label>*@
+                                            
+                                            <label for="#" class="shipping-totals-title-row">
+                                                <strike>
+                                                    <div class="shipping-totals-title">پرداخت هنگام دریافت</div>
+                                                </strike>
+                                            </label>
+                                            
+                                        </li>
+
+                                    </ul>
+                                    <div class="form-auth-row">
+                                        <label for="#" class="ui-checkbox mt-1">
+                                            <input type="checkbox" value="1" name="login" id="remember">
+                                            <span class="ui-checkbox-check"></span>
+                                        </label>
+                                        <label for="remember" class="remember-me mr-0"><a href="#">حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت دیجی‌اسمارت را مطالعه نموده و با کلیه موارد آن موافقم <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                    </div>
+                                    <input class="btn-Order btn btn-primary mt-4 mb-3" type="submit" value="ثبت سفارش" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- checkout------------------------------>
+
+@section SCripts{
+    @if (chooseAddress == 1)
+    {
+        <script>
+            $("#btn-collapse").click();
+        </script>
+    }
+    <script>
+        $("#province").change(function () {
+            var id = $(this).children("option:selected").val();
+            var cityselect = $("#city");
+            $.ajax({
+                type: "POST",
+                url: "/City",
+                data: { id: id },
+                success: function (data) {
+                    cityselect.children('.option').remove();
+                    cityselect.append("<option class='option' value='0' selected='selected'>شهر مورد نظر خود را انتخاب کنید</option>");
+                    data.forEach(function (item) {
+                        cityselect.append($("<option class='option'></option>").val(item.cityid).html(item.cityname));
+                    });
+                }
+            })
+        });
+        $("#btn-collapse").click(function () {
+            var chooseAddress = $("#choose-address").val();
+            if (chooseAddress == 0)
+                $("#choose-address").val(1);
+            else
+                $("#choose-address").val(0);
+        })
+    </script>
+
+    @if (province != 0)
+    {
+        <script>
+            $("#province").val(@province);
+            var cityselect = $("#city");
+            $.ajax({
+                type: "POST",
+                url: "/City",
+                data: { id: @province },
+                success: function (data) {
+                    cityselect.children('.option').remove();
+                    cityselect.append("<option class='option' value='0'>شهر مورد نظر خود را انتخاب کنید</option>");
+                    data.forEach(function (item) {
+                        cityselect.append($("<option class='option'></option>").val(item.cityid).html(item.cityname));
+                    });
+                    $("#city").val(@city);
+                }
+            });
+        </script>
+    }
+
+
+}

@@ -1,0 +1,64 @@
+﻿
+
+@model Category
+
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="AddCategory" method="post" style="margin-top:5%;" enctype="multipart/form-data">
+
+            @if (ViewBag.id != 0)
+            {
+                <input type="hidden" asp-for="SubCategory" value="@ViewBag.id" />
+            }
+
+            <div class="form-group">
+                <label asp-for="CategoryFaTitle" for="emailAddress"></label>
+                <input asp-for="CategoryFaTitle" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="CategoryFaTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryEnTitle" for="emailAddress"></label>
+                <input asp-for="CategoryEnTitle" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="CategoryEnTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Slider" for="emailAddress">اسلایدر</label>
+                <select asp-for="Slider" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                    <option value="0">...</option>
+                    <option value="1">اسلایدر ۱</option>
+                    <option value="2">اسلایدر ۲</option>
+                    <option value="3">اسلایدر ۳</option>
+                </select>
+                <span asp-validation-for="Slider" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SliderCount" for="emailAddress">تعداد نمایش در اسلایدر</label>
+                <input asp-for="SliderCount" type="number" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="SliderCount" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/category/showAllCategory" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+

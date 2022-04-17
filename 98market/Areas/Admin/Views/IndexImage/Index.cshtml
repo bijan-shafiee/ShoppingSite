@@ -1,0 +1,172 @@
+﻿
+@model IndexImage
+
+@{
+    ViewData["Title"] = "تصاویر صفحه اصلی";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-sm-12">
+    <div class="panel">
+        <div class="panel-body" style="margin-top:5%;">
+
+
+            <div class="editable-responsive">
+                <div id="datatable-editable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="m-b-30">
+                                    <a href="/Admin/indeximage/updateindeximage" id="addToTable" class="btn btn-primary waves-effect waves-light">ویرایش <i class="fa fa-pencil"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+
+                            @if (TempData["Result"] != null)
+                            {
+                                if (TempData["Result"].ToString() == "true")
+                                {
+                                    <div class="alert alert-success alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        ثبت اطلاعات با موفقیت انجام شد .
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        خطادر انجام عملیات .
+                                    </div>
+                                }
+                            }
+
+                            @if (TempData["NotFoundSlider"] != null)
+                            {
+                                <script>
+
+                                    setTimeout(function () {
+                                        Swal.fire({
+                                            position: 'top-end',
+                                            icon: 'error',
+                                            title: 'اسلایدری با این مشخصات یافت نشد .',
+                                            showConfirmButton: false,
+                                            timer: 3000
+                                        })
+                                    }, 50)
+
+                                </script>
+                            }
+                            <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">#</th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> مکان عکس </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> لینک عکس </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> خود عکس </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 1 -->
+                                        <td class="sorting_1">1</td>
+                                        <td class="sorting_1">کنار اسلایدر</td>
+                                        <td class="sorting_1"><a href="@Model.Link1" target="_blank">@Model.Link1</a></td>
+                                        @*<td class="sorting_1"><a href="/CssSite/ImageSite/@Model.Image1" target="_blank">نمایش</a></td>*@
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image1" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 2 -->
+                                        <td class="sorting_2">2</td>
+                                        <td class="sorting_2">کنار اسلایدر</td>
+                                        <td class="sorting_2"><a href="@Model.Link2" target="_blank">@Model.Link2</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image2" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 3 -->
+                                        <td class="sorting_3">3</td>
+                                        <td class="sorting_3">زیر اسلایدر</td>
+                                        <td class="sorting_3"><a href="@Model.Link3" target="_blank">@Model.Link3</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image3" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 4 -->
+                                        <td class="sorting_4">4</td>
+                                        <td class="sorting_4">تمام عرض وسط صفحه</td>
+                                        <td class="sorting_4"><a href="@Model.Link4" target="_blank">@Model.Link4</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image4" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 5 -->
+                                        <td class="sorting_5">5</td>
+                                        <td class="sorting_5">عکس کوچک</td>
+                                        <td class="sorting_5"><a href="@Model.Link5" target="_blank">@Model.Link5</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image5" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 6 -->
+                                        <td class="sorting_6">6</td>
+                                        <td class="sorting_6">عکس کوچک</td>
+                                        <td class="sorting_6"><a href="@Model.Link6" target="_blank">@Model.Link6</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image6" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 7 -->
+                                        <td class="sorting_7">7</td>
+                                        <td class="sorting_7">عکس کوچک</td>
+                                        <td class="sorting_7"><a href="@Model.Link7" target="_blank">@Model.Link7</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image7" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 8 -->
+                                        <td class="sorting_8">8</td>
+                                        <td class="sorting_8">عکس کوچک</td>
+                                        <td class="sorting_8"><a href="@Model.Link8" target="_blank">@Model.Link8</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image8" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 9 -->
+                                        <td class="sorting_9">9</td>
+                                        <td class="sorting_9">عکس کوچک</td>
+                                        <td class="sorting_9"><a href="@Model.Link9" target="_blank">@Model.Link9</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image9" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 10 -->
+                                        <td class="sorting_10">10</td>
+                                        <td class="sorting_10">عکس کوچک</td>
+                                        <td class="sorting_10"><a href="@Model.Link10" target="_blank">@Model.Link10</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image10" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 11 -->
+                                        <td class="sorting_11">11</td>
+                                        <td class="sorting_11">عکس کوچک</td>
+                                        <td class="sorting_11"><a href="@Model.Link11" target="_blank">@Model.Link11</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image11" /></td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <!-- Image 12 -->
+                                        <td class="sorting_12">12</td>
+                                        <td class="sorting_12">عکس کوچک</td>
+                                        <td class="sorting_12"><a href="@Model.Link12" target="_blank">@Model.Link12</a></td>
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/adplacement/@Model.Image12" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end: panel body -->
+
+    </div> <!-- end panel -->
+</div> <!-- end col-->
+@section Scripts{
+    <script src="~/CssSite/Js/sweetAlert.js"></script>
+
+}
+

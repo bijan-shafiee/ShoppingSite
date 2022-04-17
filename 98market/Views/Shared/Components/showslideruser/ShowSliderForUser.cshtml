@@ -1,0 +1,47 @@
+﻿
+
+@model IEnumerable<MainSlider>
+@{
+    ViewData["Title"] = "ShowSliderForUser";
+    Layout = null;
+    int activclass = 1;
+
+
+}
+
+<div class="slider-main-container d-block " style="max-width: 890px; min-height: 420px; max-height: 440px;">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="@(i==0?"active":"")"></li>
+
+            }
+
+
+        </ol>
+        <div class="carousel-inner">
+            @foreach (var item in Model)
+            {
+                <div class="carousel-item @(activclass==1?"active":"")">
+                    <a href="/@item.SliderLink">
+                        <img title="@item.SliderTitle" src="/CssSite/ImageSite/slider-main/@item.SliderImg" class="d-block w-100" alt="@item.SliderAlt" style=" min-height: 420px; max-height: 420px;">
+                    </a>
+                </div>
+                activclass++;
+            }
+
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="fa fa-angle-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="fa fa-angle-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+

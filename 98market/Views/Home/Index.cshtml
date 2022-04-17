@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewData["Title"] = User.Identity.Name;
+    List<sepcialProductViewmoddel> sepcial = ViewBag.sepcialprice;
+    var Radom = ViewBag.RandomProduct as List<RandomProductViewmodel>;
+    var slidersepcial = sepcial.OrderByDescending(x => x.Endsepcialprice)
+.GroupBy(x => x.productid).Select(x => new
+{
+    x.Key,
+    x.First().mainprice,
+    x.First().Endsepcialprice,
+    x.First().productfatitle,
+    x.First().productimg,
+    x.First().productpriceid,
+    x.First().sepcialprice,
+    x.First().ValuesList,
+}).ToList();
+    List<brand> brands = ViewBag.Brands as List<brand>;
+    IndexImage indexImage = ViewBag.IndexImage as IndexImage;
+    List<Category> sliderCategories = ViewBag.SliderCategories as List<Category>;
+    Category firstSliderCategory = sliderCategories.SingleOrDefault(c => c.Slider == 1);
+    Category secondSliderCategory = sliderCategories.SingleOrDefault(c => c.Slider == 2);
+    Category thirdSliderCategory = sliderCategories.SingleOrDefault(c => c.Slider == 3);
+}
+
+<!-- slider-main--------------------------->
+<div class="container-main">
+    <div class="d-block">
+        <div class="col-lg-8 col-xs-12 pr">
+            @await Component.InvokeAsync("showslideruser")
+        </div>
+        <!-- adplacement--------------------------->
+        <div class="col-lg-4 col-md-4 col-xs-12 pl mt-1">
+            <div class="adplacement-container-column">
+                <a href="/@indexImage.Link1" class="adplacement-item">
+                    <div class="adplacement-sponsored-box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image1" style="height: 205px;">
+                    </div>
+                </a>
+                <a href="/@indexImage.Link2" class="adplacement-item">
+                    <div class="adplacement-sponsored-box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image2" style="height: 205px;">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-12 pr">
+            <div class="adplacement-container-column mt-4">
+                <a href="/@indexImage.Link3" class="adplacement-item img-banner">
+                    <div class="adplacement-sponsored-box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image3" style="height: 420px;">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- adplacement--------------------------->
+        <!-- slider-amazing------------------------>
+
+
+        <div class="col-lg-9 col-md-9 col-xs-12 pl">
+            <div class="content-widget-amazing">
+                <section id="amazing-slider" class="carousel slide carousel-fade card" data-ride="carousel">
+                    <div class="row m-0">
+                        @{
+                            int count = 0;
+                            int active = 0;
+                        }
+                        <ol class="carousel-indicators pr-0 d-flex flex-column col-lg-pull-3">
+                            @foreach (var item in slidersepcial)
+                            {
+
+                                <li class="@(count==0?"active":"")" data-target="#amazing-slider" data-slide-to="@count">
+                                    <span>
+                                        @item.productfatitle
+                                    </span>
+                                </li>
+
+                                count++;
+                            }
+                        </ol>
+                        <div class="carousel-inner p-0 col-12 col-lg-9">
+                            @foreach (var item in slidersepcial)
+                            {
+                                <div class="carousel-item @(active==0?"active":"")">
+                                    <div class="row m-0">
+                                        <div class="right-col col-5 d-flex align-items-center">
+                                            <a class="w-100 text-center img-link-amazing" href="/Product/Detail/@item.Key">
+                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimg"
+                                                     class="img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="discount">
+                                                <span class="discount-percent">
+                                                    @{
+                                                        double round = Math.Round(100 - (Convert.ToDouble(item.sepcialprice.Value) / item.mainprice * 100));
+                                                    }
+                                                    @round
+
+                                                    <i class="fa fa-percent"></i>
+                                                </span>
+                                            </div>
+                                            <h2 class="product-title">
+                                                <a href="/Product/Detail/@item.Key">  @item.productfatitle </a>
+                                            </h2>
+                                            <div class="price text-center">
+                                                <del><span>@item.mainprice<span>تومان</span></span></del>
+                                                <ins><span>@item.sepcialprice<span>تومان</span></span></ins>
+                                            </div>
+                                            <ul class="list-group">
+                                                @foreach (var item2 in item.ValuesList.Take(2))
+                                                {
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-check"></i>
+                                                        <span class="title">@item2.propname: </span>
+                                                        <span class="text">@item2.value </span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                            <div class="countdown-timer">
+                                                <div class="countdown h4" data-date-time="@item.Endsepcialprice" data-labels='{"label-day": "روز", "label-hour": "ساعت", "label-minute": "دقیقه", "label-second": "ثانیه"}'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                active++;
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- slider-amazing------------------------>
+    </div>
+</div>
+<!-- adplacement--------------------------->
+<div class="container-main">
+    <div class="d-block">
+        <div class="adplacement-container-row">
+            <div class="col-12">
+                <a href="/@indexImage.Link4" class="adplacement-item mb-4">
+                    <div class="adplacement-sponsored_box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image4" style="height: 150px;">
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-lg-3 pr">
+                <a href="/@indexImage.Link5" class="adplacement-item">
+                    <div class="adplacement-sponsored_box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image5" style="height: 225px;">
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-lg-3 pr">
+                <a href="/@indexImage.Link6" class="adplacement-item">
+                    <div class="adplacement-sponsored_box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image6" style="height: 225px;">
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-lg-3 pr">
+                <a href="/@indexImage.Link7" class="adplacement-item">
+                    <div class="adplacement-sponsored_box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image7" style="height: 225px;">
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-lg-3 pr">
+                <a href="/@indexImage.Link8" class="adplacement-item">
+                    <div class="adplacement-sponsored_box">
+                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image8" style="height: 225px;">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- adplacement--------------------------->
+<!-- slidre-product------------------------>
+<div class="container-main">
+    <div class="d-block">
+        <div class="col-lg-9 col-md-9 col-xs-12 pr order-1 d-block">
+            @await Component.InvokeAsync("sliderForCategory", firstSliderCategory)
+        </div>
+        <!-- slider-moment------------------------->
+        <div class="col-lg-3 col-md-3 col-xs-12 pl order-1 d-block">
+            <div class="slider-moments">
+                <div class="widget-suggestion widget card">
+                    <header class="card-header promo-single-headline">
+                        <h3 class="card-title">پیشنهاد لحظه‌ای</h3>
+                    </header>
+                    <div id="suggestion-slider" class="owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transform: translate3d(1369px, 0px, 0px); transition: all 0.25s ease 0s; width: 2190px;">
+                                @foreach (var item in Radom)
+                                {
+                                    <div class="owl-item cloned" style="width: 273.75px;">
+                                        <div class="item">
+                                            <a href="/Product/Detail/@item.productid">
+                                                <img src="/CssSite/ImageSite/@item.productimage" class="w-100" alt="">
+                                            </a>
+                                            <h3 class="product-title">
+                                                <a href="/Product/Detail/@item.productid"> @item.productfatitle </a>
+                                            </h3>
+                                            <div class="price">
+                                                <span class="amount">
+                                                    @item.mainprice
+                                                    <span>تومان</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="progressBar">
+                        <div class="slide-progress" style="width: 100%; transition: width 5000ms ease 0s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider-moment------------------------->
+        @await Component.InvokeAsync("sliderForCategory", secondSliderCategory)
+        <!-- adplacement--------------------------->
+        <div class="container-fluid">
+            <div class="row pr">
+                <div class="adplacement-container-row">
+                    <div class="col-6 col-lg-3 pr">
+                        <a href="/@indexImage.Link9" class="adplacement-item">
+                            <div class="adplacement-sponsored_box">
+                                <img src="/CssSite/ImageSite/adplacement/@indexImage.Image9" style="height: 225px;">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-lg-3 pr">
+                        <a href="/@indexImage.Link10" class="adplacement-item">
+                            <div class="adplacement-sponsored_box">
+                                <img src="/CssSite/ImageSite/adplacement/@indexImage.Image10" style="height: 225px;">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-lg-3 pr">
+                        <a href="/@indexImage.Link11" class="adplacement-item">
+                            <div class="adplacement-sponsored_box">
+                                <img src="/CssSite/ImageSite/adplacement/@indexImage.Image11" style="height: 225px;">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-lg-3 pr">
+                        <a href="/@indexImage.Link12" class="adplacement-item">
+                            <div class="adplacement-sponsored_box">
+                                <img src="/CssSite/ImageSite/adplacement/@indexImage.Image12" style="height: 225px;">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- adplacement--------------------------->
+        @await Component.InvokeAsync("sliderForCategory", thirdSliderCategory)
+        <!-- brand--------------------------------------->
+        <div class="col-lg-12 col-md-12 col-xs-12 pr order-1 d-block">
+            <div class="slider-widget-products">
+                <div class="widget widget-product card mb-0">
+                    <div class="product-carousel-brand owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
+                                @foreach (var brand in brands)
+                                {
+                                    <div class="owl-item active" style="width: 190.75px; margin-left: 10px;">
+                                        <div class="item">
+                                            <a href="/Product/search?brandId=@brand.brandid" class="d-block hover-img-link">
+                                                <img src="/CssSite/ImageSite/brand/@brand.Image" class="img-fluid img-brand" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        
+                        </div>
+                        <div class="owl-nav">
+                            <button type="button" role="presentation" class="owl-prev disabled">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                            <button type="button" role="presentation" class="owl-next">
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                        </div>
+                        <div class="owl-dots disabled"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- brand----------------------------------------->
+    </div>
+</div>
+

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "ShowPropertynameForProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<PropertyName> propertyNames = ViewBag.propertyname;
+    List<PropertyValue> propertyvalue = ViewBag.propertyvalue;
+    TempData["productid"] = TempData["productid"].ToString();
+}
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="AddPropertyForProduct" method="post" style="margin-top:5%;">
+
+
+            @foreach (var item in propertyNames)
+            {
+                <div class="form-group">
+                    <label for="emailAddress">@item.PropertyTitle</label>
+                    <input type="hidden" name="nameid" value="@item.PropertyNameId">
+                    <input class="form-control" name="value" type="text"value="@(propertyvalue.Where(p=>p.propertynameid==item.PropertyNameId).Select(p=>p.propertyvalue).FirstOrDefault())" />
+                </div>
+            }
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/product/ShowallProduct" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+

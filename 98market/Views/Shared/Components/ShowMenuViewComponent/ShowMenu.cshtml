@@ -1,0 +1,52 @@
+﻿
+@model IEnumerable<Category>
+
+@{
+    Layout = null;
+}
+@*/Product/search?categoryid=@item.Categoryid*@
+
+<ul class="menu-ul mega-menu-level-one">
+    @foreach (var item in Model.Where(c => c.SubCategory == null))
+    {
+        <li id="nav-menu-item" class="menu-item nav-overlay">
+            <a href="#" class="current-link-menu">
+                @item.CategoryFaTitle
+            </a>
+            @if (Model.Where(c => c.SubCategory == item.Categoryid).Count() > 0)
+            {
+                <ul class="sub-menu is-mega-menu mega-menu-level-two">
+                    @foreach (var item2 in Model.Where(c => c.SubCategory == item.Categoryid))
+                    {
+                        <li class="menu-mega-item menu-item-type-mega-menu">
+                            <a href="/Product/search?categoryid=@item2.Categoryid" class="mega-menu-link">
+                                @item2.CategoryFaTitle
+                            </a>
+                            <ul class="sub-menu mega-menu-level-three">
+                                @foreach (var item3 in Model.Where(c => c.SubCategory == item2.Categoryid))
+                                {
+                                    <li class="menu-mega-item-three">
+                                        <a href="/Product/search?categoryid=@item3.Categoryid">
+                                            @item3.CategoryFaTitle
+                                        </a>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </li>
+
+                    }
+
+
+                </ul>
+            }
+
+        </li>
+    }
+
+
+    <div class="divider-space-card d-block">
+
+    </div>
+</ul>

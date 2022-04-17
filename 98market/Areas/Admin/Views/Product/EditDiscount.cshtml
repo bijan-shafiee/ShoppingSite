@@ -1,0 +1,65 @@
+﻿@model _98market.DataLayer.Entities.DisCount.discount
+
+@{
+    ViewData["Title"] = "ویرایش کد تخفیف";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="EditDiscount" method="post" style="margin-top:5%;">
+            <input type="hidden" asp-for="discountid" />
+            <div class="form-group">
+                <label asp-for="discountcode" for="emailAddress"></label>
+                <input asp-for="discountcode" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="discountcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discountpersent" for="emailAddress"></label>
+                <input asp-for="Discountpersent" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="Discountpersent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Useablecount" for="emailAddress"></label>
+                <input asp-for="Useablecount" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="Useablecount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate"></label>
+                <input name="startDate" type="text" parsley-trigger="change" placeholder="تاریخ شروع" class="form-control my-datepicker" data-parsley-id="6" value="@Model.StartDate">
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate"></label>
+                <input name="endDate" type="text" parsley-trigger="change" placeholder="تارخ پایان" class="form-control my-datepicker" data-parsley-id="6" value="@Model.EndDate">
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/product/discounts" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        $(function () {
+            // حالت پیشفرض
+            $('.my-datepicker').datepicker();
+        });
+    </script>
+
+}

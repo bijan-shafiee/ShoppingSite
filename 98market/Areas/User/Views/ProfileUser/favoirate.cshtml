@@ -1,0 +1,94 @@
+﻿@model IEnumerable<showfavoirateViewmodel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var information = ViewBag.information as informationAccountViewmodel;
+}
+
+<!-- profile------------------------------->
+<div class="container-main">
+    <div class="d-block">
+        <section class="profile-home">
+            <div class="col-lg">
+                <div class="post-item-profile order-1 d-block">
+                    <div class="col-lg-3 col-md-3 col-xs-12 pr">
+                        <partial name="_SidebarUser" model="@information" />
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-xs-12 pl">
+                        <div class="profile-content">
+                            <div class="profile-stats">
+                                <div class="table-favorites">
+                                    <table class="table ns-table table-profile-favorites">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="50"> </th>
+                                                <th scope="col">نام محصول</th>
+                                                <th scope="col">قیمت</th>
+                                                <th class="actions-th"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="favorites-product-img">
+                                                            <img src="/CssSite/ImageSite/@item.productimage">
+                                                            <div class="product-rate">
+                                                                @for (int i = 1; i <= item.productstar; i++)
+                                                                {
+                                                                    <i class="fa fa-star active"></i>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <a href="/product/detail/@item.productid">@item.productfatitle</a>
+                                                    </td>
+                                                    <td>
+                                                        <span class="amount">
+                                                            @(item.productprice.ToString()=="0"?"ناموجود":
+                                                            item.productprice +" تومان ")
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-left actions">
+                                                        <a href="/Product/RemoveFavourite/@item.productid" class="remove-product"><i class="mdi mdi-close"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="spacer"></tr>
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="profile-recent-fav">
+
+                                            <a href="/product/detail/@item.productid" class="img-profile-favorites">
+                                                <img src="/CssSite/ImageSite/@item.productimage">
+                                            </a>
+                                            <div class="profile-recent-fav-col">
+                                                <a href="/product/detail/@item.productid">@item.productfatitle</a>
+                                            </div>
+                                            <div class="profile-recent-fav-price">
+                                                <span class="amount">
+                                                    @(item.productprice.ToString()=="0"?"ناموجود":
+                                                            item.productprice +" تومان ")
+                                                </span>
+                                            </div>
+                                            <div class="profile-recent-fav-remove">
+                                                <a href="/Product/RemoveFavourite/@item.productid"><i class="mdi mdi-close"></i></a>
+                                            </div>
+                                            
+                                        </div>
+                                        }
+                                    </div>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- profile------------------------------->

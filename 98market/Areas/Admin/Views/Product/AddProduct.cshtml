@@ -1,0 +1,100 @@
+﻿
+@model product
+
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="AddProduct" method="post" style="margin-top:5%;" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label asp-for="productFaTitle" > </label>
+                <input asp-for="productFaTitle" type="text" parsley-trigger="change" placeholder="نام فارسی کالا را وارد نمایید " class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="productFaTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="productEnTitle" > </label>
+                <input asp-for="productEnTitle" type="text" parsley-trigger="change" placeholder="نام انگلیسی کالا را وارد نمایید " class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="productEnTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productweith" > </label>
+                <input asp-for="productweith" type="number" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="productweith" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select class="form-control" asp-for="producStart">
+                    <option value="1">تک سناره</option>
+                    <option value="2">دو ستاره</option>
+                    <option value="3">سه سناره</option>
+                    <option value="4">چهار ستاره</option>
+                    <option value="5">پنج ستاره</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="productEnTitle" > </label>
+                <textarea asp-for="productTag" class="form-control">
+
+                        </textarea>
+                <div class="alert alert-warning form-control mt-4" style="margin-top: 10px;">
+                    برای جدا سازی برچسب ها از
+                    <strong class="text-danger">^</strong>
+                    استفاده کنید .
+                </div>
+                <span asp-validation-for="productTag" class="text-danger"></span>
+            </div>
+
+
+            <div class="checkbox checkbox-custom">
+                <input id="checkbox10" type="checkbox" asp-for="IsActive">
+                <label for="checkbox10">
+                    فعال باشد ؟!
+                </label>
+            </div>
+
+            <div class="checkbox checkbox-custom">
+                <input asp-for="IsOrginal" id="checkbox10" type="checkbox">
+                <label for="checkbox10">
+                    محصول اصلی است ؟!
+                </label>
+            </div>
+            <div class="form-group">
+                <select class="form-control" asp-for="Categoryid" asp-items="@(new SelectList(ViewBag.Category,"Categoryid","CategoryFaTitle"))">
+                    <option value="">انتخاب کنید</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" asp-for="brandid" asp-items="@(new SelectList(ViewBag.brand,"brandid","brandname"))">
+                    <option value="">انتخاب کنید</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="file" name="file" class="form-control" />
+                <label>تصویر محصول</label>
+            </div>
+
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/product/ShowallProduct" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+

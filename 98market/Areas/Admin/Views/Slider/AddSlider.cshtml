@@ -1,0 +1,55 @@
+﻿@model MainSlider
+@{
+    ViewData["Title"] = "اضافه کردن اسلاید جدید";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+    <div class="col-lg-12" >
+        <div class="card-box">
+            <form asp-action="AddSlider" method="post" style="padding-top:6%;" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="SliderTitle" for="userName">عنوان اسلایدر</label>
+                    <input asp-for="SliderTitle" type="text" parsley-trigger="change" placeholder="عنوان اسلایدر را وارد کنید" class="form-control" id="userName" data-parsley-id="6">
+                    <span asp-validation-for="SliderTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SliderAlt" for="userName">ALT اسلایدر</label>
+                    <input asp-for="SliderAlt" type="text" parsley-trigger="change" placeholder="آلت اسلایدر را وارد کنید" class="form-control" id="userName" data-parsley-id="6">
+                </div>
+                <div class="form-group">
+                    <label asp-for="SliderLink" for="userName">لینک اسلایدر</label>
+                    <input asp-for="SliderLink" type="text" parsley-trigger="change" placeholder="لینک اسلایدر را وارد کنید(قالب لینک برای یک دسته بندی : Product/search?categoryid=id و قالب لینک برای یک کالا Product/Detail/id )" class="form-control" id="userName" data-parsley-id="6">
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="SliderSort" for="userName">ترتیب اسلایدر</label>
+                    <input asp-for="SliderSort" type="number" parsley-trigger="change" class="form-control" id="userName" data-parsley-id="6">
+                    <span  class="text-danger">@Html.ValidationMessage("ErrorSort")</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SliderImg" for="userName">تصویر  اسلایدر</label>
+                    <input name="file" type="file" parsley-trigger="change" class="form-control" id="userName" data-parsley-id="6">
+                    <span asp-validation-for="SliderImg" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <input asp-for="IsActive" id="remember-1" type="checkbox" data-parsley-multiple="remember-1" data-parsley-id="13">
+                        <label asp-for="IsActive" for="remember-1"> آیا فعال باشد ؟</label>
+                    </div>
+                </div>
+
+                <div class="form-group text-right m-b-0">
+                    <button class="btn btn-primary waves-effect waves-light" type="submit">
+                        ثبت اطلاعات
+                    </button>
+                    <a asp-action="Index" class="btn btn-default waves-effect waves-light m-l-5">
+                        لغو
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+

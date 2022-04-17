@@ -1,0 +1,137 @@
+﻿@model IndexImageViewModel
+
+@{
+    ViewData["Title"] = "افزودن برند";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="UpdateIndexImage" method="post" style="margin-top:5%;" enctype="multipart/form-data">
+
+            <!-- image and link 1 -->
+            <div class="form-group">
+                <label asp-for="Image1"></label>
+                <input asp-for="Image1" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link1" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link1" class="text-danger"></span>
+            </div>
+            <!-- image and link 2 -->
+            <div class="form-group">
+                <label asp-for="Image2"></label>
+                <input asp-for="Image2" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link2" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link2" class="text-danger"></span>
+            </div>
+            <!-- image and link 3 -->
+            <div class="form-group">
+                <label asp-for="Image3"></label>
+                <input asp-for="Image3" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link3" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link3" class="text-danger"></span>
+            </div>
+            <!-- image and link 4 -->
+            <div class="form-group">
+                <label asp-for="Image4"></label>
+                <input asp-for="Image4" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link4" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link4" class="text-danger"></span>
+            </div>
+            <!-- image and link 5 -->
+            <div class="form-group">
+                <label asp-for="Image5"></label>
+                <input asp-for="Image5" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link5" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link5" class="text-danger"></span>
+            </div>
+            <!-- image and link 6 -->
+            <div class="form-group">
+                <label asp-for="Image6"></label>
+                <input asp-for="Image6" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link6" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link6" class="text-danger"></span>
+            </div>
+            <!-- image and link 7 -->
+            <div class="form-group">
+                <label asp-for="Image7"></label>
+                <input asp-for="Image7" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link7" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link7" class="text-danger"></span>
+            </div>
+            <!-- image and link 8 -->
+            <div class="form-group">
+                <label asp-for="Image8"></label>
+                <input asp-for="Image8" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link8" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link8" class="text-danger"></span>
+            </div>
+            <!-- image and link 9 -->
+            <div class="form-group">
+                <label asp-for="Image9"></label>
+                <input asp-for="Image9" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link9" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link9" class="text-danger"></span>
+            </div>
+            <!-- image and link 10 -->
+            <div class="form-group">
+                <label asp-for="Image10"></label>
+                <input asp-for="Image10" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link10" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link10" class="text-danger"></span>
+            </div>
+            <!-- image and link 11 -->
+            <div class="form-group">
+                <label asp-for="Image11"></label>
+                <input asp-for="Image11" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link11" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link11" class="text-danger"></span>
+            </div>
+            <!-- image and link 12 -->
+            <div class="form-group">
+                <label asp-for="Image12"></label>
+                <input asp-for="Image12" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Link12" type="text" parsley-trigger="change" class="form-control" data-parsley-id="6" placeholder="لینک">
+                <span asp-validation-for="Link12" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/indeximage" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+

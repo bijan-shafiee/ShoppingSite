@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Category>
+@{
+    Layout = null;
+}
+
+
+
+<nav class="sidebar">
+    <div class="nav-header">
+        <div class="header-cover"></div>
+        <div class="logo-wrap">
+            <a class="logo-icon" href="#"><img alt="logo-icon" src="/CssSite/ImageSite/logo.png" width="40"></a>
+        </div>
+    </div>
+    <ul class="nav-categories ul-base">
+        @foreach (var item in Model.Where(c => c.SubCategory == null))
+        {
+            <li>
+                <a href="/Product/search?categoryid=@item.Categoryid" class="collapsed @(Model.Any(x => x.SubCategory == item.Categoryid) ? "collapse" : "")" type="button"
+                   data-toggle="collapse" data-target="#collapse-@item.Categoryid" aria-expanded="false" aria-controls="collapseOne">
+                    <i class="@(Model.Any(x => x.SubCategory == item.Categoryid) ? "mdi mdi-chevron-down" : "bg-white")"></i>
+                    @item.CategoryFaTitle
+                </a>
+              
+                <div id="collapse-@item.Categoryid" class=" @(Model.Any(x => x.SubCategory == item.Categoryid)?"collapse":"")" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
+                    @if (Model.Count(c => c.SubCategory == item.Categoryid) > 0)
+                    {
+                        <ul>
+                            @foreach (var item2 in Model.Where(c => c.SubCategory == item.Categoryid))
+                            {
+                                <li class="@(Model.Any(x => x.SubCategory == item2.Categoryid)?"has-sub":"")">
+                                    <a href="/Product/search?categoryid=@item2.Categoryid" class="category-level-2">@item2.CategoryFaTitle</a>
+                                    <ul style="display: none;">
+                                        @foreach (var item3 in Model.Where(c => c.SubCategory == item2.Categoryid))
+                                        {
+                                            <li><a href="/Product/search?categoryid=@item3.Categoryid" class="category-level-3"> @item3.CategoryFaTitle</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+<div class="nav-btn nav-slider">
+    <span class="linee1"></span>
+    <span class="linee2"></span>
+    <span class="linee3"></span>
+</div>
+<div class="overlay"></div>

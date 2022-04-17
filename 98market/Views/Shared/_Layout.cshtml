@@ -1,0 +1,170 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+
+    <link rel="shortcut icon" href="https://pasteboard.co/llzQCGD4Ji5m.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فروشگاه اینترنتی کالا مارکت</title>
+    <!-- font---------------------------------------->
+    <link rel="stylesheet" href="/CssSite/Css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="/CssSite/Css/vendor/materialdesignicons.css">
+    <!-- plugin-------------------------------------->
+    <link rel="stylesheet" href="/CssSite/Css/vendor/bootstrap.css">
+    <link rel="stylesheet" href="/CssSite/Css/vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="/CssSite/Css/vendor/nice-select.css">
+    <link href="~/CssSite/Css/vendor/noUISlider.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/CssSite/Css/vendor/bootstrap-slider.min.css">
+    <!-- main-style---------------------------------->
+    <link rel="stylesheet" href="/CssSite/Css/main.css">
+    <link rel="stylesheet" href="/CssSite/Css/responsive.css">
+    @RenderSection("Css", false)
+</head>
+<body>
+    <header class="header-main">
+        <div class="container-main">
+            <div class="d-block">
+                <section class="h-main-row">
+                    <div class="col-lg-9 col-xs-12 pr">
+                        <div class="header-right">
+                            <div class="col-lg-3 pr">
+                                <div class="header-logo row text-right">
+                                    <a href="/Home/index">
+                                        <img src="/CssSite/ImageSite/header/logo.png" alt="کالا مارکت" style="width: 170px; height: 48px;">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 pl">
+                                <div class="header-search row text-right">
+                                    <div class="header-search-box">
+                                        <form asp-controller="Product" asp-action="search" method="get" class="form-search">
+                                            <input type="search" value="@ViewBag.text" class="header-search-input" name="text" placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
+                                            <div class="action-btns">
+                                                <button class="btn btn-search" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-12 pl">
+                        <div class="header-left">
+                            <div class="header-account text-left">
+                                <div class="d-block">
+                                    <div class="account-box">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="nav-account d-block pl">
+                                                <span class="icon-account">
+                                                    <img src="/CssSite/ImageSite/header/man.png" class="avator">
+
+                                                </span>
+                                                <span class="title-account" >حساب کاربری</span>
+                                                <div class="dropdown-menu">
+                                                    <ul class="account-uls mb-0">
+                                                        <li class="account-item">
+                                                            <a href="/user/ProfileUser/index" class="account-link">پنل کاربری</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="/user/ProfileUser/" class="account-link">سفارشات من</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="/User/ProfileUser/" class="account-link">لیست علاقه مندی </a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="/Account/LogOut" class="account-link">خروج</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="nav-account d-block pl">
+                                                <span class="title-account"><a href="/Account/Register">ثبت نام</a> / <a href="/Account/Login">ورود</a></span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div>
+                    <nav class="header-main-nav">
+                        <div class="d-block">
+                            <div class="align-items-center">
+                                @await Component.InvokeAsync("ShowMenuViewComponent")
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <!--    responsive-megamenu-mobile----------------->
+
+                @await Component.InvokeAsync("ShowMenuResponseViewComponent")
+
+
+
+
+                <!--    responsive-megamenu-mobile----------------->
+            </div>
+        </div>
+    </header>
+    <div class="nav-categories-overlay"></div>
+    <!-- header-------------------------------->
+    @RenderBody()
+
+    <!-- footer------------------------------------------->
+    <partial name="_Footer" />
+    <!-- footer------------------------------------------->
+    <!-- scroll_Progress------------------------->
+    <div class="progress-wrap">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+    </div>
+    <!-- scroll_Progress------------------------->
+    <!-- file js---------------------------------------------------->
+    <script src="/CssSite/Js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/CssSite/Js/vendor/bootstrap.js"></script>
+    <!-- plugin----------------------------------------------------->
+    <script src="/CssSite/Js/vendor/owl.carousel.min.js"></script>
+    <script src="/CssSite/Js/vendor/jquery.countdown.js"></script>
+    <script src="/CssSite/Js/vendor/jquery.nice-select.min.js"></script>
+    <script src="~/CssSite/Js/vendor/theia-sticky-sidebar.min.js"></script>
+    <script src="~/CssSite/Js/vendor/wNumb.js"></script>
+    <script src="~/CssSite/Js/vendor/nouislider.min.js"></script>
+    <script src="~/CssSite/Js/vendor/bootstrap-slider.min.js"></script>
+    <script src="~/CssSite/Js/vendor/ResizeSensor.min.js"></script>
+    <!-- main js---------------------------------------------------->
+    <script src="/CssSite/Js/main.js"></script>
+
+    <script>
+        $(function () {
+            showbasket()
+        });
+
+        function showbasket() {
+
+            $.ajax({
+                type: "get",
+                url: "/ShowAllProductForBasket",
+                success: function (e) {
+                    $(".divider-space-card").html(e);
+
+                }
+            });
+        }
+
+    </script>
+    @RenderSection("SCripts", false)
+</body>
+
+</html>

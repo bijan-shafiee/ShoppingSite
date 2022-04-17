@@ -1,0 +1,759 @@
+﻿@*@model IEnumerable<ShowDetailsProductViewmodel>*@
+
+@model Tuple<DetailProductViewmodel, List<productpricevm>>
+
+
+@{
+    List<ValueViewmodel> Value = ViewBag.PropertyValue;
+    bool isFavourite = Convert.ToBoolean(ViewBag.IsFavourite);
+    int average = Convert.ToInt32(ViewBag.Average);
+    bool hasUserRated = Convert.ToBoolean(ViewBag.HasUserRated);
+    int productId = Convert.ToInt32(ViewBag.ProductId);
+}
+<link rel="stylesheet" href="/CssSite/Css/vendor/noUISlider.min.css">
+<link rel="stylesheet" href="/CssSite/Css/vendor/lightgallery.css">
+
+<div class="container-main">
+    <div class="d-block">
+        <div class="page-content page-row">
+            <div class="main-row">
+                <div id="breadcrumb">
+                    <i class="mdi mdi-home"></i>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Home/index">خانه</a></li>
+                            <li class="breadcrumb-item"><a href="/Product/search?categoryid=@Model.Item1.CategoryId">@Model.Item1.categoryname</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @Model.Item1.productfatitle
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg">
+                    <div class="product type-product">
+                        <div class="col-lg-5 col-xs-12 pr d-block" style="padding: 0;">
+                            <section class="product-gallery">
+                                <div class="gallery">
+                                    <div class="gallery-item">
+                                        <div>
+                                            <ul class="gallery-actions">
+                                                <li>
+                                                    @if (isFavourite)
+                                                    {
+                                                        <a href="/Product/RemoveFavourite/@Model.Item1.productid" class="btn-option AddFaviorate add-product-wishes faviorate" style="background-color: #fb6262;color: #fff !important">
+                                                            <i class="mdi mdi-heart"></i>
+                                                            <span>محبوب</span>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/Product/AddFavourite/@Model.Item1.productid" class="btn-option AddFaviorate add-product-wishes faviorate">
+                                                            <i class="mdi mdi-heart-outline"></i>
+                                                            <span>محبوب</span>
+                                                        </a>
+                                                    }
+                                                </li>
+
+                                                <li class="Three-dimensional">
+                                                    <a href="#" class="btn-option btn-Three-dimensional"
+                                                       data-toggle="modal" data-target="#more-product">
+                                                        <i class="mdi mdi-more"></i>
+                                                        <span>نمایش بیشتر</span>
+                                                    </a>
+                                                    <div class="modal fade" id="more-product" tabindex="-1"
+                                                         role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered more-product"
+                                                             role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <div id="custom-events">
+                                                                        @foreach (var item in ViewBag.Galley as List<ProductGallery>)
+                                                                        {
+                                                                            <a href="/CssSite/ImageSite/@item.imagename">
+                                                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.imagename" />
+                                                                            </a>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="Three-dimensional">
+                                                    <a href="/Compare/@Model.Item1.productid"
+                                                       class="btn-option btn-compare">
+                                                        <i class="mdi mdi-compare"></i>
+                                                        <span>مقایسه</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-item">
+                                        <div class="gallery-img">
+                                            <a href="#">
+                                                <img class="zoom-img" id="img-product-zoom"
+                                                     src="/CssSite/ImageSite/page-single-product/product-img/@Model.Item1.productimage"
+                                                     data-zoom-image="/CssSite/ImageSite/page-single-product/product-img/@Model.Item1.productimage"
+                                                     width="411" />
+                                            </a>
+                                            <div id="gallery_01f" style="width: 420px; float: right;">
+
+                                                <ul class="gallery-items owl-carousel owl-theme" id="gallery-slider">
+                                                    @foreach (var item in ViewBag.Galley as List<ProductGallery>)
+                                                    {
+                                                        <li class="item">
+                                                            <a href="#" class="elevatezoom-gallery active" data-update=""
+                                                               data-image="/CssSite/ImageSite/page-single-product/product-img/@item.imagename"
+                                                               data-zoom-image="/CssSite/ImageSite/page-single-product/product-img/@item.imagename">
+                                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.imagename" width="100" />
+                                                            </a>
+                                                        </li>
+                                                    }
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
+                      
+                    </div>
+                    <div class="col-lg-7 col-xs-12 pl mt-5 d-block">
+                        <section class="product-info">
+                            <div class="product-headline">
+                                <h1 class="product-title">
+                                    @Model.Item1.productfatitle
+                                </h1>
+                                <div class="product-guaranteed text-success">
+                                    @Model.Item1.productsell
+                                    <span>فروش موفق</span>
+                                </div>
+                            </div>
+                            <div class="product-attributes">
+                                <div class="product-config">
+                                    <span class="product-title-en">
+                                        @Model.Item1.productentitle
+                                    </span>
+                                    <div class="product-rate">
+                                        @for (int i = 1; i < Model.Item1.productstar; i++)
+                                        {
+                                            <i class="fa fa-star active"></i>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-config-wrapper">
+                                <div class="product-directory">
+                                    <ul>
+                                        <li>
+                                            <span>
+                                                <i class="fa fa-archive"></i> دسته:
+                                            </span>
+                                            <a href="/Product/search?categoryId=@Model.Item1.CategoryId" class="product-link product-cat-title">@Model.Item1.categoryname</a>
+
+                                        </li>
+                                        <li>
+                                            <span>
+                                                <i class="fa fa-tags"></i> برچسب:
+                                            </span>
+                                            @foreach (var item in Model.Item1.producttag.Split("^"))
+                                            {
+                                                <a href="/Product/search?text=@item" class="product-link product-cat-title">@item</a>
+                                            }
+                                        </li>
+                                        <li>
+                                            <span>
+                                                برند:
+                                            </span>
+                                            <a href="/Product/search?brandId=@Model.Item1.BrandId" class="product-link product-tag-title">@Model.Item1.productbrand</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col=lg-6 col-md-6 col-xs-12 pr">
+                                    <div class="product-variants">
+                                        <span>رنگ بندی: </span>
+                                        <ul class="js-product-variants">
+                                            @{
+                                                int check = 0;
+                                            }
+                                            @foreach (var item in Model.Item2.GroupBy(c => c.colorcode))
+                                            {
+                                                <li class="ui-variant Code" data-code="@item.Key">
+                                                    <label for="#" class="ui-variant-color">
+                                                        <span class="ui-variant-shape"
+                                                              style="background-color:@item.Key"></span>
+                                                        <input type="radio" value="4" name="color" id="variant"
+                                                               class="js-variant-selector" @(check == 0 ? "checked" : "")>
+                                                        <span class="ui-variant-check"></span>
+                                                    </label>
+                                                </li>
+                                                check++;
+                                            }
+
+
+                                        </ul>
+                                    </div>
+                                    <div class="product-params pt-3">
+                                        <ul data-title="ویژگی‌های محصول">
+                                            @foreach (var item in Value.Take(4))
+                                            {
+                                                <li>
+                                                    <span> @item.propname: </span>
+                                                    <span>@item.value</span>
+                                                </li>
+                                            }
+
+
+                                        </ul>
+                                    </div>
+                                    @*<div class="product-price-survey-question">
+                                        آیا قیمت مناسب‌تری سراغ دارید؟
+                                        <div class="answers">
+                                            <a href="#"
+                                               class="product-price-survery-answer price-yes btn btn-secondary">بلی</a>
+                                            <a href="#"
+                                               class="product-price-survery-answer price-no btn btn-secondary">خیر</a>
+                                        </div>
+                                    </div>*@
+                                </div>
+                                <div class="col=lg-6 col-md-6 col-xs-12 pr">
+                                    <div class="product-seller-info">
+                                        <div class="seller-info-changable">
+                                            <div class="product-seller-row vendor">
+                                                <span class="title"> فروشنده:</span>
+                                                <a href="#" class="product-name">دیجی اسمارت</a>
+                                            </div>
+                                            <div class="product-seller-row guarantee">
+                                                <span class="title"> گارانتی:</span>
+                                                <a href="#" class="product-name gurantee"></a>
+                                            </div>
+                                            <div class="product-seller-row price">
+                                                <span class="title"> قیمت:</span>
+
+                                                <a href="#" class="product-name">
+                                                    <span class="amount MainPrice">
+
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </a>
+
+                                                <a href="#" class="product-name">
+                                                    <del class="amount  sepcial">
+
+                                                    </del>
+                                                </a>
+                                            </div>
+
+                                            <div class="product-seller-row guarantee">
+                                                <span class="title mt-3"> تعداد:</span>
+                                                <div class="quantity pl">
+                                                    <select class="form-control" id="count">
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="product-seller-row add-to-cart">
+                                                @if (Model.Item2.Where(pp => pp.enddiscount.Value >= DateTime.Now).Count() > 0)
+                                                {
+                                                    <a href="#" class="btn-add-to-cart btn btn-primary addcart">
+                                                        <span class="btn-add-to-cart-txt">افزودن به سبد خرید</span>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="btn-add-to-cart btn btn-primary ">
+                                                        <span class="btn-add-to-cart-txt">ناموجود می باشد</span>
+                                                    </a>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="product-usp">
+                        <div class="product-feature">
+                            <div class="product-feature-col">
+                                <a href="#" class="product-feature-item">
+                                    <img src="/CssSite/ImageSite/page-single-product/delivery.svg">
+                                    امکان تحویل
+                                    <br>
+                                    اکسپرس
+                                </a>
+                            </div>
+                            <div class="product-feature-col">
+                                <a href="#" class="product-feature-item">
+                                    <img src="/CssSite/ImageSite/page-single-product/contact-us.svg">
+                                    ۷ روز هفته
+                                    <br>
+                                    ۲۴ ساعته
+                                </a>
+                            </div>
+                            <div class="product-feature-col">
+                                <a href="#" class="product-feature-item">
+                                    <img src="/CssSite/ImageSite/page-single-product/payment-terms.svg">
+                                    امکان
+                                    <br>
+                                    پرداخت در محل
+                                </a>
+                            </div>
+                            <div class="product-feature-col">
+                                <a href="#" class="product-feature-item">
+                                    <img src="/CssSite/ImageSite/page-single-product/return-policy.svg">
+                                    هفت روز ضمانت بازگشت کالا
+                                </a>
+                            </div>
+                            <div class="product-feature-col">
+                                <a href="#" class="product-feature-item">
+                                    <img src="/CssSite/ImageSite/page-single-product/origin-guarantee.svg">
+                                    ضمانت
+                                    <br>
+                                    اصل بودن کالا
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="tab-box">
+                <ul class="tab nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="Review-tab" data-toggle="tab" href="#Review" role="tab"
+                           aria-controls="Review" aria-selected="true">
+                            <i class="mdi mdi-glasses"></i>
+                            نقد و بررسی
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Specifications-tab" data-toggle="tab" href="#Specifications"
+                           role="tab" aria-controls="Specifications" aria-selected="false">
+                            <i class="mdi mdi-format-list-checks"></i>
+                            مشخصات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="User-comments-tab" data-toggle="tab" href="#User-comments"
+                           role="tab" aria-controls="User-comments" aria-selected="false">
+                            <i class="mdi mdi-comment-text-multiple-outline"></i>
+                            نظرات کاربران
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="question-and-answer-tab" data-toggle="tab"
+                           href="#question-and-answer" role="tab" aria-controls="question-and-answer"
+                           aria-selected="false">
+                            <i class="mdi mdi-comment-question-outline"></i>
+                            پرسش و پاسخ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="rate-tab" data-toggle="tab" href="#rate"
+                           role="tab" aria-controls="rate" aria-selected="false">
+                            <i class="mdi mdi-star"></i>
+                            امتیاز دادن
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg">
+                <div class="tabs-content">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="Review" role="tabpanel"
+                             aria-labelledby="Review-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="Specifications" role="tabpanel"
+                             aria-labelledby="Specifications-tab">
+
+
+
+
+                        </div>
+                        <div class="tab-pane fade" id="User-comments" role="tabpanel"
+                             aria-labelledby="User-comments-tab">
+
+
+
+
+                        </div>
+                        <div class="tab-pane fade" id="question-and-answer" role="tabpanel"
+                             aria-labelledby="question-and-answer-tab">
+
+
+                        </div>
+                        <div class="tab-pane fade" id="rate" role="tabpanel"
+                             aria-labelledby="rate-tab">
+                            <div class="comments">
+                                <h2 class="params-headline">
+                                    امتیاز کاربران به
+                                    <span>@ViewBag.ProductName</span>
+                                </h2>
+                                <div class="comments-summary">
+                                    <div class="col-lg-6 col-md-6 col-xs-12 pr">
+                                        <div class="comments-summary-box">
+                                            <ul class="comments-item-rating">
+                                                <li>
+                                                    <span class="cell-title">امتیاز:</span>
+                                                    <span class="cell-value">@average</span>
+                                                    <div class="rating-general">
+                                                        <div class="rating-value" style="width: @(average * 20)%"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comments-summary">
+                                    <div class="col-lg-6 col-md-6 col-xs-12 pr">
+                                        <div class="comments-summary-note">
+                                            <h6>شما هم می‌توانید برای این کالا امتیاز خود را ثبت کنید.</h6>
+                                            <p>
+                                                برای ثبت امتیاز، لازم است ابتدا وارد حساب کاربری خود شوید.
+                                            </p>
+                                            <div class="mb-5 mt-5">
+                                                <div class="comments-product-attributes-title">کیفیت ساخت</div>
+                                                <input id="star" type="text" data-provide="slider"
+                                                       data-slider-ticks="[1, 2, 3, 4, 5]"
+                                                       data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                                       data-slider-min="1" data-slider-max="5" data-slider-step="1"
+                                                       data-slider-value="3" data-slider-tooltip="hide" />
+                                            </div>
+                                            <a href="javascript:void(0)" class="btn-add-comment btn btn-secondary" onclick="SubmitRate(@productId)">
+                                                ثبت امتیاز
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@section SCripts{
+    <!-- plugin----------------------------------------------------->
+    <script src="~/CssSite/Js/vendor/owl.carousel.min.js"></script>
+    <script src="~/CssSite/Js/vendor/lightgallery-all.js"></script>
+    <script src="~/CssSite/Js/vendor/jquery.ez-plus.js"></script>
+
+    <script>
+
+        function GetPrice(Code) {
+        var price = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Item2));
+
+            var temp = [];
+
+            $.each(price, function (index, item) {
+
+                if (item.colorcode == Code) {
+                    temp.push(item);
+                }
+
+            });
+
+            return temp;
+        }
+
+        $(".Code").click(function()  {
+            var Code = $(this).data('code');
+            var ListPrice = GetPrice(Code);
+
+            UpdatePrice(ListPrice[0]);
+        });
+
+        $(".Code").first().click();
+        function UpdatePrice(ListPrice) {
+     
+
+
+
+            $(".gurantee").html(ListPrice.guranteename);
+
+            if (ListPrice.mainprice > ListPrice.sepcialprice) {
+                $(".sepcial").show;
+                $(".MainPrice").html(ListPrice.sepcialprice);
+                $(".sepcial").html(ListPrice.mainprice);
+            } else {
+                $(".sepcial").hide;
+                $(".MainPrice").html(ListPrice.mainprice);
+            }
+            var productcount = Number(ListPrice.count);
+            var maxordercount = Number(ListPrice.maxordercount);
+            $('.option').remove();
+            for (var i = 1; i <= maxordercount; i++) {
+                if (i <= productcount) {
+                    $("#count").append($("<option class='option'></option>").val(i).html(i));
+                }
+            }
+            $("#count").change(function () {
+                var productcount = $(this).val();
+                debugger
+                $("#productCount").valueOf(productcount);
+
+                $(".addcart").attr('href', '/AddCart/' + ListPrice.productpriceid + '/' + productcount);
+                debugger
+            });
+            productcount = $("#count").val();
+            $(".addcart").attr('href', '/AddCart/' + ListPrice.productpriceid + '/' + productcount);
+
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function()  {
+            $("#Review").load("/Product/ShowReview/" +@Model.Item1.productid);
+        });
+
+        $("#Specifications-tab").click(function()  {
+            $("#Specifications").load("/Product/ShowAllProperty/" +@Model.Item1.productid);
+
+        });
+
+        $("#User-comments-tab").click(function()  {
+            $("#User-comments").load("/Product/ShowComment/" +@Model.Item1.productid);
+
+        });
+
+        $("#question-and-answer-tab").click(function()  {
+            $("#question-and-answer").load("/Product/ShowFaq/" +@Model.Item1.productid);
+
+        });
+
+        function SubmitRate(productId) {
+            var star = $("#star").val();
+            var hasUserRated = false;
+            @if (hasUserRated)
+                {
+                    <text>
+                hasUserRated = true;
+                    </text>
+                }
+            if (hasUserRated)
+                alert("امتیاز شما قبلا ثبت شده است.");
+            else {
+                $.get("/Product/AddRate?productId=" + productId + "&star=" + star,
+                    function () {
+                        alert("امتیاز شما با موفقیت ثبت شد.");
+                    });
+            }
+        }
+
+    </script>
+
+    <script>
+
+        $(function(){
+
+            $.ajax({
+                type: "get",
+                url: "/checkauthorize",
+                success: function (res) {
+                    if (res) {
+                        changefaviorate;
+                    }
+                }
+            });
+        });
+
+        function changefaviorate() {
+
+            $.ajax({
+                type: "post",
+                url: "/CheckFaviorate",
+                data: { productid:@Model.Item1.productid },
+                success: function (e) {
+                    if (e) {
+                        $(".faviorate").addClass("text-danger");
+                    }
+                }
+
+            });
+
+        }
+
+        $(".AddFaviorate").click(function () {
+
+            $.ajax({
+                type: "get",
+                url: "/checkauthorize",
+                success: function (res) {
+                    if (res) {
+                        AddOrDeleteFaviorate;
+                    } else {
+
+                        window.location.href = "/Account/Login";
+                    }
+                }
+            });
+        });
+
+        function AddOrDeleteFaviorate() {
+
+            $.ajax({
+                type: "post",
+                url: "/AddOrDeleteFaviorate",
+                data: { productid:@Model.Item1.productid },
+                success: function (e) {
+                    if (e) {
+                        $(".faviorate").removeClass("text-danger");
+                    } else {
+                        $(".faviorate").addClass("text-danger");
+                    }
+                }
+            })
+
+        }
+    </script>
+
+    <script>
+        function Scrolltops() {
+            setTimeout(function () {
+                $('html,body').animate({
+                    scrollTop: $("#submitform").offset.top - 200
+                }, 500)
+            }, 500)
+        };
+
+        function SubmitForm() {
+
+            $("#submitform").submit(function (e) {
+                e.preventDefault;
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: 'post',
+                    url: url,
+                    data: form.serialize,
+                    success: function (res) {
+                        if (res > 0) {
+                            alert("success");
+                            $("#text").val('');
+                        } else {
+                            alert("failed")
+                        }
+                    }
+
+                });
+
+            });
+
+        }
+
+        $("#question-and-answer").delegate('.addAnswer', 'click', function () {
+            Scrolltops;
+            var username = $(this).data('username');
+            var qustionid = $(this).data('qustionid');
+            $("#hidden").show;
+
+            if (username === " ") {
+                username = "کاربر کالا مارکت";
+            }
+            $("#qustionid").val(qustionid);
+            $("#username").text(username);
+
+            $("#cancell").click(function () {
+                $("#hidden").hide;
+                $("#qustionid").val('');
+
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $(".addcart").click(function (e) {
+            e.preventDefault();
+
+            var productpriceid = $(".addcart").attr('href');
+
+            $.ajax({
+                type: "post",
+                url: productpriceid,
+                success: function (e) {
+                    if (e == 1) {
+
+                        setTimeout(function () { window.location = '/account/login' }, 50)
+                    }
+                    if (e === 3) {
+                        alert("شما حداکثر این کالارا در سبد خرید خود داری.")
+                    } else if (e == 2) {
+                        showbasket;
+                        alert("کالا با موفقیت به سبد خرید اضافه گردید.")
+                    }
+                }, error: function (e) {
+                    alert(e)
+                }
+
+            });
+
+        })
+
+
+    </script>
+
+    <script>
+        function LikeComment(commentId) {
+            $.post("/Product/LikeComment", {
+                commentId: commentId
+            }, function () {
+                var count = parseInt($(".js-comment-like .count").text());
+                count++;
+                $(".js-comment-like .count").text(count);
+            });
+        }
+        function DislikeComment(commentId) {
+            $.post("/Product/DislikeComment", {
+                commentId: commentId
+            }, function () {
+                var count = parseInt($(".js-comment-dislike .count").text());
+                count++;
+                $(".js-comment-dislike .count").text(count);
+            });
+        }
+        function AddQuestionOrAnswer() {
+            $.post("/Product/AddQustionOrAnswer", {
+                productId: $("#productId").val(),
+                questionId: $("#questionId").val(),
+                text: $("#text").val()
+            }, function () {
+                CancelAnswer();
+                if ($("#questionId").val() == 0)
+                    alert("پرسش شما با موفقیت افزوده شد!");
+                else
+                    alert("پاسخ شما با موفقیت افزوده شد!");
+            });
+        }
+        function AnswerButton(questionId, usernameq) {
+            $("#questionId").val(questionId);
+            $("#username").text(usernameq);
+            $("#hidden").fadeIn();
+            $("#text").focus();
+        }
+        function CancelAnswer() {
+            $("#hidden").fadeOut();
+            $("#questionId").val(0);
+            $("#username").text("");
+            $("#text").val("");
+        }
+    </script>
+}

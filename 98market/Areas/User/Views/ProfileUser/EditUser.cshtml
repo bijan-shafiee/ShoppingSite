@@ -1,0 +1,71 @@
+﻿
+@model edituserViewmodel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var informationuser = ViewBag.information as informationAccountViewmodel;
+}
+
+
+
+<!-- profile------------------------------->
+<div class="container-main">
+    <div class="d-block">
+        <section class="profile-home">
+            <div class="col-lg">
+                <div class="post-item-profile order-1 d-block">
+                    <div class="col-lg-3 col-md-3 col-xs-12 pr">
+
+                        <partial name="_SidebarUser" model="informationuser" />
+
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-xs-12 pl">
+                        <div class="profile-content">
+                            <div class="profile-stats">
+                                <div class="profile-address">
+                                    <div class="middle-container">
+                                        <form asp-action="EditUser" method="post" class="form-checkout">
+                                            <div class="form-checkout-row">
+
+                                                <div class="form-checkout-valid-row">
+
+                                                    <label asp-for="username" for="apt-id"></label>
+                                                    <input asp-for="username" type="text" class="input-name-checkout js-input-apt-id form-control">
+
+                                                </div>      
+                                                <div class="form-checkout-valid-row">
+
+                                                    <label asp-for="userfamily" for="apt-id" ></label>
+                                                    <input asp-for="userfamily" type="text" class="input-name-checkout js-input-apt-id form-control">
+
+                                                </div>    
+                                                <div class="form-checkout-valid-row">
+
+                                                    <label asp-for="email" for="apt-id" ></label>
+                                                    <input asp-for="email" type="text" class="input-name-checkout js-input-apt-id form-control">
+
+                                                </div>     
+                                                <div class="form-checkout-valid-row">
+
+                                                    <label asp-for="phone" for="apt-id" ></label>
+                                                    <input asp-for="phone" type="text" class="input-name-checkout js-input-apt-id form-control">
+
+                                                </div>     
+                     
+                                                <div class="AR-CR">
+                                                    <button type="submit" class="btn-registrar"> ثبت آدرس</button>
+                                                    <a href="#" class="cancel-edit-address" data-dismiss="modal" aria-label="Close">بازگشت</a>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- profile------------------------------->

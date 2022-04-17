@@ -1,0 +1,57 @@
+﻿
+@model Tuple<string, List<SliderForCategoryViewmodel>>
+
+
+<div class="slider-widget-products">
+    <div class="widget widget-product card">
+        <header class="card-header">
+            <span class="title-one">@Model.Item1</span>
+            <h3 class="card-title"></h3>
+        </header>
+        <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+            <div class="owl-stage-outer">
+                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
+                    @foreach (var item in Model.Item2.GroupBy(p => p.Productid))
+                    {
+                        <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                            <div class="item">
+                                <a href="/Product/Detail/@item.Key" class="d-block hover-img-link">
+                                    <img src="/CssSite/ImageSite/@item.First().productimg" class="img-fluid" alt="">
+                                </a>
+                                <h2 class="post-title">
+                                    <a href="/Product/Detail/@item.Key">
+                                        @item.First().productfatitle
+                                    </a>
+                                </h2>
+                                <div class="price"> 
+                                    @if (item.First().mainprice > item.First().sepcialprice && item.First().Count > 0 && item.First().Date >= DateTime.Now)
+                                    {
+
+                                        <del><span>@item.First().mainprice<span>تومان</span></span></del>
+                                        <ins><span>@item.First().sepcialprice<span>تومان</span></span></ins>
+                                    }
+                                    else
+                                    {
+                                        <ins><span>@item.First().mainprice<span>تومان</span></span></ins>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+            <div class="owl-nav">
+                <button type="button" role="presentation" class="owl-prev disabled">
+                    <i class="fa fa-angle-right"></i>
+                </button>
+                <button type="button" role="presentation" class="owl-next">
+                    <i class="fa fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="owl-dots disabled"></div>
+        </div>
+    </div>
+</div>

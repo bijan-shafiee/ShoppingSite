@@ -1,0 +1,186 @@
+﻿
+@model IEnumerable<ShowCommentForProductViewmodel>
+@using _98market.Core.ExtentionMethod
+@{
+    Layout = null;
+    List<ReatingViewmodel> Viewmodel = ViewBag.Reating;
+    int cout = 0;
+    int Value = 0;
+    int productId = Convert.ToInt32(ViewBag.ProductId);
+    CommentScalesViewModel scales = ViewBag.Scales as CommentScalesViewModel;
+}
+
+<div class="comments">
+    <h2 class="params-headline">
+        امتیاز کاربران به
+        <span>@ViewBag.ProductName</span>
+    </h2>
+    @if (ViewBag.Scales != null)
+    {
+        <div class="comments-summary">
+            <div class="col-lg-6 col-md-6 col-xs-12 pr">
+                <div class="comments-summary-box">
+                    <ul class="comments-item-rating">
+                        <li>
+                            <span class="cell-title">کیفیت ساخت:</span>
+                            <span class="cell-value">@scales.Star.CommentScale()</span>
+                            <div class="rating-general">
+                                <div class="rating-value" style="width: @(scales.Star * 20)%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cell-title">ارزش خرید به نسبت قیمت:</span>
+                            <span class="cell-value">@scales.BuyWorth.CommentScale()</span>
+                            <div class="rating-general">
+                                <div class="rating-value" style="width: @(scales.BuyWorth * 20)%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cell-title">نوآوری:</span>
+                            <span class="cell-value">@scales.Innovation.CommentScale()</span>
+                            <div class="rating-general">
+                                <div class="rating-value" style="width: @(scales.Innovation * 20)%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cell-title">امکانات و قابلیت ها:</span>
+                            <span class="cell-value">@scales.Abilties.CommentScale()</span>
+                            <div class="rating-general">
+                                <div class="rating-value" style="width: @(scales.Abilties * 20)%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cell-title">سهولت استفاده:</span>
+                            <span class="cell-value">@scales.EaseOfUse.CommentScale()</span>
+                            <div class="rating-general">
+                                <div class="rating-value" style="width: @(scales.EaseOfUse * 20)%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cell-title">طراحی و ظاهر:</span>
+                            <span class="cell-value">@scales.Appearance.CommentScale()</span>
+                            <div class="rating-general">
+                                <div class="rating-value" style="width: @(scales.Appearance * 20)%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="comments-summary">
+        <div class="col-lg-6 col-md-6 col-xs-12 pr">
+            <div class="comments-summary-box">
+                <ul class="comments-item-rating">
+                    @foreach (var item in Viewmodel.GroupBy(g => g.propertynameid))
+                    {
+                        <li>
+                            <span class="cell-title">@item.First().propertyname:</span>
+                            @foreach (var item2 in item.ToList())
+                            {
+                                Value += item2.Value;
+                                cout++;
+                            }
+                            <span class="cell-value">@(Value/cout)%</span>
+                            <div class="rating-general">
+                                <div style="max-width:100%;width:@(Value/cout)%" class="rating-value"></div>
+                            </div>
+                        </li>
+
+                        Value = 0;
+                        cout = 0;
+                    }
+
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-12 pr">
+            <div class="comments-summary-note">
+                <h6>شما هم می‌توانید در مورد این کالا نظر بدهید.</h6>
+                <p>
+                    برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود شوید. اگر این
+                    محصول را قبلا از دیجی‌کالا خریده باشید،
+                    نظر
+                    شما به عنوان مالک محصول ثبت خواهد شد.
+                </p>
+                <a href="/Product/Comment/@productId" class="btn-add-comment btn btn-secondary">
+                    افزودن نظر
+                    جدید
+                </a>
+            </div>
+        </div>
+        <div class="product-comment-list">
+            <ul class="comment-list">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <div class="col-lg-3 pr">
+                            <section>
+                                <div class="comments-user-shopping">
+                                    @item.username
+                                    <div class="cell-date">
+                                        @item.CreateDate.MilatiToShamsi()
+                                    </div>
+                                    @switch (item.Recomment)
+                                    {
+                                        case 1:
+                                            <div class="message-light">
+                                                <i class="fa fa-thumbs-o-up"></i>خرید این محصول را
+                                                توصیه می‌کنم
+                                            </div>
+                                            break;
+                                        case 2:
+                                            <div class="message-light" style="color: #dd7e19;background: #fff9f2;">
+                                                در مورد خرید این محصول مطمئن نیستم
+                                            </div>
+                                            break;
+                                        case 3:
+                                            <div class="message-light" style="background:#fff8f9;color:#ff637d;">
+                                                <i class="fa fa-thumbs-o-down"></i>خرید این محصول را توصیه نمی‌کنم
+                                            </div>
+                                            break;
+                                    }
+
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-lg-9 pl">
+                            <div class="article">
+                                <ul class="comment-text">
+                                    <div class="header">
+                                        <div>@item.commentTitle</div>
+
+                                        @Html.Raw(item.CommentDescription)
+                                    </div>
+                                    <div class="comments-evaluation">
+
+                                        <div class="footer">
+                                            <div class="comments-likes">
+                                                آیا این نظر برایتان
+                                                مفید بود؟
+                                                <button class="btn-like js-comment-like"
+                                                        type="button" onclick="LikeComment(@item.CommentId)">
+                                                    بله
+                                                    <span class="count">@item.Commentlike</span>
+                                                </button>
+                                                <button class="btn-like js-comment-dislike"
+                                                        type="button" onclick="DislikeComment(@item.CommentId)">
+                                                    خیر
+                                                    <span class="count">@item.commentDislike</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+
+            </ul>
+        </div>
+    </div>
+</div>
