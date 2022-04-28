@@ -30,17 +30,17 @@
                             {
                                 if (TempData["Result"].ToString() == "true")
                                 {
-                                    <div class="alert alert-success alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        ثبت اطلاعات با موفقیت انجام شد .
-                                    </div>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                دسته بندی فعال شد
+                            </div>
                                 }
                                 else
                                 {
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        خطادر انجام عملیات .
-                                    </div>
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            دسته بندی غیر فعال شد
+                        </div>
                                 }
                             }
 
@@ -52,7 +52,7 @@
                                         Swal.fire({
                                             position: 'top-end',
                                             icon: 'error',
-                                            title: 'اسلایدری با این مشخصات یافت نشد .',
+                                            title: 'دسته بندی با این مشخصات یافت نشد .',
                                             showConfirmButton: false,
                                             timer: 3000
                                         })
@@ -76,20 +76,32 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                            <tr class="gradeX odd" role="row">
-                                                <td class="sorting_1">@item.Categoryid</td>
-                                                <td class="sorting_1">@item.CategoryFaTitle</td>
-                                                <td class="sorting_1">@item.CategoryEnTitle</td>
-                                                <td class="sorting_1"><a href="/Admin/category/ShowAllSubCategoryThree/@item.Categoryid" class="btn btn-success">زیر دسته ها</a></td>
+                                    <tr class="gradeX odd" role="row">
+                                        <td class="sorting_1">@item.Categoryid</td>
+                                        <td class="sorting_1">@item.CategoryFaTitle</td>
+                                        <td class="sorting_1">@item.CategoryEnTitle</td>
+                                        <td class="sorting_1"><a href="/Admin/category/ShowAllSubCategoryThree/@item.Categoryid" class="btn btn-success">زیر دسته ها</a></td>
 
 
-                                                <td class="actions">
-                                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                                    <a href="/Admin/slider/updateslider/@item.Categoryid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                                    <a href="/Admin/slider/deleteslider/@item.Categoryid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                                </td>
-                                            </tr>
+                                      
+                                            @if (item.IsDelete == false)
+                                            {
+                                            <td class="sorting_1" style="color:lightgreen">فعال</td>
+                                        }
+                                        else if (item.IsDelete == true)
+                                        {
+                                            <td class="sorting_1"  style="color:indianred">غیرفعال</td>
+                                        }
+
+                                            <td class="actions">
+                                               
+                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+
+                                                <a href="/admin/Category/activecategory/@item.Categoryid" class="on-editing save-row" title="فعال کردن"><i class="fa ti-check"></i></a>
+                                                <a href="/admin/Category/deactivecategory/@item.Categoryid" class="on-editing save-row" title="غیرفعال کردن"><i class="fa ti-na"></i></a>
+                                            </td>
+                                           
+                                        </tr>
 
                                         }
                                     }

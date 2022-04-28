@@ -66,10 +66,10 @@ namespace _98market
         {
 
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+                //app.UseDeveloperExceptionPage();
+            //}
 
 
             app.UseAuthentication();

@@ -1,0 +1,60 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "ویرایش دسته بندی ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+        <form asp-action="UpdateCategory" method="post" style="padding:70px 20px 0px 20px" enctype="multipart/form-data">
+            <input asp-for="Categoryid" type="hidden" />
+            <div class="form-group">
+                <label asp-for="CategoryFaTitle" for="userName">نام فارسی</label>
+                <input asp-for="CategoryFaTitle" type="text" parsley-trigger="change" placeholder="نام فارسی دسته بندی را وارد کنید" class="form-control" id="userName" data-parsley-id="6">
+                <span asp-validation-for="CategoryFaTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryEnTitle" for="userName">نام انگلیسی</label>
+                <input asp-for="CategoryEnTitle" type="text" parsley-trigger="change" placeholder="نام انگلیسی دسته بندی را وارد کنید" class="form-control" id="userName" data-parsley-id="6">
+                <span asp-validation-for="CategoryEnTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slider" for="emailAddress">اسلایدر</label>
+                <select asp-for="Slider" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                    <option value="0">...</option>
+                    <option value="1">اسلایدر ۱</option>
+                    <option value="2">اسلایدر ۲</option>
+                    <option value="3">اسلایدر ۳</option>
+                </select>
+                <span asp-validation-for="Slider" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SliderCount" for="emailAddress">تعداد نمایش در اسلایدر</label>
+                <input asp-for="SliderCount" type="number" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="SliderCount" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <input asp-for="IsDelete" id="remember-1" type="checkbox" data-parsley-multiple="remember-1" data-parsley-id="13">
+                    <label asp-for="IsDelete" for="remember-1"> آیا غیرفعال باشد ؟</label>
+                </div>
+            </div>
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a asp-action="showAllCategory" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+

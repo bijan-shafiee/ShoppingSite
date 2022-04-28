@@ -559,7 +559,7 @@ namespace _98market.Core.Service
 
             if (categoryid.Count() > 0) 
             {
-                products = products.Where(c => categoryid.Contains(c.Categoryid) || categoryid.Contains(c.Category.SubCategory.Value));
+                products = products.Where(c =>  c.IsDelete && categoryid.Contains(c.Categoryid) || categoryid.Contains(c.Category.SubCategory.Value));
             }
             if (brandid.Count() > 0)
             {
