@@ -247,5 +247,13 @@ namespace _98market.Core.Service
         {
             throw new NotImplementedException();
         }
+
+
+
+        public (string name, string mobile) GetUserBy(int id)
+        {
+            var user = _Context.users.Find(id);
+            return (user.userfamily, user.phone);
+        }
     }
 }

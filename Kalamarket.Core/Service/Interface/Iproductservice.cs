@@ -4,6 +4,7 @@ using _98market.DataLayer.Entities.Entitieproduct.FaQ;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using _98market.DataLayer.Entities;
 
 namespace _98market.Core.Service.Interface
 {
@@ -121,5 +122,8 @@ namespace _98market.Core.Service.Interface
         void EditGallery(ProductGallery gallery);
         int DeleteGallery(int id);
         #endregion
+
+        Cart GetAmountBy(int cartId);
+        string PaymentSucceeded(int cartId, string refId);
     }
 }

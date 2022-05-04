@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | آدرس های کاربر</title>
 @model IEnumerable<_98market.DataLayer.Entities.Address.useraddress>
 
 @{
@@ -52,16 +52,16 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                    <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">@item.addresid</td>
-                                        <td class="sorting_1">@item.province.provincename</td>
-                                        <td class="sorting_1">@item.city.cityname</td>
-                                        <td class="sorting_1">@item.FullAddress</td>
-                                        <td class="sorting_1">@item.Plaque</td>
-                                        <td class="sorting_1">@item.postalCode</td>
-                                        <td class="sorting_1">@item.Landlinephonenumber</td>
-                                        <td class="sorting_1">@item.phone</td>
-                                    </tr>
+                                            <tr class="gradeX odd" role="row">
+                                                <td class="sorting_1">@item.addresid</td>
+                                                <td class="sorting_1">@item.province.provincename</td>
+                                                <td class="sorting_1">@item.city.cityname</td>
+                                                <td class="sorting_1">@item.FullAddress</td>
+                                                <td class="sorting_1">@item.Plaque</td>
+                                                <td class="sorting_1">@item.postalCode</td>
+                                                <td class="sorting_1">@item.Landlinephonenumber</td>
+                                                <td class="sorting_1">@item.phone</td>
+                                            </tr>
                                         }
                                     }
                                     else

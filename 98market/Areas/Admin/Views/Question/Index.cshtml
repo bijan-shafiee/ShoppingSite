@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | پرسش و پاسخ ها</title>
 @model IEnumerable<_98market.DataLayer.Entities.Entitieproduct.FaQ.question>
 @using _98market.Core.ExtentionMethod
 @using Microsoft.AspNetCore.Http
@@ -33,7 +33,7 @@
                                 {
                                     <div class="alert alert-danger alert-dismissable">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                       پرسش مورد نظر غیرفعال شد
+                                        پرسش مورد نظر غیرفعال شد
                                     </div>
                                 }
                             }
@@ -71,39 +71,39 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                    <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">@item.questionid</td>
-                                        <td class="sorting_1">@item.user.email</td>
-                                        <td class="sorting_1"><a href="/Product/Detail/@item.productid" target="_blank">@item.product.productFaTitle</a></td>
-                                        <td class="sorting_1">@item.CreateDate.MilatiToShamsi()</td>
-                                        <td class="sorting_1">@item.questionDescription</td>
-                                        @*<td>
-                                            <input value="@item.answers" />
-                                            <a class="btn btn-sm btn-success" onclick="Setanswers(@item.answers)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        </td>*@
-                                        @if (item.IsActive == false)
-                                        {
-                                            <td class="sorting_1">درحال بررسی / تایید نشده</td>
-                                        }
-                                        else if (item.IsActive == true)
-                                        {
-                                            <td class="sorting_1">تایید شده</td>
-                                        }
+                                            <tr class="gradeX odd" role="row">
+                                                <td class="sorting_1">@item.questionid</td>
+                                                <td class="sorting_1">@item.user.email</td>
+                                                <td class="sorting_1"><a href="/Product/Detail/@item.productid" target="_blank">@item.product.productFaTitle</a></td>
+                                                <td class="sorting_1">@item.CreateDate.MilatiToShamsi()</td>
+                                                <td class="sorting_1">@item.questionDescription</td>
+                                                @*<td>
+                                                        <input value="@item.answers" />
+                                                        <a class="btn btn-sm btn-success" onclick="Setanswers(@item.answers)">
+                                                            <i class="fa fa-check"></i>
+                                                        </a>
+                                                    </td>*@
+                                                @if (item.IsActive == false)
+                                                {
+                                                    <td class="sorting_1">درحال بررسی / تایید نشده</td>
+                                                }
+                                                else if (item.IsActive == true)
+                                                {
+                                                    <td class="sorting_1">تایید شده</td>
+                                                }
 
 
-                                        <td class="actions">
-                                            <a href="/admin/question/ActiveQuestion/@item.questionid" class="on-editing save-row" title="فعال کردن"><i class="fa ti-check"></i></a>
-                                            <a href="/admin/question/DeActiveQuestion/@item.questionid" class="on-editing save-row" title="غیرفعال کردن"><i class="fa ti-na"></i></a>
-                                       
+                                                <td class="actions">
+                                                    <a href="/admin/question/ActiveQuestion/@item.questionid" class="on-editing save-row" title="فعال کردن"><i class="fa ti-check"></i></a>
+                                                    <a href="/admin/question/DeActiveQuestion/@item.questionid" class="on-editing save-row" title="غیرفعال کردن"><i class="fa ti-na"></i></a>
 
 
-                                        <button onclick="showM('@item.questionid','@item.productid')" class="btn btn-primary" data-toggle="modal">
-                                            پاسخ
-                                        </button>
-                                        </td>
-                                    </tr>
+
+                                                    <button onclick="showM('@item.questionid','@item.productid')" class="btn btn-primary" data-toggle="modal">
+                                                        پاسخ
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         }
                                     }
                                     else
@@ -131,14 +131,14 @@
 
 <div class="modal fade" id="answerModal">
     <div class="modal-dialog" role="document">
-        <div class="modal-content"> 
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">متن پاسخ</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-area="" asp-controller="Product" asp-action="AddQustionOrAnswer"  asp-route-returnUrl="@_httpContext.HttpContext.Request.Path">
+            <form asp-area="" asp-controller="Product" asp-action="AddQustionOrAnswer" asp-route-returnUrl="@_httpContext.HttpContext.Request.Path">
                 <div class="modal-body">
                     <input type="hidden" name="questionId" id="questionId" />
                     <input type="hidden" name="productId" id="productId" />

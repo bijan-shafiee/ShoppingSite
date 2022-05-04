@@ -1,4 +1,4 @@
-﻿
+﻿<title> بندر استور -  سبد خرید     </title>
 @model IEnumerable<CartViewmodel>
 
 
@@ -74,90 +74,90 @@
 
                                             @foreach (var item in Model)
                                             {
-                                            <tr>
-                                                <th scope="row" class="product-cart-name">
-                                                    <div class="product-thumbnail-img">
-                                                        <a href="/Product/Detail/@item.Productid">
-                                                            <img src="/CssSite/ImageSite/@item.productimage">
-                                                        </a>
-
-                                                    </div>
-                                                    <div class="product-title">
-                                                        <a href="/Product/Detail/@item.Productid">
-                                                            @item.productFaTitle
-                                                        </a>
-                                                        <div class="variation">
-                                                            <div class="variant-color">
-                                                                <span class="variant-color-title">@item.Colorname</span>
-                                                                <div class="variant-shape" style="background-color:@item.ColorCode"></div>
-                                                            </div>
-                                                            <div class="variant-guarantee">
-                                                                <i class="mdi mdi-check"></i>
-                                                                @item.guranteename
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-                                                </th>
-                                                <td class="product-cart-quantity">
-                                                    <div class="required-number before">
-                                                        <select data-productpriceid="@item.productpriceid" class="form-control col-lg-2" id="selectcount">
-                                                            @for (int i = 1; (i <= item.Maxordercount && i <= item.productcount); i++)
-                                                            {
-                                                                @if (i == item.ordercount)
-                                                                {
-                                                                    <option value="@i" selected="selected">@i</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@i">@i</option>
-                                                                }
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                <td class="product-cart-price">
-                                                    <span class="amount">
-                                                        <span class="Pres"> قیمت اصلی :</span>
-                                                        @item.PriceWithoutDiscount.ToString("#,0")
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>
-                                                <td class="product-cart-price">
-                                                    <span class="amount">
-                                                        <span class="Pres">قیمت برای شما :</span>
-                                                        @item.ProductPrice.ToString("#,0")
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>
-                                                @*<td class="product-cart-price">
-                                                    <span class="amount">
-                                                        @Model.Sum(@item.PriceWithoutDiscount - @item.ProductPrice).ToString("#,0")
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>*@
-                                                <td class="product-cart-Total">
-                                                    <span class="amount">
-                                                        <span class="Press">جمع قیمت :</span>
-                                                        @{ int totalprice = item.ProductPrice * item.ordercount;}
-                                                        @totalprice.ToString("#,0")
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <div class="product-thumbnail-img">
-                                                        <div class="product-remove" style="margin-top: 30px;">
-                                                            <a href="/removeProductForBasket/@item.productpriceid/@item.Cartid" class="remove">
-                                                                <i class="mdi mdi-close" style="font-size: 28px; color: red;"></i>
+                                                <tr>
+                                                    <th scope="row" class="product-cart-name">
+                                                        <div class="product-thumbnail-img">
+                                                            <a href="/Product/Detail/@item.Productid">
+                                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
                                                             </a>
+
                                                         </div>
-                                                    </div>
-                                                </td>
+                                                        <div class="product-title">
+                                                            <a href="/Product/Detail/@item.Productid">
+                                                                @item.productFaTitle
+                                                            </a>
+                                                            <div class="variation">
+                                                                <div class="variant-color">
+                                                                    <span class="variant-color-title">@item.Colorname</span>
+                                                                    <div class="variant-shape" style="background-color:@item.ColorCode"></div>
+                                                                </div>
+                                                                <div class="variant-guarantee">
+                                                                    <i class="mdi mdi-check"></i>
+                                                                    @item.guranteename
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </th>
+                                                    <td class="product-cart-quantity">
+                                                        <div class="required-number before">
+                                                            <select data-productpriceid="@item.productpriceid" class="form-control col-lg-2" id="selectcount">
+                                                                @for (int i = 1; (i <= item.Maxordercount && i <= item.productcount); i++)
+                                                                {
+                                                                    @if (i == item.ordercount)
+                                                                    {
+                                                                        <option value="@i" selected="selected">@i</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-cart-price">
+                                                        <span class="amount">
+                                                            <span class="Pres"> قیمت اصلی :</span>
+                                                            @item.PriceWithoutDiscount.ToString("#,0")
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="product-cart-price">
+                                                        <span class="amount">
+                                                            <span class="Pres">قیمت برای شما :</span>
+                                                            @item.ProductPrice.ToString("#,0")
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                    @*<td class="product-cart-price">
+                                                            <span class="amount">
+                                                                @Model.Sum(@item.PriceWithoutDiscount - @item.ProductPrice).ToString("#,0")
+                                                                <span>تومان</span>
+                                                            </span>
+                                                        </td>*@
+                                                    <td class="product-cart-Total">
+                                                        <span class="amount">
+                                                            <span class="Press">جمع قیمت :</span>
+                                                            @{ int totalprice = item.ProductPrice * item.ordercount;}
+                                                            @totalprice.ToString("#,0")
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="product-thumbnail-img">
+                                                            <div class="product-remove" style="margin-top: 30px;">
+                                                                <a href="/removeProductForBasket/@item.productpriceid/@item.Cartid" class="remove">
+                                                                    <i class="mdi mdi-close" style="font-size: 28px; color: red;"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
 
 
 
-                                            </tr>
+                                                </tr>
 
                                                 sumprice = item.FinalPrice;
                                             }
@@ -235,7 +235,7 @@
                                             <div class="cart-empty-img mb-4 mt-4">
 
 
-                                                <img src="/CssSite/ImageSite/shopping-cart.png">
+                                                <img src="/CssSite/ImageSite/menu-main/shopping-cart.png">
 
 
                                             </div>

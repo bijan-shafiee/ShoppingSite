@@ -13,7 +13,7 @@ namespace _98market.DataLayer.Entities.Entitieproduct
 
         [Display(Name = "عنوان دسته بندی به فارسی")]
         [Required(ErrorMessage = "وارد کردن {0} اجباری می باشد .")]
-        [MinLength(3, ErrorMessage = "{0} نمیتواند کمتر از {1} باشد")]
+        [MinLength(2, ErrorMessage = "{0} نمیتواند کمتر از {1} باشد")]
         [MaxLength(100, ErrorMessage = "{0} نمیتواند بیشتر از {1} باید")]
         public string CategoryFaTitle { get; set; }
 

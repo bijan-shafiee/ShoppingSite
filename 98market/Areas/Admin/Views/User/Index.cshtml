@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  |  نمایش کاربران</title>
 @model IEnumerable<user>
 @using _98market.Core.ExtentionMethod
 
@@ -34,15 +34,15 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                    <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">@item.userid</td>
-                                        <td class="sorting_1">@item.email</td>
-                                        <td class="sorting_1">@item.username @item.userfamily</td>
-                                        <td class="sorting_1">@item.CreateAccount.MilatiToShamsi()</td>
-                                        <td class="sorting_1">@item.phone</td>
-                                        <td class="sorting_1"><a href="/admin/user/roles/@item.userid" target="_blank">دسترسی ها</a></td>
-                                        <td class="sorting_1"><a href="/admin/user/addresses/@item.userid" target="_blank">آدرس ها</a></td>
-                                    </tr>
+                                            <tr class="gradeX odd" role="row">
+                                                <td class="sorting_1">@item.userid</td>
+                                                <td class="sorting_1">@item.email</td>
+                                                <td class="sorting_1">@item.username @item.userfamily</td>
+                                                <td class="sorting_1">@item.CreateAccount.MilatiToShamsi()</td>
+                                                <td class="sorting_1">@item.phone</td>
+                                                <td class="sorting_1"><a href="/admin/user/roles/@item.userid" target="_blank">دسترسی ها</a></td>
+                                                <td class="sorting_1"><a href="/admin/user/addresses/@item.userid" target="_blank">آدرس ها</a></td>
+                                            </tr>
                                         }
                                     }
                                     else

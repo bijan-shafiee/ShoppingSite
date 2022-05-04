@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using _98market.Core.ZarinPal;
 
 namespace _98market.Controllers
 {
@@ -23,14 +25,16 @@ namespace _98market.Controllers
         private ICartService _CartService;
         private IDiscountService _Discountservice;
         private IAddressService _addressService;
+        private readonly IZarinPalFactory _zarinPalFactory;
         public ProductController(Iproductservice productservice, IBrandService Brandservice, IAddressService addressService,
-            ICategoryService Categoryservice, ICartService CartService, IDiscountService Discountservice)
+            ICategoryService Categoryservice, ICartService CartService, IDiscountService Discountservice, IZarinPalFactory zarinPalFactory)
         {
             _productservice = productservice;
             _Brandservice = Brandservice;
             _Categoryservice = Categoryservice;
             _CartService = CartService;
             _Discountservice = Discountservice;
+            _zarinPalFactory = zarinPalFactory;
             _addressService = addressService;
         }
 
@@ -499,24 +503,36 @@ namespace _98market.Controllers
             int userid = int.Parse(User.FindFirst("userid").Value);
             Cart cart = _CartService.FindCartBuyeuserid(userid);
 
-            var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
-            var result = zarinpal.PaymentRequest("پرداخت سبد خرید کالا مارکت", "https://localhost:44303/onlinepayment/" + cart.cartid);
+            //var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
+            //var result = zarinpal.PaymentRequest("پرداخت سبد خرید کالا مارکت", "https://localhost:44303/onlinepayment/" + cart.cartid);
 
-            if (result.Result.Status == 100)
-            {
-                //  var a = result.Result.Link;
-                //  var a1 = result.Result.Authority;
+            //if (result.Result.Status == 100)
+            //{
+            //    //  var a = result.Result.Link;
+            //    //  var a1 = result.Result.Authority;
 
-                return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + result.Result.Authority);
-                //  return Redirect(a);
-            }
+            //    return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + result.Result.Authority);
+            //    //  return Redirect(a);
+            //}
 
-            return null;
+          
+            var paymentResponse =
+                _zarinPalFactory.CreatePaymentRequest(cart.TotalPrice, "خرید از درگاه پرداخت ماکیت 98", cart.cartid);
+
+
+            return Redirect(
+                $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
+
         }
 
         [Route("onlinepayment/{cartid}")]
         public IActionResult onlinepayment(int cartid)
         {
+
+
+            var cart = _CartService.findcartbuyeid(cartid);
+
+
             bool res = false;
             ViewBag.RefId = 0;
             ViewBag.PaymentDate = DateTime.Now.MilatiToShamsi();
@@ -527,7 +543,7 @@ namespace _98market.Controllers
             {
                 var authority = HttpContext.Request.Query["Authority"];
 
-                var cart = _CartService.findcartbuyeid(cartid);
+
 
                 var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
                 var result = zarinpal.Verification(authority).Result;
@@ -547,9 +563,35 @@ namespace _98market.Controllers
                 ViewBag.PaymentTime = cart.PaymentDate.TimeOfDay.ToString();
             }
             ViewBag.res = res;
+
+
+
             return View(_CartService.DetailCartForOnlinePayment(cartid));
         }
+        public IActionResult CallBack([FromQuery] string authority, [FromQuery] string status,
+            [FromQuery] string cartId)
+        {
 
+            var cart = int.Parse(cartId);
+            var orderAmount = _productservice.GetAmountBy(cart).TotalPrice;
+            if (orderAmount == 0) return null;//نمایش متن پرداخت ناموفق به کاربر
+            var verificationResponse =
+                _zarinPalFactory.CreateVerificationRequest(authority,
+                    orderAmount.ToString());
+
+            var result = new PaymentResult();
+            if (status == "OK" && verificationResponse.Status >= 100)
+            {
+                var issueTrackingNo = _productservice.PaymentSucceeded(int.Parse(cartId), verificationResponse.RefID);
+                result = result.Succeeded("پرداخت با موفقیت انجام شد.", issueTrackingNo);
+                return RedirectToPage("/PaymentResult", result);
+            }
+
+            result = result.Failed(
+                "پرداخت با موفقیت انجام نشد. درصورت کسر وجه از حساب، مبلغ تا 24 ساعت دیگر به حساب شما بازگردانده خواهد شد.");
+           
+            return RedirectToAction(nameof(onlinepayment), result);//آدرس پرداخت موفق
+        }
 
         #endregion
 

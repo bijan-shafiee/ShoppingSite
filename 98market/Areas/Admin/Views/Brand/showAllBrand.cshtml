@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | نمایش برند ها </title>
 @model IEnumerable<brand>
 
 @{
@@ -71,17 +71,17 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                    <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">@item.brandid</td>
-                                        <td class="sorting_1">@item.brandname</td>
-                                        <td class="sorting_1"><a href="/CssSite/ImageSite/brand/@item.Image" target="_blank">نمایش</a></td>
-                                      
+                                            <tr class="gradeX odd" role="row">
+                                                <td class="sorting_1">@item.brandid</td>
+                                                <td class="sorting_1">@item.brandname</td>
+                                                <td class="sorting_1"><a href="/CssSite/ImageSite/brand/@item.Image" target="_blank">نمایش</a></td>
 
-                                        <td class="actions">
-                                            <a href="/Admin/brand/updatebrand/@item.brandid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                    </tr>
+
+                                                <td class="actions">
+                                                    <a href="/Admin/brand/updatebrand/@item.brandid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                    <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                </td>
+                                            </tr>
 
                                         }
                                     }

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using _98market.Core.Sms.Sms;
+using _98market.DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace _98market.Core.Service
@@ -14,9 +16,13 @@ namespace _98market.Core.Service
     public class productservice : Iproductservice
     {
         private _98marketContext _Context;
-        public productservice(_98marketContext Context)
+        private readonly ISmsService _smsService;
+        private readonly IUserservice _userService;
+        public productservice(_98marketContext Context, ISmsService smsService, IUserservice userService)
         {
             _Context = Context;
+            _smsService = smsService;
+            _userService = userService;
         }
 
 
@@ -1152,5 +1158,27 @@ namespace _98market.Core.Service
             _Context.SaveChanges();
             return gallery.productid;
         }
+
+        public Cart GetAmountBy(int cartId) => _Context.cart.Find(cartId);
+
+        public string PaymentSucceeded(int cartId, string refId)
+        {
+            var order = _Context.cart.Find(cartId);
+            if(order==null) return null;
+            order.RefId = refId;
+            order.ispay = true;
+
+            var trackingCode = CodeGenerator.Generate();
+            order.TrackingCode= trackingCode;
+          
+            _Context.SaveChanges();
+
+            var (name, mobile) = _userService.GetUserBy(order.userid);
+
+            //_smsService.Send(mobile,
+            //    $"{name} گرامی سفارش شما با شماره پیگیری {trackingCode} با موفقیت پرداخت شد و ارسال خواهد شد.");
+            return trackingCode;
+        }
+       
     }
 }

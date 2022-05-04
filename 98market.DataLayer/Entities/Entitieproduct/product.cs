@@ -14,7 +14,7 @@ namespace _98market.DataLayer.Entities.Entitieproduct
 
         [Display(Name = "عنوان فارسی")]
         [Required(ErrorMessage = "لطفا {0} را وارد نمایید .")]
-        [MinLength(3, ErrorMessage = "{0} نمیتواند کمنتر از {1} باشد .")]
+        [MinLength(2, ErrorMessage = "{0} نمیتواند کمنتر از {1} باشد .")]
         [MaxLength(500, ErrorMessage = "{0} نمیتواند بیشتر از {1} باشد .")]
         public string productFaTitle { get; set; }
 

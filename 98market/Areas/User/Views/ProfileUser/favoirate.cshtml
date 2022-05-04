@@ -1,4 +1,5 @@
-﻿@model IEnumerable<showfavoirateViewmodel>
+﻿<title>پنل کاربری  | محصولات محبوب</title>
+@model IEnumerable<showfavoirateViewmodel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var information = ViewBag.information as informationAccountViewmodel;
@@ -32,7 +33,7 @@
                                                 <tr>
                                                     <th scope="row">
                                                         <div class="favorites-product-img">
-                                                            <img src="/CssSite/ImageSite/@item.productimage">
+                                                            <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
                                                             <div class="product-rate">
                                                                 @for (int i = 1; i <= item.productstar; i++)
                                                                 {

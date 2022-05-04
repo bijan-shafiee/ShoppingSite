@@ -30,5 +30,6 @@ namespace _98market.Core.Service.Interface
         List<useraddress> GetAddressesOfUser(int userId);
         int UpdateRolesOfUser(int userId, List<int> roleIds);
         int UpdatePermissionsOfUser(int userId, List<int> permissionIds);
+        (string name, string mobile) GetUserBy(int id);
     }
 }
