@@ -10,10 +10,24 @@ namespace _98market.Core.Service.Interface
 {
     public interface IUserservice
     {
+        bool ExistMobile(string mobile);
+        void RegisterUser(RegisteMobilerViewModel model);
+        bool ActiveCodeTrue(ActiveCodeViewModel model);
+
+        user ActiveUser(ActiveCodeViewModel model);
+
+        void SendSMSForLogin(LoginMobileViewModel model);
+
+
+        ///
+
+
+
         int AddUser(user user);
         bool updateuser(user user);
         bool deleteuser(user user);
         bool ExistEmail(string email, int id);
+        bool ExistPhone(string phone);
         user Finduser(int userid, string Code);
         user FindUserbuyeEmail(string Email);
         user LoginUser(string email, string Password);

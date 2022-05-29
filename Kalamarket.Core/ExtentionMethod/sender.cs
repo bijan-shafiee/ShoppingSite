@@ -8,18 +8,18 @@ public class sendEmail
         {
             try
             {
-                MailMessage message = new MailMessage("no-reply@storebnd.ir", to);
-                message.Body = body;
-                message.Subject = subject;
-                message.IsBodyHtml = true;
-                NetworkCredential mailAuthentication = new NetworkCredential("no-reply@storebnd.ir", "1v3Wuv%3");
-                SmtpClient mailClient = new SmtpClient("mail.storebnd.ir", 587);
-                mailClient.EnableSsl = true;
-                mailClient.UseDefaultCredentials = false;
-                mailClient.Credentials = mailAuthentication;
-                mailClient.Send(message);
-                return true;
-            }
+            MailMessage message = new MailMessage("shkala.info@gmail.com", to);
+            message.Body = body;
+            message.Subject = subject;
+            message.IsBodyHtml = true;
+            NetworkCredential mailAuthentication = new NetworkCredential("shkala.info@gmail.com", "9898.9898");
+            SmtpClient mailClient = new SmtpClient("smtp.gmail.com", 587);
+            mailClient.EnableSsl = true;
+            mailClient.UseDefaultCredentials = false;
+            mailClient.Credentials = mailAuthentication;
+            mailClient.Send(message);
+            return true;
+        }
             catch (Exception)
             {
                 return false;

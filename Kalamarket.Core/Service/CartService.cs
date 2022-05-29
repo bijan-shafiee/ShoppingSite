@@ -93,7 +93,7 @@ namespace _98market.Core.Service
         {
             var cart = _Context.cart.Find(cartid);
             var detail = _Context.CartDetail.FirstOrDefault(c => c.Cartid == cartid && c.CartDetailid == detailid);
-            cart.TotalPrice += detail.count * detail.price;
+            cart.TotalPrice = detail.count * detail.price;
             cart.FinalPrice = cart.TotalPrice;
             _Context.Update(cart);
             _Context.SaveChanges();

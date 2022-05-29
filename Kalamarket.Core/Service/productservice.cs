@@ -107,6 +107,21 @@ namespace _98market.Core.Service
                 return 0;
             }
         }
+
+        public void ActiveFelter(int id)
+        {
+            var felter = _Context.propertyNames.Find(id);
+            if (felter == null) return;
+            felter.Filter();
+            _Context.SaveChanges();
+        } 
+        public void DeActiveFelter(int id)
+        {
+            var felter = _Context.propertyNames.Find(id);
+            if (felter == null) return;
+            felter.RestoreFilter();
+            _Context.SaveChanges();
+        }
         public bool ExistPropertyname(string name, int id)
         {
             return _Context.propertyNames.Any(p => p.PropertyTitle == name && p.PropertyNameId != id);
@@ -195,6 +210,13 @@ namespace _98market.Core.Service
             {
                 return 0;
             }
+        }
+        public void DeleteProduct(int id)
+        {
+            product product = findproductbuyeid(id);
+            product.IsDelete = true;
+            _Context.Update(product);
+            _Context.SaveChanges();
         }
 
         public product findproductbuyeid(int productid)
@@ -310,6 +332,20 @@ namespace _98market.Core.Service
             {
                 return 0;
             }
+        }
+        public void ActivePrice(int productPriceid)
+        {
+            var Active = _Context.ProductPrices.Find(productPriceid);
+            if (Active == null) return;
+            Active.Active();
+            _Context.SaveChanges();
+        }
+        public void DeActivePrice(int id)
+        {
+            var DeActive = _Context.ProductPrices.Find(id);
+            if (DeActive == null) return;
+            DeActive.DeActive();
+            _Context.SaveChanges();
         }
 
 
@@ -560,12 +596,14 @@ namespace _98market.Core.Service
             List<int> brandid, int minprice = 0, int maxprice = 0, int sort = 1)
         {
 
+            //aزف
+
             IQueryable<product> products = _Context.products.Include(p => p.PropertyValues)
                 .Where(c => c.productFaTitle.Contains(text) || c.productEnTitle.Contains(text) || c.productTag.Contains(text));
 
-            if (categoryid.Count() > 0) 
+            if (categoryid.Count() > 0)
             {
-                products = products.Where(c =>  c.IsDelete && categoryid.Contains(c.Categoryid) || categoryid.Contains(c.Category.SubCategory.Value));
+                products = products.Where(c => categoryid.Contains(c.Categoryid) || categoryid.Contains(c.Category.SubCategory.Value));
             }
             if (brandid.Count() > 0)
             {
@@ -729,7 +767,7 @@ namespace _98market.Core.Service
             {
                 return _Context.reviews.Where(r => r.productid == productid).FirstOrDefault();
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -1018,18 +1056,18 @@ namespace _98market.Core.Service
         public CommentScalesViewModel GetAverageOfCommentScales(int productId)
         {
             try
-            { 
-                var comments = _Context.comments.Where(c => c.productid == productId && c.IsActive == true);
-            CommentScalesViewModel scales = new CommentScalesViewModel()
             {
-                Star = Convert.ToInt32(Math.Floor(comments.Average(c => c.Star))),
-                Quality = Convert.ToInt32(Math.Floor(comments.Average(c => c.Quality))),
-                BuyWorth = Convert.ToInt32(Math.Floor(comments.Average(c => c.BuyWorth))),
-                Innovation = Convert.ToInt32(Math.Floor(comments.Average(c => c.Innovation))),
-                Abilties = Convert.ToInt32(Math.Floor(comments.Average(c => c.Abilities))),
-                EaseOfUse = Convert.ToInt32(Math.Floor(comments.Average(c => c.EaseOfUse))),
-                Appearance = Convert.ToInt32(Math.Floor(comments.Average(c => c.Appearance)))
-            };
+                var comments = _Context.comments.Where(c => c.productid == productId && c.IsActive == true);
+                CommentScalesViewModel scales = new CommentScalesViewModel()
+                {
+                    Star = Convert.ToInt32(Math.Floor(comments.Average(c => c.Star))),
+                    Quality = Convert.ToInt32(Math.Floor(comments.Average(c => c.Quality))),
+                    BuyWorth = Convert.ToInt32(Math.Floor(comments.Average(c => c.BuyWorth))),
+                    Innovation = Convert.ToInt32(Math.Floor(comments.Average(c => c.Innovation))),
+                    Abilties = Convert.ToInt32(Math.Floor(comments.Average(c => c.Abilities))),
+                    EaseOfUse = Convert.ToInt32(Math.Floor(comments.Average(c => c.EaseOfUse))),
+                    Appearance = Convert.ToInt32(Math.Floor(comments.Average(c => c.Appearance)))
+                };
                 return @scales;
             }
             catch
@@ -1042,7 +1080,7 @@ namespace _98market.Core.Service
         {
             var propertyNameIds = _Context.propertyname_Categories.Where(pc => pc.Categoryid == categoryId).Select(pc => pc.PropertyNameId);
             return _Context.propertyNames.Include(pn => pn.PropertyValues)
-                .Where(pn => propertyNameIds.Contains(pn.PropertyNameId)).ToList();
+                .Where(pn => propertyNameIds.Contains(pn.PropertyNameId)).Where(x=>!x.IsFelter).ToList();
         }
 
         public void AddProductSell(int cartId)
@@ -1050,7 +1088,7 @@ namespace _98market.Core.Service
             var cart = _Context.cart.Include(c => c.cartDetails).Single(c => c.cartid == cartId);
             foreach (var detail in cart.cartDetails)
             {
-               
+
                 var productId = _Context.ProductPrices.FirstOrDefault(x => x.Productpriceid == detail.productid)
                     ?.productid;
                 var product = _Context.products.FirstOrDefault(x => x.productid == productId);
@@ -1164,21 +1202,21 @@ namespace _98market.Core.Service
         public string PaymentSucceeded(int cartId, string refId)
         {
             var order = _Context.cart.Find(cartId);
-            if(order==null) return null;
+            if (order == null) return null;
             order.RefId = refId;
             order.ispay = true;
 
             var trackingCode = CodeGenerator.Generate();
-            order.TrackingCode= trackingCode;
-          
+            order.TrackingCode = trackingCode;
+
             _Context.SaveChanges();
 
             var (name, mobile) = _userService.GetUserBy(order.userid);
 
-            //_smsService.Send(mobile,
-            //    $"{name} گرامی سفارش شما با شماره پیگیری {trackingCode} با موفقیت پرداخت شد و ارسال خواهد شد.");
+            _smsService.Send(mobile,
+                $"{name} گرامی سفارش شما با شماره پیگیری {trackingCode} با موفقیت پرداخت شد و ارسال خواهد شد.");
             return trackingCode;
         }
-       
+
     }
 }

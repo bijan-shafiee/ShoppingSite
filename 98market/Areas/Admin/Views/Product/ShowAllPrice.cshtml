@@ -71,7 +71,7 @@
                                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">گارانتی</th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">تاریخ ایجاد</th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">تاریخ پایان تخفیف</th>
-    
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> وضعیت  </th>
                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 138px;" aria-label="فعالیت">فعالیت</th>
                                     </tr>
                                 </thead>
@@ -80,24 +80,34 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                            <tr class="gradeX odd" role="row">
-                                                <td class="sorting_1">@item.Productpriceid</td>
-                                                <td class="sorting_1">@item.mainprice</td>
-                                                <td class="sorting_1">@item.sepcialprice</td>
-                                                <td class="sorting_1">@item.count</td>
-                                                <td class="sorting_1">@item.MaxorderCount</td>
-                                                <td class="sorting_1">@item.Colorname</td>
-                                                <td class="sorting_1">@item.guranteename</td>
-                                                <td class="sorting_1">@item.Createdate.MilatiToShamsi()</td>
-                                                <td class="sorting_1">@item.EndDateDisCount?.MilatiToShamsi()</td>
+                                    <tr class="gradeX odd" role="row">
+                                        <td class="sorting_1">@item.Productpriceid</td>
+                                        <td class="sorting_1">@item.mainprice</td>
+                                        <td class="sorting_1">@item.sepcialprice</td>
+                                        <td class="sorting_1">@item.count</td>
+                                        <td class="sorting_1">@item.MaxorderCount</td>
+                                        <td class="sorting_1">@item.Colorname</td>
+                                        <td class="sorting_1">@item.guranteename</td>
+                                        <td class="sorting_1">@item.Createdate.MilatiToShamsi()</td>
+                                        <td class="sorting_1">@item.EndDateDisCount?.MilatiToShamsi()</td>
+                                        @if (item.IsActive == true)
+                                        {
+                                            <td class="sorting_1" style="color:forestgreen">فعال</td>
+                                        }
+                                        else if (item.IsActive == false)
+                                        {
+                                            <td class="sorting_1" style="color:darkred">غیر فعال</td>
+                                        }
 
-                                                <td class="actions">
+                                    <td class="actions">
 
-                                                    @*<a href="/admin/product/showreview/@item.Productpriceid" class=" on-editing cancel-row"><i class="fa fa-product-hunt"></i></a>*@
-                                                    <a href="/admin/product/updateproduct/@item.Productpriceid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                                    <a href="/Admin/slider/deleteslider/@item.Productpriceid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                                </td>
-                                            </tr>
+                                        @*<a href="/admin/product/showreview/@item.Productpriceid" class=" on-editing cancel-row"><i class="fa fa-product-hunt"></i></a>*@
+                                        <a href="/admin/product/updateproduct/@item.Productpriceid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        @*<a href="/Admin/slider/deleteslider/@item.Productpriceid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>*@
+                                        <a href="/admin/Product/ActivePrice/@item.Productpriceid" class="on-editing save-row" title="فعال کردن"><i class="fa ti-check"></i></a>
+                                        <a href="/admin/Product/DeActivePrice/@item.Productpriceid" class="on-editing save-row" title="غیرفعال کردن"><i class="fa ti-na"></i></a>
+                                    </td>
+                                    </tr>
 
                                         }
                                     }

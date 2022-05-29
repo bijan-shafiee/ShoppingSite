@@ -45,8 +45,8 @@
                                                 <tr>
                                                     <th scope="row" class="th-img">
                                                         <div class="thumb-img">
-                                                            <a href="#">
-                                                                <img src="/thumb/@item.productimage">
+                                                            <a href="/product/detail/@item.productid">
+                                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
                                                             </a>
                                                             <div class="product-rate">
                                                                 @for (int i = 1; i <= item.productstar; i++)
@@ -58,8 +58,10 @@
                                                             </div>
                                                         </div>
                                                     </th>
-                                                    <td>
-                                                        @item.productFaTitle
+                                                    <td style="max-width100px;">
+                                                        <a href="/product/detail/@item.productid">
+                                                            @item.productFaTitle
+                                                        </a>
                                                     </td>
                                                     <td>@item.commenttitle</td>
                                                     <td>
@@ -73,31 +75,35 @@
                                         </tbody>
                                     </table>
                                     <div class="profile-comment-thumb">
-                                        <div class="profile-comment-img">
-                                            <a href="#">
-                                                <img src="assets/images/slider-product/SL1200_-300x300.jpg">
-                                            </a>
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="profile-comment-img">
+                                                <a href="/product/detail/@item.productid">
+                                                    <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
+                                                </a>
+                                            </div>
+                                            <div class="product-rate">
+                                                @for (int i = 1; i <= item.productstar; i++)
+                                                {
+                                                    <i class="fa fa-star active"></i>
+                                                }
+                                            </div>
+                                            <div class="profile-comment-content">
+                                                <h4>
+                                                   <a href="/product/detail/@item.productid" style="color:black">
+                                                    @item.productFaTitle
+                                                       </a>
+                                                    <span class="@(item.isactive?"text-red":"text-green")">@(item.isactive?"تایید شده":"تایید نشده")</span>
+                                                    <p>@item.commenttitle</p>
+                                                </h4>
+                                                <ul class="profile-comment-actions mb-0">
+                                                    <li>
+                                                        <button class="profile-comment-remove"><i class="fa fa-trash"></i></button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        }
                                         </div>
-                                        <div class="product-rate">
-                                            <i class="fa fa-star active"></i>
-                                            <i class="fa fa-star active"></i>
-                                            <i class="fa fa-star active"></i>
-                                            <i class="fa fa-star active"></i>
-                                            <i class="fa fa-star active"></i>
-                                        </div>
-                                        <div class="profile-comment-content">
-                                            <h4>
-                                                لپ تاپ چووی الترابوک 14 اینچ پرو
-                                                <span class="profile-comment-status-review">تایید شده</span>
-                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                                            </h4>
-                                            <ul class="profile-comment-actions mb-0">
-                                                <li>
-                                                    <button class="profile-comment-remove"><i class="fa fa-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

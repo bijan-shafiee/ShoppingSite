@@ -23,7 +23,8 @@
                                             <tr>
                                                 <th scope="col" width="50"> </th>
                                                 <th scope="col">نام محصول</th>
-                                                <th scope="col">قیمت</th>
+                                                <th scope="col"> قیمت اصلی</th>
+                                                <th scope="col"> قیمت اصلی</th>
                                                 <th class="actions-th"></th>
                                             </tr>
                                         </thead>
@@ -51,6 +52,7 @@
                                                             item.productprice +" تومان ")
                                                         </span>
                                                     </td>
+
                                                     <td class="text-left actions">
                                                         <a href="/Product/RemoveFavourite/@item.productid" class="remove-product"><i class="mdi mdi-close"></i></a>
                                                     </td>
@@ -66,7 +68,7 @@
                                         <div class="profile-recent-fav">
 
                                             <a href="/product/detail/@item.productid" class="img-profile-favorites">
-                                                <img src="/CssSite/ImageSite/@item.productimage">
+                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
                                             </a>
                                             <div class="profile-recent-fav-col">
                                                 <a href="/product/detail/@item.productid">@item.productfatitle</a>

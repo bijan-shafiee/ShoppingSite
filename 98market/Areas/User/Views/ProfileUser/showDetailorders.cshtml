@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var information = ViewBag.information as informationAccountViewmodel;
+
 }
 
 <!-- profile------------------------------->
@@ -20,131 +21,144 @@
                             <div class="profile-stats">
                                 <div class="table-order-view">
                                     <h2 class="order-view-title mt-4 mb-3">جزییات سفارش </h2>
-                                    <table class="table table-borderless">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">نام محصول</th>
-                                                <th scope="col"> تعداد</th>
-                                                <th scope="col"> قیمت واحد</th>
-                                                <th scope="col"> قیمت کل </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in Model)
-                                            {
+                                    <div class="comparison">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">نام محصول</th>
+                                                    <th scope="col"> تعداد</th>
+                                                    <th scope="col"> رنگ</th>
+                                                    <th scope="col"> گارانتی </th>
+                                                    <th scope="col"> قیمت واحد</th>
+                                                    <th scope="col"> قیمت کل </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
 
-                                            <tr>
-                                                <td class="product-name">@item.productFaTitle</td>
-                                                <td class="product-total">
-                                                    <span class="amount">
-                                                        @*@item.price*@
-                                                    </span>
-                                                </td>
-                                                <td class="product-total">
-                                                    <span class="amount">                                                     
-                                                        @item.price
-                                                    </span>
-                                                </td><td class="product-total">
-                                                    <span class="amount">
-                                                        @*@item.price*@
-                                                    </span>
-                                                </td>
-                                            </tr>
+                                                    <tr>
+                                                        <td class="product-name">@item.productFaTitle</td>
+                                                        <td class="product-total"></td>
+                                                        <td class="product-total"></td>
+                                                        <td class="product-total">
+                                                            <span class="amount">
+                                                                @*@item.price*@
+                                                            </span>
+                                                        </td>
+                                                        <td class="product-total">
+                                                            <span class="amount">
+                                                                @*@item.price*@
+                                                            </span>
+                                                        </td>
+                                                        <td class="product-total">
+                                                            <span class="amount">
+                                                                @*@item.price*@
+                                                            </span>
+                                                        </td>
+                                                    </tr>
 
 
-                                            }
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th scope="row">مجموع:</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <span>تومان</span>
-                                                        @Model.First().Totalprice
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">حمل و نقل:</th>
-                                                <td>حمل و نقل رایگان</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">وضعیت سفارش:</th>
-                                                @if (Model.First().Status == 0)
-                                                {
-                                                    <td>درحال بررسی</td>
                                                 }
-                                                else if (Model.First().Status == 1)
-                                                {
-                                                    <td>پذیرش</td>
-                                                }
-                                                else if (Model.First().Status == 2)
-                                                {
-                                                    <td>آماده ارسال</td>
-                                                }
-                                                else if (Model.First().Status == 3)
-                                                {
-                                                    <td>ارسال شده</td>
-                                                }
-                                                else if (Model.First().Status == 4)
-                                                {
-                                                    <td>تحویل شده</td>
-                                                }
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">کد رهگیری پستی:</th>
-                                                <td>@Model.First().TrackingCode</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">روش پرداخت:</th>
-                                                <td>انتقال مستقیم بانکی</td>
-                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th scope="row">هزینه ارسال:</th>
+                                                    <td> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">مجموع:</th>
+                                                    <td>
+                                                        <span class="amount">
+                                                            <span>تومان</span>
+                                                            @Model.First().Totalprice
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">شناسه سفارش:</th>
+                                                    <td> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">وضعیت سفارش:</th>
+                                                    @if (Model.First().Status == 0)
+                                                    {
+                                                        <td>درحال بررسی</td>
+                                                    }
+                                                    else if (Model.First().Status == 1)
+                                                    {
+                                                        <td>پذیرش</td>
+                                                    }
+                                                    else if (Model.First().Status == 2)
+                                                    {
+                                                        <td>آماده ارسال</td>
+                                                    }
+                                                    else if (Model.First().Status == 3)
+                                                    {
+                                                        <td>ارسال شده</td>
+                                                    }
+                                                    else if (Model.First().Status == 4)
+                                                    {
+                                                        <td>تحویل شده</td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">کد رهگیری پستی:</th>
+                                                    <td>@Model.First().TrackingCode</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">روش پرداخت:</th>
+                                                    <td>انتقال مستقیم بانکی</td>
+                                                </tr>
 
-                                        </tfoot>
-                                    </table>
-                                    <br>
-                                    <br>
-                                    <div class="order-view-customer">
-                                        <div class="box-header">
-                                            <span class="box-title">نشانی ما</span>
-                                        </div>
-                                        <div class="profile-address-item">
-                                            <div class="profile-address-content">
-                                                <ul class="profile-address-info">
-                                                    <li>
-                                                        <div class="profile-address-info-item location">
-                                                            <span class="title-address">آدرس : </span>
-                                                            هرمزگان،رودان
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="profile-address-info-item location">
-                                                            <span class="title-address">ایمیل : </span>
-                                                            bijan_shafiee@yahoo.com
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="profile-address-info-item location">
-                                                            <span class="title-address">شماره تلفن : </span>
-                                                            09179105907
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="profile-address-info-item location">
-                                                            <span class="title-address">کد پستی : </span>
-                                                            7991753349
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                        @*<div class="comparison">*@
+                                            <br>
+                                            <br>
+                                            <div class="order-view-customer">
+                                                <div class="box-header">
+                                                    <span class="box-title">نشانی ما</span>
+                                                </div>
+                                                <div class="profile-address-item">
+                                                    <div class="profile-address-content">
+                                                        <ul class="profile-address-info">
+                                                            <li>
+                                                                <div class="profile-address-info-item location">
+                                                                    <span class="title-address">آدرس : </span>
+                                                                    هرمزگان،رودان
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="profile-address-info-item location">
+                                                                    <span class="title-address">ایمیل : </span>
+                                                                    bijan_shafiee@yahoo.com
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="profile-address-info-item location">
+                                                                    <span class="title-address">شماره تلفن : </span>
+                                                                    09179105907
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="profile-address-info-item location">
+                                                                    <span class="title-address">کد پستی : </span>
+                                                                    7991753349
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
 </div>

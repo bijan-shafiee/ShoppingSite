@@ -57,7 +57,7 @@ namespace _98market.DataLayer.Context
 
         public DbSet<Cart> cart { get; set; }
         public DbSet<CartDetail> CartDetail { get; set; }
-
+        public DbSet<TrackingPrice> TrackingPrice { get; set; }
         #endregion
 
         #region Discount

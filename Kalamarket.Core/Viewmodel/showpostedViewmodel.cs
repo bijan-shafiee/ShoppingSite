@@ -33,7 +33,7 @@ namespace _98market.Core.Viewmodel
         public string Phone { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
         public int Plaque { get; set; }
         public int Unit { get; set; }
         public string Address { get; set; }

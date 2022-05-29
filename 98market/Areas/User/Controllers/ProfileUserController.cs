@@ -103,7 +103,7 @@ namespace _98market.Areas.User.Controllers
                 Landlinephonenumber = viewmodel.Landlinephonenumber,
                 phone = viewmodel.phone,
                 Plaque = viewmodel.Plaque,
-                postalCode = (int)viewmodel.postalCode,
+                postalCode = (string)viewmodel.postalCode,
                 provinceid = viewmodel.provinceid,
                 Recipientname = viewmodel.Recipientname,
                 unit = viewmodel.unit,

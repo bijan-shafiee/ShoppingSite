@@ -13,5 +13,6 @@ namespace _98market.Core.Viewmodel
         public int Totalprice { get; set; }
         public int Status { get; set; }
         public string TrackingCode { get; set; }
+
     }
 }

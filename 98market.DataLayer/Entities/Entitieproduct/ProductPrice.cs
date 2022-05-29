@@ -38,6 +38,18 @@ namespace _98market.DataLayer.Entities.Entitieproduct
 
         public DateTime Createdate { get; set; }
         public DateTime? EndDateDisCount { get; set; }
+        public bool IsActive { get; set; }
+
+
+        public void Active()
+        {
+            IsActive = true;
+        }
+
+        public void DeActive()
+        {
+            IsActive = false;
+        }
 
         #region relation
         [ForeignKey("productcolorid")]

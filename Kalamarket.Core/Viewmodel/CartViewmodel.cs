@@ -25,5 +25,6 @@ namespace _98market.Core.Viewmodel
         public int TotalPrice { get; set; }
         public int FinalPrice { get; set; }
         public int Cartid { get; set; }
+        public bool IsSuccededPaymnet { get; set; }
     }
 }

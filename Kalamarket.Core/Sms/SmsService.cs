@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using _98market.Core.Sms.Sms;
 using Microsoft.Extensions.Configuration;
-using SmsIrRestful;
+//using SmsIrRestful;
 
 namespace _98market.Core.Sms
 {
@@ -16,11 +17,40 @@ namespace _98market.Core.Sms
             _configuration = configuration;
         }
 
-        public void Send(string number, string message)
+        public int Send(string phone, string message)
         {
-            Kavenegar.KavenegarApi api = new Kavenegar.KavenegarApi("4E436D47786E5A6E7A57624D5359542F7348496471423142474F6B635977367770387036774E494435334D3D");
-            var result = api.Send("", number, message);
+            if (string.IsNullOrWhiteSpace(phone)) return -1;
+            var resulCode = -1;
+
+            var client = new HttpClient();
+            var formContext = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"Username","bijan98shafiee" },
+                  {"Passwod","Shafiee98" },
+                { "PhoneNumber","50002200889117" },
+
+            { "MessageBody",message},
+            { "RecNumber",phone},
+            { "SmsClass","1"},
+            });
+
+
+            var url = "https://RayganSMS.com/SendMessageWithPost.ashx";
+            var response = client.PostAsync(url, formContext).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                if (!string.IsNullOrWhiteSpace(result))
+                {
+                    resulCode = int.Parse(result);
+                }
+
+            }
+            return resulCode;
         }
 
     }
+
+   
 }
+

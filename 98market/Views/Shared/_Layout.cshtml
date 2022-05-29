@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-
+    <meta name="enamad" content="280319" />
     <link rel="shortcut icon" href="~/CssSite/ImageSite/header/logo_addressbar.ico" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,23 @@
     <link rel="stylesheet" href="/CssSite/Css/main.css">
     <link rel="stylesheet" href="/CssSite/Css/responsive.css">
     @RenderSection("Css", false)
+    <!--Start imber.live Widget-->
+    <script type="text/javascript">
+        !(function () {
+            window.IMBER_LANG = "fa"; var a = window, d = document;
+            function im() {
+                window.IMBER_ID = "u3v74zl3ll376cip7"; window.IMBER_TOKEN = localStorage.getItem("imber_token");
+                var i = document.createElement("div"); i.id = "imber-top-parent"; var x = document;
+                var s = x.createElement("script"); s.src =
+                    "https://widget.imber.live/imber?id=" + window.IMBER_ID + "&token=" + (window.IMBER_AUTH
+                        ? "null&auth=" + JSON.stringify(window.IMBER_AUTH) : window.IMBER_TOKEN);
+                s.async = 1; x.getElementsByTagName("head")[0].appendChild(s);
+                x.getElementsByTagName("body")[0].appendChild(i); window.$imber = {};
+            } "complete" === d.readyState ? im() : a.attachEvent ? a.attachEvent("onload", im)
+                : a.addEventListener("load", im, !1);
+        })();
+    </script>
+    <!--End imber.live Widget-->
 </head>
 <body>
     <header class="header-main">
@@ -87,7 +104,7 @@
                                         else
                                         {
                                             <div class="nav-account d-block pl">
-                                                <span class="title-account"><a href="/Account/Register">ثبت نام</a> / <a href="/Account/Login">ورود</a></span>
+                                                <span class="title-account"><a href="/Account/Register">ثبت نام</a> / <a href="/Account/LoginMobile">ورود</a></span>
                                             </div>
                                         }
                                     </div>

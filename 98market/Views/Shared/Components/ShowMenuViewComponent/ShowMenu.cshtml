@@ -10,7 +10,7 @@
     @foreach (var item in Model.Where(c => c.SubCategory == null))
     {
         <li id="nav-menu-item" class="menu-item nav-overlay">
-            <a href="#" class="current-link-menu">
+            <a href="/Product/search?categoryid=@item.Categoryid" class="current-link-menu">
                 @item.CategoryFaTitle
             </a>
             @if (Model.Where(c => c.SubCategory == item.Categoryid).Count() > 0)

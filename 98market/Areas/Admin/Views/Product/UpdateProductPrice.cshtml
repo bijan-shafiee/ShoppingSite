@@ -1,0 +1,88 @@
+﻿<title>پنل مدیریت  | ویرایش کدهای تخفیف</title>
+@model _98market.DataLayer.Entities.Entitieproduct.ProductPrice
+
+@{
+    ViewData["Title"] = "ویرایش  قیمت";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-12 mt-4 p-3">
+    <div class="card-box">
+
+
+
+        <form asp-action="EditDiscount" method="post" style="margin-top:5%;">
+            <input type="hidden" asp-for="Productpriceid" />
+            <div class="form-group">
+                <label asp-for="mainprice" for="emailAddress"></label>
+                <input asp-for="mainprice" type="text" parsley-trigger="change" class="form-control" id="mainprice" data-parsley-id="6">
+                <span asp-validation-for="mainprice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sepcialprice" for="emailAddress"></label>
+                <input asp-for="sepcialprice" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="sepcialprice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="count" for="emailAddress"></label>
+                <input asp-for="count" type="text" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
+                <span asp-validation-for="count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxorderCount"></label>
+                <input name="MaxorderCount" type="text" parsley-trigger="change" placeholder="تاریخ شروع" class="form-control my-datepicker" data-parsley-id="6" >
+                <span asp-validation-for="MaxorderCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productcolorid"></label>
+                <input name="productcolorid" type="text" parsley-trigger="change" placeholder="تارخ پایان" class="form-control my-datepicker" data-parsley-id="6" >
+                <span asp-validation-for="productcolorid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productguranteeid"></label>
+                <input name="productguranteeid" type="text" parsley-trigger="change" placeholder="تارخ پایان" class="form-control my-datepicker" data-parsley-id="6" >
+                <span asp-validation-for="productguranteeid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Createdate"></label>
+                <input name="Createdate" type="text" parsley-trigger="change" placeholder="تارخ پایان" class="form-control my-datepicker" data-parsley-id="6" value="@Model.Createdate">
+                <span asp-validation-for="Createdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDateDisCount"></label>
+                <input name="EndDateDisCount" type="text" parsley-trigger="change" placeholder="تارخ پایان" class="form-control my-datepicker" data-parsley-id="6" value="@Model.EndDateDisCount">
+                <span asp-validation-for="EndDateDisCount" class="text-danger"></span>
+            </div>
+            <div class="checkbox checkbox-custom">
+                <input id="checkbox10" type="checkbox" asp-for="IsActive">
+                <label for="checkbox10">
+                    فعال باشد ؟!
+                </label>
+            </div>
+
+
+            <div class="form-group text-right m-b-0">
+                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    ثبت اطلاعات
+                </button>
+                <a href="/admin/product/discounts" class="btn btn-default waves-effect waves-light m-l-5">
+                    لغو
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        $(function () {
+            // حالت پیشفرض
+            $('.my-datepicker').datepicker();
+        });
+    </script>
+
+}

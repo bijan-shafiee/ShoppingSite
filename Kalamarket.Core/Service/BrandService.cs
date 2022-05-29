@@ -37,8 +37,15 @@ namespace _98market.Core.Service
 
         public List<brand> ShowAllBrand()
         {
+
+            return _Context.brands.Where(c => c.IsActive != false).ToList() ;
+        }
+        public List<brand> ShowAllBrandforadmin()
+        {
+
             return _Context.brands.ToList();
         }
+
 
         public int UpdateBrand(brand brand)
         {
@@ -52,6 +59,20 @@ namespace _98market.Core.Service
             {
                 return 0;
             }
+        }
+        public void ActiveBrand(int id)
+        {
+            var Active = _Context.brands.Find(id);
+            if (Active == null) return;
+            Active.Active();
+            _Context.SaveChanges();
+        }
+        public void DeActiveBrand(int id)
+        {
+            var DeActive = _Context.brands.Find(id);
+            if (DeActive == null) return;
+            DeActive.DeActive();
+            _Context.SaveChanges();
         }
     }
 }

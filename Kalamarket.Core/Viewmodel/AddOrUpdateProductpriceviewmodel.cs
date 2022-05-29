@@ -36,5 +36,17 @@ namespace _98market.Core.Viewmodel
 
         public DateTime Createdate { get; set; }
         public string EndDateDisCount { get; set; }
+        public bool IsActive { get; set; }
+
+
+        public void Active()
+        {
+            IsActive = true;
+        }
+
+        public void DeActive()
+        {
+            IsActive = false;
+        }
     }
 }

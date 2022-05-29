@@ -6161,9 +6161,9 @@ span.show-less{
     width: 75%;
 }
 
-.tabs .tabs-content ul.params-list li.params-list-item .params-list-value span.block{
-    color: #666666;
-}
+    .tabs .tabs-content ul.params-list li.params-list-item .params-list-value span.block {
+        color: steelblue;
+    }
 
 .tabs .tabs-content .comments .comments-summary{
     margin: 35px 0;

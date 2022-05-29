@@ -126,8 +126,8 @@
         max-height: 210px !important;
     }
 
-    .content-widget-amazing{
-        display: block;
+    .content-widget-amazing {
+        display: none;
     }
 
     .slider-amazing-product{
@@ -803,4 +803,8 @@
     .bg-white {
         background-color: #fff !important;
     }
+    col-lg-9 col-md-9 col-xs-12 pl{
+        display:none;
+    }
+
 }

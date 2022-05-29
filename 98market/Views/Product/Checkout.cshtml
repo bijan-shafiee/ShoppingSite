@@ -174,10 +174,11 @@
                                                                             </label>
                                                                             <select name="newCity" id="city" class="form-control">
                                                                                 <option class='option' value='0'>شهر مورد نظر خود را انتخاب کنید</option>
+
                                                                             </select>
-                                                                            <label for="apt-id">واحد</label>
-                                                                            <input type="text" id="apt-id" name="newUnit" value="@newUnit" class="input-name-checkout js-input-apt-id form-control">
-                                                                        </div>
+                                                                            <label for="apt-id"> واحد<abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                                                <input type="text" id="apt-id" name="newUnit" value="@newUnit" class="input-name-checkout js-input-apt-id form-control">
+</div>
 
                                                                         <label for="post-code">کد پستی<abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
                                                                         <input type="text" id="post-code" name="newPostalCode" value="@newPostalCode" class="input-name-checkout form-control" placeholder="کد پستی را بدون خط تیره بنویسید">
@@ -325,11 +326,11 @@
 
                                     </ul>
                                     <div class="form-auth-row">
-                                        <label for="#" class="ui-checkbox mt-1">
-                                            <input type="checkbox" value="1" name="login" id="remember">
-                                            <span class="ui-checkbox-check"></span>
+                                        <label for="#" class="outline-radio">
+                                            <input type="radio" name="low" id="low-option" checked>
+                                            <span class="outline-radio-check"></span>
                                         </label>
-                                        <label for="remember" class="remember-me mr-0"><a href="#">حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت دیجی‌اسمارت را مطالعه نموده و با کلیه موارد آن موافقم <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                        <label for="remember" class="remember-me mr-0"><a href="#" >حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت ‌ را مطالعه نموده و با کلیه موارد آن موافقم <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
                                     </div>
                                     <input class="btn-Order btn btn-primary mt-4 mb-3" type="submit" value="ثبت سفارش" />
                                 </div>

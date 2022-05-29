@@ -39,7 +39,7 @@ namespace _98market.Core.Viewmodel
 
         [Display(Name = "کد پستی")]
         [Required(ErrorMessage = "وارد کردن {0} اجباری می باشد .")]
-        public int postalCode { get; set; }
+        public string postalCode { get; set; }
 
 
         [Display(Name = "آدرس کامل")]

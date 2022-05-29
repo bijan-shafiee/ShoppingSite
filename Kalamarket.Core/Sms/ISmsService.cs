@@ -2,6 +2,6 @@
 {
     public interface ISmsService
     {
-        void Send(string number, string message);
+        int Send(string phone, string message);
     }
 }

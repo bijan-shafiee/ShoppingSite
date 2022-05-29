@@ -70,7 +70,7 @@
                                                                     <div id="custom-events">
                                                                         @foreach (var item in ViewBag.Galley as List<ProductGallery>)
                                                                         {
-                                                                            <a href="/CssSite/ImageSite/@item.imagename">
+                                                                            <a href="/CssSite/ImageSite/page-single-product/product-img/@item.imagename">
                                                                                 <img src="/CssSite/ImageSite/page-single-product/product-img/@item.imagename" />
                                                                             </a>
                                                                         }
@@ -698,7 +698,9 @@
                         alert("شما حداکثر این کالارا در سبد خرید خود داری.")
                     } else if (e == 2) {
                         showbasket;
-                        alert("کالا با موفقیت به سبد خرید اضافه گردید.")
+                         alert("کالا با موفقیت به سبد خرید اضافه گردید.")
+                        window.location = '/basket'
+                       
                     }
                 }, error: function (e) {
                     alert(e)

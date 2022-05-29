@@ -98,8 +98,9 @@ namespace _98market.DataLayer.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<int>("postalCode")
-                        .HasColumnType("int");
+                    b.Property<string>("postalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("provinceid")
                         .HasColumnType("int");
@@ -528,6 +529,9 @@ namespace _98market.DataLayer.Migrations
                     b.Property<DateTime?>("EndDateDisCount")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("MaxorderCount")
                         .HasColumnType("int");
 
@@ -618,6 +622,9 @@ namespace _98market.DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsFelter")
+                        .HasColumnType("bit");
 
                     b.Property<string>("PropertyTitle")
                         .IsRequired()
@@ -726,6 +733,9 @@ namespace _98market.DataLayer.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("brandname")
                         .IsRequired()
@@ -1008,6 +1018,28 @@ namespace _98market.DataLayer.Migrations
                     b.HasKey("roleid");
 
                     b.ToTable("roles");
+                });
+
+            modelBuilder.Entity("_98market.DataLayer.Entities.TrackingPrice", b =>
+                {
+                    b.Property<int>("TrackingPriceid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrackingAmount")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrackingPriceid");
+
+                    b.ToTable("TrackingPrice");
                 });
 
             modelBuilder.Entity("_98market.DataLayer.Entities.user", b =>
