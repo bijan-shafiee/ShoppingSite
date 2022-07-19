@@ -416,7 +416,9 @@ namespace _98market.Core.Service
             user user = _Context.users.Find(cart.userid);
             useraddress address = _Context.useraddresses.Include(ua => ua.province).Include(ua => ua.city)
                 .FirstOrDefault(ua => ua.userid == user.userid);
-            return new ReceiverPostViewModel()
+            if (address != null) {    
+            return new ReceiverPostViewModel() 
+ 
             {
                 Name = user.userAccount,
                 Mobile = address.phone,
@@ -427,7 +429,13 @@ namespace _98market.Core.Service
                 Plaque = address.Plaque,
                 Unit = address.unit,
                 Address = address.FullAddress
+            
             };
-        }
+            } else
+            {
+                return null;
+            }
+        
+    }
     }
 }

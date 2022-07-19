@@ -390,7 +390,7 @@ namespace _98market.Core.Service
             List<SliderForCategoryViewmodel> sliders = (from pr in _Context.ProductPrices
                                                         join p in _Context.products on pr.productid equals p.productid
 
-                                                        where (p.Categoryid == category.Categoryid)
+                                                        where (p.Categoryid == category.Categoryid )
 
                                                         select new SliderForCategoryViewmodel
                                                         {
@@ -642,7 +642,7 @@ namespace _98market.Core.Service
                              image = p.Productimage,
                              fatitle = p.productFaTitle,
                              mainprice = pr.mainprice,
-                             sepcialprice = pr.sepcialprice,
+                             sepcialprice = pr.sepcialprice ,
                              productid = p.productid
                          }).ToList();
 
@@ -1216,6 +1216,8 @@ namespace _98market.Core.Service
             _smsService.Send(mobile,
                 $"{name} گرامی سفارش شما با شماره پیگیری {trackingCode} با موفقیت پرداخت شد و ارسال خواهد شد.");
             return trackingCode;
+
+
         }
 
     }

@@ -75,7 +75,7 @@ namespace _98market.Controllers
                     var active = _Userservice.ActiveUser(model);//بررسی می کنیم آیا کاربر  کد را صحیح وارد کرده یا خیر
                     if (active != null)
                     {
-                        // کدهای لاگین کردن کاربر رو بنویس تا بعد از اکتیو شدن لاگین انجام بشه
+                    
 
                         var claim = new List<Claim>
                                 {

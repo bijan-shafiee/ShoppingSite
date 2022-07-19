@@ -63,12 +63,43 @@ namespace _98market.Core.Service
             _Context.SaveChanges();
             //SmsSender.VerifySend(model.Mobile, user.ActiveCode);//جهت ارسال پیامک
 
+            string to = model.Mobile;
+            string text = "کد فعالسازی شما  : " + user.ActiveCode ;
+            string url = "https://RayganSMS.com/SendMessageWithUrl.ashx?UserName=bijan98shafiee&Password=Shafiee98&PhoneNumber=50002210003000&MessageBody=" + text + "&RecNumber=" + to + "&Smsclass=1";
+            System.Net.WebClient wc = new System.Net.WebClient();
+            byte[] result = wc.DownloadData(url);
+            string response = System.Text.Encoding.ASCII.GetString(result);
+            if (response == "0")
+            {
+                // ok
+            }
+            else
+            {
+                // sms not sent - or error sms (maybe user mobile number of username-password are not correct)
+            }
+
         }
 
         public void SendSMSForLogin(LoginMobileViewModel model)
         {
             user user = _Context.users.SingleOrDefault(u => u.phone == model.Mobile);
-           //SmsSender.VerifySend(model.Mobile, user.ActiveCode);//جهت ارسال پیامک
+            //SmsSender.VerifySend(model.Mobile, user.ActiveCode);//جهت ارسال پیامک
+            //_98market.Program x = new _98market.Program();
+
+            string to = model.Mobile;
+            string text = "کد فعالسازی شما  : " + user.ActiveCode ;
+            string url = "https://RayganSMS.com/SendMessageWithUrl.ashx?UserName=bijan98shafiee&Password=Shafiee98&PhoneNumber=50002200889117&MessageBody=" + text + "&RecNumber=" + to + "&Smsclass=1";
+            System.Net.WebClient wc = new System.Net.WebClient();
+            byte[] result = wc.DownloadData(url);
+            string response = System.Text.Encoding.ASCII.GetString(result);
+            if (response == "0")
+            {
+                // ok
+            }
+            else
+            {
+                // sms not sent - or error sms (maybe user mobile number of username-password are not correct)
+            }
 
         }
         ///

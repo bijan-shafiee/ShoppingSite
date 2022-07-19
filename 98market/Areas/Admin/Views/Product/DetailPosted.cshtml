@@ -10,145 +10,157 @@
 
             <div class="editable-responsive">
                 <div id="datatable-editable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-
-                    <div class="row">
+                    <asp:Panel id="pnlContents" runat="server">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="m-b-30">
-                                    <a href="/Admin/slider/AddSlider" id="addToTable" class="btn btn-primary waves-effect waves-light">افزودن <i class="fa fa-plus"></i></a>
-                                </div>
-                            </div>
+                            @*<div class="row">
+                    <div class="col-sm-6">
+                        <div class="m-b-30">
+                            <a href="/Admin/slider/AddSlider" id="addToTable" class="btn btn-primary waves-effect waves-light">افزودن <i class="fa fa-plus"></i></a>
                         </div>
-                        <div class="col-sm-12">
+                    </div>
+                </div>*@
+                            <div class="col-sm-12">
 
-                            @if (TempData["Result"] != null)
-                            {
-                                if (TempData["Result"].ToString() == "true")
+                                @if (TempData["Result"] != null)
                                 {
-                                    <div class="alert alert-success alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        ثبت اطلاعات با موفقیت انجام شد .
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        خطادر انجام عملیات .
-                                    </div>
-                                }
-                            }
-
-                            @if (TempData["NotFoundSlider"] != null)
-                            {
-                                <script>
-
-                                    setTimeout(function () {
-                                        Swal.fire({
-                                            position: 'top-end',
-                                            icon: 'error',
-                                            title: 'سفارشی  یافت نشد .',
-                                            showConfirmButton: false,
-                                            timer: 3000
-                                        })
-                                    }, 50)
-
-                                </script>
-                            }
-                            <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">#</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">تصویر کالا</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">تعداد</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">عنوان کالا</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">نوع گارانتی</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">کالا رنگ</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 138px;" aria-label="فعالیت">مبلغ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.Count() > 0)
+                                    if (TempData["Result"].ToString() == "true")
                                     {
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr class="gradeX odd" role="row">
-                                                <td class="sorting_1">@item.productid</td>
-                                                <td class="sorting_1"> <img src="~/thumb/@item.productimage" width="50" height="50" /> </td>
-                                                <td class="sorting_1">@item.Count </td>
-                                                <td class="sorting_1">@item.productname </td>
-                                                <td class="sorting_1"> @item.gurantename</td>
-                                                <td class="sorting_1">@item.colorname </td>
-                                                <td class="sorting_1">@item.productprice </td>
-                                            </tr>
-                                            <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th>جمع کل</th>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>@Model.First().FinalPrice</td>
-                                            </tr>
-                                        }
+                                        <div class="alert alert-success alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            ثبت اطلاعات با موفقیت انجام شد .
+                                        </div>
                                     }
                                     else
                                     {
-                                        <tr class="gradeX odd" role="row">
-                                            <td colspan="5" class="sorting_1">سفارشی موجود نمی باشد .</td>
-
-                                        </tr>
+                                        <div class="alert alert-danger alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            خطادر انجام عملیات .
+                                        </div>
                                     }
+                                }
+
+                                @if (TempData["NotFoundSlider"] != null)
+                                {
+                                    <script>
+
+                                        setTimeout(function () {
+                                            Swal.fire({
+                                                position: 'top-end',
+                                                icon: 'error',
+                                                title: 'سفارشی  یافت نشد .',
+                                                showConfirmButton: false,
+                                                timer: 3000
+                                            })
+                                        }, 50)
+
+                                    </script>
+                                }
+                                <div id="print_this">
+                                    <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">#</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">تصویر کالا</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">تعداد</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">عنوان کالا</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">نوع گارانتی</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">کالا رنگ</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 138px;" aria-label="فعالیت">مبلغ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Count() > 0)
+                                            {
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr class="gradeX odd" role="row">
+                                                        <td class="sorting_1">@item.productid</td>
+                                                        <td class="sorting_1"> <img src="~/thumb/@item.productimage" width="50" height="50" /> </td>
+                                                        <td class="sorting_1">@item.Count </td>
+                                                        <td class="sorting_1">@item.productname </td>
+                                                        <td class="sorting_1"> @item.gurantename</td>
+                                                        <td class="sorting_1">@item.colorname </td>
+                                                        <td class="sorting_1">@item.productprice </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th>جمع کل</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>@Model.First().FinalPrice</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr class="gradeX odd" role="row">
+                                                    <td colspan="5" class="sorting_1">سفارشی موجود نمی باشد .</td>
+
+                                                </tr>
+                                            }
 
 
-                                </tbody>
-                            </table>
-                            <h4>اطلاعات ارسال سفارش</h4>
-                            <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">نام کامل</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">موبایل</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">تلفن ثابت</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">استان</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">شهر</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">آدرس</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">کد پستی</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">پلاک</th>
-                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">واحد</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">@receiver.Name</td>
-                                        <td class="sorting_1">@receiver.Mobile</td>
-                                        <td class="sorting_1">@receiver.Phone</td>
-                                        <td class="sorting_1">@receiver.Province</td>
-                                        <td class="sorting_1">@receiver.City</td>
-                                        <td class="sorting_1">@receiver.Address</td>
-                                        <td class="sorting_1">@receiver.PostalCode</td>
-                                        <td class="sorting_1">@receiver.Plaque</td>
-                                        <td class="sorting_1">@receiver.Unit</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </tbody>
+                                    </table>
+                                    <h4>اطلاعات ارسال سفارش</h4>
+                                    <table class="table table-striped dataTable no-footer" id="datatable-editable" role="grid" aria-describedby="datatable-editable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">نام کامل</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">موبایل</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">تلفن ثابت</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">استان</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">شهر</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">آدرس</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">کد پستی</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">پلاک</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 285px;" aria-label="سیستن عامل: activate to sort column ascending">واحد</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Count() > 0)
+                                            {
+                                                <tr class="gradeX odd" role="row">
+
+                                                    <td class="sorting_1">@receiver.Name</td>
+                                                    <td class="sorting_1">@receiver.Mobile</td>
+                                                    <td class="sorting_1">@receiver.Phone</td>
+                                                    <td class="sorting_1">@receiver.Province</td>
+                                                    <td class="sorting_1">@receiver.City</td>
+                                                    <td class="sorting_1">@receiver.Address</td>
+                                                    <td class="sorting_1">@receiver.PostalCode</td>
+                                                    <td class="sorting_1">@receiver.Plaque</td>
+                                                    <td class="sorting_1">@receiver.Unit</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr class="gradeX odd" role="row">
+
+                                                    <td colspan="5" class="sorting_1">اطلاعاتی  موجود نمی باشد .</td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="text-center" style="margin-top:20px;">
+                            <button class="btn btn-info" onclick="printdiv()" target="_blank">پرینت </button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">Showing 1 to 10 of 80 entries</div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -156,3 +168,15 @@
 
     </div> <!-- end panel -->
 </div> <!-- end col-->
+
+<script>
+    function printdiv() {
+        var printContents = document.getElementById('print_this').innerHTML;
+        
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        Headers.display =  none;
+    }
+</script>
