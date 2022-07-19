@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | نمایش رنگ ها</title>
 @model IEnumerable<productColor>
 
 @{
@@ -72,18 +72,18 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                    <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">@item.colorid</td>
-                                        <td class="sorting_1">@item.colorname</td>
-                                        <td class="sorting_1"><a style="background:@item.ColorCode;width:40px;height:40px;"class="btn"></a></td>
+                                            <tr class="gradeX odd" role="row">
+                                                <td class="sorting_1">@item.colorid</td>
+                                                <td class="sorting_1">@item.colorname</td>
+                                                <td class="sorting_1"><a style="background:@item.ColorCode;width:40px;height:40px;" class="btn"></a></td>
 
-                                        <td class="actions">
-                                            <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                            <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                            <a href="/admin/product/updateColor/@item.colorid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                            <a href="/Admin/product/deletecolor/@item.colorid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                    </tr>
+                                                <td class="actions">
+                                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                                    <a href="/admin/product/updateColor/@item.colorid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                    <a href="/Admin/product/deletecolor/@item.colorid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                </td>
+                                            </tr>
 
                                         }
                                     }
@@ -104,7 +104,7 @@
                         <div class="col-sm-6">
                             <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">Showing 1 to 10 of 80 entries</div>
                         </div>
-                   
+
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CartViewmodel>
+﻿<title> بندر استور -  بازبینی سبد خرید  </title>
+@model IEnumerable<CartViewmodel>
 @{
     List<_98market.DataLayer.Entities.Address.Province> provinces = ViewBag.Provinces as List<_98market.DataLayer.Entities.Address.Province>;
     ShowAddressForUserViewmodel address = ViewBag.Address as ShowAddressForUserViewmodel;
@@ -17,26 +18,26 @@
                 <div class="checkout woocommerce-checkout">
                     <div class="content-checkout container">
                         @*<div class="notices-wrapper">
-                            <div class="col-12">
-                                <div class="form-coupon-toggle">
-                                    <div class="info">
-                                        کد تخفیف دارید؟
-                                        <a href="javascript:void(0)" class="showcoupon">برای نوشتن کد اینجا کلیک کنید</a>
-                                    </div>
-                                    <div class="checkout-coupon form-coupon">
-                                        <p>اگر کد تخفیف دارید، لطفا وارد کنید.</p>
-                                        <form action="#" class="form-coupon">
-                                            <div class="form-row">
-                                                <input type="text" name="coupon-code" class="checkout-discount-code" placeholder="کد تخفیف">
-                                                <div class="append pl">
-                                                    <button class="btn-append btn btn-primary" type="submit">اعمال تخفیف</button>
+                                <div class="col-12">
+                                    <div class="form-coupon-toggle">
+                                        <div class="info">
+                                            کد تخفیف دارید؟
+                                            <a href="javascript:void(0)" class="showcoupon">برای نوشتن کد اینجا کلیک کنید</a>
+                                        </div>
+                                        <div class="checkout-coupon form-coupon">
+                                            <p>اگر کد تخفیف دارید، لطفا وارد کنید.</p>
+                                            <form action="#" class="form-coupon">
+                                                <div class="form-row">
+                                                    <input type="text" name="coupon-code" class="checkout-discount-code" placeholder="کد تخفیف">
+                                                    <div class="append pl">
+                                                        <button class="btn-append btn btn-primary" type="submit">اعمال تخفیف</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
                         <div class="middle-container">
                             <form action="/Checkout" method="post" class="form-checkout">
                                 <div class="text-danger" asp-validation-summary="All"></div>
@@ -173,10 +174,11 @@
                                                                             </label>
                                                                             <select name="newCity" id="city" class="form-control">
                                                                                 <option class='option' value='0'>شهر مورد نظر خود را انتخاب کنید</option>
+
                                                                             </select>
-                                                                            <label for="apt-id">واحد</label>
-                                                                            <input type="text" id="apt-id" name="newUnit" value="@newUnit" class="input-name-checkout js-input-apt-id form-control">
-                                                                        </div>
+                                                                            <label for="apt-id"> واحد<abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                                                                <input type="text" id="apt-id" name="newUnit" value="@newUnit" class="input-name-checkout js-input-apt-id form-control">
+</div>
 
                                                                         <label for="post-code">کد پستی<abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
                                                                         <input type="text" id="post-code" name="newPostalCode" value="@newPostalCode" class="input-name-checkout form-control" placeholder="کد پستی را بدون خط تیره بنویسید">
@@ -201,7 +203,7 @@
                                                 <textarea rows="5" cols="30" id="address" name="cartDescription" class="textarea-name-checkout form-control" placeholder="یادداشت ها درباره سفارش شما ، برای مثال نکات مهم برای تحویل بار "></textarea>
 
                                             </div>
-                                                </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <h3 class="order-review-heading">سفارش شما</h3>
@@ -218,37 +220,37 @@
                                         <tbody>
                                             @foreach (var item in Model)
                                             {
-                                            <tr class="checkout-cart-item">
-                                                <td class="product-name">@item.productFaTitle</td>
-                                                <td class="product-name">@item.ordercount</td>
-                                                <td class="product-price text-info">
-                                                    <span class="amount">
-                                                        @item.ProductPrice.ToString("#,0")
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>
-                                                <td class="product-price text-info">
-                                                    <span class="amount">
-                                                        @*@item.ordercount* @item.ProductPrice.ToString("#,0")*@
-                                                        @Model.Sum(c => item.ProductPrice * item.ordercount ).ToString("#,0")
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>
-                                            </tr>
+                                                <tr class="checkout-cart-item">
+                                                    <td class="product-name">@item.productFaTitle</td>
+                                                    <td class="product-name">@item.ordercount</td>
+                                                    <td class="product-price text-info">
+                                                        <span class="amount">
+                                                            @item.ProductPrice.ToString("#,0")
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="product-price text-info">
+                                                        <span class="amount">
+                                                            @*@item.ordercount* @item.ProductPrice.ToString("#,0")*@
+                                                            @Model.Sum(c => item.ProductPrice * item.ordercount).ToString("#,0")
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
                                             }
                                         </tbody>
                                         <tr></tr>
                                         <tfoot>
                                             @*<tr class="order-total">
-                                                <th>حمل ونقل</th>
-                                                <td>
+                                                    <th>حمل ونقل</th>
+                                                    <td>
 
-                                                    <span class="amount">
-                                                        15000
-                                                        <span>تومان</span>
-                                                    </span>
-                                                </td>
-                                            </tr>*@
+                                                        <span class="amount">
+                                                            15000
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </td>
+                                                </tr>*@
                                             <tr></tr>
                                             <tr class="cart-subtotal">
                                                 <th>مجموع</th>
@@ -292,43 +294,43 @@
                                                 <div class="shipping-totals-title">پرداخت اینترنتی هوشمند</div>
                                             </label>
                                         </li>
-                                       
+
                                         <li class="checkout-payment-method-item d-block">
                                             @*<label for="#" class="outline-radio">
-                                                <input type="radio" name="payment_method" id="payment-option-online" hidden>
-                                                <span class="outline-radio-check"></span>
-                                            </label>*@
-                                            
+                                                    <input type="radio" name="payment_method" id="payment-option-online" hidden>
+                                                    <span class="outline-radio-check"></span>
+                                                </label>*@
+
                                             <label for="#" class="shipping-totals-title-row">
                                                 <strike>
                                                     <div class="shipping-totals-title">افزایش اعتبار و پرداخت از کیف پول</div>
                                                 </strike>
                                             </label>
-                                            
+
                                         </li>
 
 
                                         <li class="checkout-payment-method-item d-block">
                                             @*<label for="#" class="outline-radio">
-                                                <input type="radio" name="payment_method" id="payment-option-online" hidden>
-                                                <span class="outline-radio-check"></span>
-                                            </label>*@
-                                            
+                                                    <input type="radio" name="payment_method" id="payment-option-online" hidden>
+                                                    <span class="outline-radio-check"></span>
+                                                </label>*@
+
                                             <label for="#" class="shipping-totals-title-row">
                                                 <strike>
                                                     <div class="shipping-totals-title">پرداخت هنگام دریافت</div>
                                                 </strike>
                                             </label>
-                                            
+
                                         </li>
 
                                     </ul>
                                     <div class="form-auth-row">
-                                        <label for="#" class="ui-checkbox mt-1">
-                                            <input type="checkbox" value="1" name="login" id="remember">
-                                            <span class="ui-checkbox-check"></span>
+                                        <label for="#" class="outline-radio">
+                                            <input type="radio" name="low" id="low-option" checked>
+                                            <span class="outline-radio-check"></span>
                                         </label>
-                                        <label for="remember" class="remember-me mr-0"><a href="#">حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت دیجی‌اسمارت را مطالعه نموده و با کلیه موارد آن موافقم <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
+                                        <label for="remember" class="remember-me mr-0"><a href="#" >حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت ‌ را مطالعه نموده و با کلیه موارد آن موافقم <abbr class="required" title="ضروری" style="color:red;">*</abbr></label>
                                     </div>
                                     <input class="btn-Order btn btn-primary mt-4 mb-3" type="submit" value="ثبت سفارش" />
                                 </div>

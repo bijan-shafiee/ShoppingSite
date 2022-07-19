@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _98market.Core.Sms;
+using _98market.Core.Sms.Sms;
+using _98market.Core.ZarinPal;
 using static _98market.Core.ExtentionMethod.RenderEmail;
 
 namespace _98market
@@ -58,6 +61,8 @@ namespace _98market
             services.AddTransient<IDiscountService, DiscountService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IIndexService, IndexService>();
+            services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
+            services.AddTransient<ISmsService, SmsService>();
             #endregion
         }
 
@@ -66,10 +71,10 @@ namespace _98market
         {
 
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+                //app.UseDeveloperExceptionPage();
+            //}
 
 
             app.UseAuthentication();

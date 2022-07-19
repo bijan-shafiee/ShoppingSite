@@ -1,4 +1,4 @@
-﻿
+﻿<title> بندر استور -  صفحه اصلی     </title>
 @{
     ViewData["Title"] = User.Identity.Name;
     List<sepcialProductViewmoddel> sepcial = ViewBag.sepcialprice;
@@ -34,7 +34,7 @@
             <div class="adplacement-container-column">
                 <a href="/@indexImage.Link1" class="adplacement-item">
                     <div class="adplacement-sponsored-box">
-                        <img src="/CssSite/ImageSite/adplacement/@indexImage.Image1" style="height: 205px;">
+                        <img  src="/CssSite/ImageSite/adplacement/@indexImage.Image1" style="height: 205px;">
                     </div>
                 </a>
                 <a href="/@indexImage.Link2" class="adplacement-item">
@@ -57,14 +57,76 @@
         <!-- slider-amazing------------------------>
 
 
+         <!-- slider-amazing------------------------>
+        <!-- slider-amazing-Responsive----------------------->
+        <div class="col-12">
+            <div class="slider-widget-products slider-content-tabs slider-amazing-product">
+                <div class="widget widget-product card slider-content-tabs">
+                    <header class="card-header">
+                        <span class="title-one">محصولات شگفت انگیز</span>
+                        <h3 class="card-title"></h3>
+                    </header>
+
+                    @{
+                        int countr = 0;
+                        int activer = 0;
+                    }
+                    <div class="product-carousel product-amazing owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1162px;">
+                                @foreach (var item in slidersepcial)
+                                {
+                                    <div class="owl-item tab-item @(countr==0?"activee":"")" style="width: 222.313px; margin-left: 10px;">
+                                        <div class="item">
+                                            <a href="/Product/Detail/@item.Key" class="d-block hover-img-link">
+                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimg"
+                                                     class="img-fluid" alt="">
+                                            </a>
+                                            <h2 class="post-title">
+                                                <a href="/Product/Detail/@item.Key">
+                                                    @item.productfatitle
+                                                </a>
+                                            </h2>
+                                            <div class="price">
+                                                <del><span>@item.mainprice.ToString("#,0")<span>تومان</span></span></del>
+                                                <ins><span>@item.sepcialprice<span>تومان</span></span></ins>
+                                            </div>
+                                            <div class="countdown-timer">
+                                                <div class="countdown h4" data-date-time="@item.Endsepcialprice" data-labels='{"label-day": "روز", "label-hour": "ساعت", "label-minute": "دقیقه", "label-second": "ثانیه"}'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    countr++;
+                                    activer++;
+                                }
+
+                            </div>
+                        </div>
+                        <div class="owl-nav">
+                            <button type="button" role="presentation" class="owl-prev disabled">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                            <button type="button" role="presentation" class="owl-next">
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                        </div>
+                        <div class="owl-dots disabled"></div>
+                        <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="fa fa-angle-right"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-left"></i></button></div><div class="owl-dots disabled"></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="fa fa-angle-right"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-left"></i></button></div><div class="owl-dots disabled"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End- slider-amazing-Responsive----------------------->
+        <!-- slider-amazing-basic----------------------->
         <div class="col-lg-9 col-md-9 col-xs-12 pl">
             <div class="content-widget-amazing">
                 <section id="amazing-slider" class="carousel slide carousel-fade card" data-ride="carousel">
                     <div class="row m-0">
                         @{
-                            int count = 0;
-                            int active = 0;
-                        }
+                                int count = 0;
+                                int active = 0;
+                            }
                         <ol class="carousel-indicators pr-0 d-flex flex-column col-lg-pull-3">
                             @foreach (var item in slidersepcial)
                             {
@@ -198,7 +260,7 @@
                                     <div class="owl-item cloned" style="width: 273.75px;">
                                         <div class="item">
                                             <a href="/Product/Detail/@item.productid">
-                                                <img src="/CssSite/ImageSite/@item.productimage" class="w-100" alt="">
+                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage" class="w-100" alt="">
                                             </a>
                                             <h3 class="product-title">
                                                 <a href="/Product/Detail/@item.productid"> @item.productfatitle </a>
@@ -281,7 +343,7 @@
                                     </div>
                                 }
                             </div>
-                        
+
                         </div>
                         <div class="owl-nav">
                             <button type="button" role="presentation" class="owl-prev disabled">

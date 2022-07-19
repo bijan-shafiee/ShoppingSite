@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | تصاویر محصولات</title>
 @model IEnumerable<_98market.DataLayer.Entities.Entitieproduct.ProductGallery>
 
 @{
@@ -76,7 +76,7 @@
                                         {
                                             <tr class="gradeX odd" role="row">
                                                 <td class="sorting_1">@item.galleryid</td>
-                                                <td class="sorting_1"><a href="/CssSite/ImageSite/page-single-product/product-img/@item.imagename" target="_blank">نمایش</a></td>
+                                                <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/page-single-product/product-img/@item.imagename" /></td>
 
                                                 <td class="actions">
                                                     <a href="/admin/product/editgallery/@item.galleryid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>

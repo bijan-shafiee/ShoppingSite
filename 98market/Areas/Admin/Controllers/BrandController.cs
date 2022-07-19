@@ -22,7 +22,7 @@ namespace _98market.Areas.Admin.Controllers
         }
         public IActionResult ShowAllBrand()
         {
-            return View(_BrandService.ShowAllBrand());
+            return View(_BrandService.ShowAllBrandforadmin());
         }
 
         [HttpGet]
@@ -86,6 +86,16 @@ namespace _98market.Areas.Admin.Controllers
             int Brandid = _BrandService.UpdateBrand(brand);
             TempData["Result"] = Brandid > 0 ? "true" : "false";
             return RedirectToAction(nameof(ShowAllBrand));
+        }
+        public IActionResult ActiveBrand(int id)
+        {
+            _BrandService.ActiveBrand(id);
+            return RedirectToAction("showAllBrand");//action index
+        }
+        public IActionResult DeActiveBrand(int id)
+        {
+            _BrandService.DeActiveBrand(id);
+            return RedirectToAction("showAllBrand");//action index
         }
     }
 }

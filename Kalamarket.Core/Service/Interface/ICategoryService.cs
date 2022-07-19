@@ -15,6 +15,8 @@ namespace _98market.Core.Service.Interface
         bool DeleteCategory(Category category);
 
         List<Category> showAllSubCategory(int categoryid);
+        int activecategory(int categoryid);
+        int deactivecategory(int categoryid);
 
         Category findcategorybuyeid(int categoryid);
 
@@ -22,5 +24,7 @@ namespace _98market.Core.Service.Interface
         List<Category> Showsubcategory();
         List<Category> GetAllCategoryForMenu();
         List<Category> GetSliderCategories();
+        Category FindCategoryById(int categoryid);
+        bool UpdateCategory(Category categoryid);
     }
 }

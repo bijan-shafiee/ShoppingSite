@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | نمایش محصولات</title>
 @model IEnumerable<product>
 
 @{
@@ -110,7 +110,7 @@
                                                     <a href="/admin/product/galleries/@item.productid" class=" on-editing cancel-row"><i class="fa fa-image"></i></a>
                                                     <a href="/admin/product/updateproduct/@item.productid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                                     <a href="/admin/product/ShowPropertynameForProduct/@item.productid" class="on-default edit-row"><i class="fa fa-print"></i></a>
-                                                    <a href="/Admin/slider/deleteslider/@item.productid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                    <a href="/Admin/product/DeleteProduct/@item.productid" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                                 </td>
                                             </tr>
 

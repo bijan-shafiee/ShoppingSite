@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>سورس صفحه تماس با ما :: دریافت شده از وب روبیک</title>
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/bootstrap-rtl.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link type="text/css" href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<section id="contact-us" class="text-center clear-fix">
+		<div class="contact-container" id="ContactSection">
+			<h1><span class="fa fa-arrow-right map-action"></span> تماس با ما</h1>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-5 col-xs-7 contact-us">
+						<div class="office">
+							<h2 class="text-uppercase">اطلاعات تماس</h2>
+							<ul>
+								<li><span class="fa fa-envelope-o"></span> info@webrubik.com</li>
+								<li><span class="fa fa-phone"></span> 07132309534</li>
+								<li><span class="fa fa-map-marker"></span> شیراز، خیابان معالی آباد</li>
+							</ul>
+						</div>
+						<div class="contact-us-form">
+							<h2 class="text-uppercase">ارسال پیام</h2>
+							<input type="text" class=" form-control input-lg wow rotateInDownLeft" placeholder="نام شما" required/>
+							<input type="email" class=" form-control input-lg wow  rotateInDownLeft" placeholder="پست الکترونیک" required/>
+							<input type="tel" class=" form-control input-lg wow rotateInDownLeft" placeholder="تلفن تماس" required/>
+							<textarea class="form-control input-lg wow rotateInDownRight" placeholder="متن پیام" required></textarea>
+							<button class="btn btn-lg btn-danger wow bounceInUp">ارسال پیام</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="div-arrow">تماس با ما<span class="contact-arrow"></span>
+		</div>
+		<div id="map"></div>
+	</section>
+	<script async defer src="js/maps.js"></script>
+	<script>
+		function initMap() {
+			var mapDiv = document.getElementById('map');
+			var map = new google.maps.Map(mapDiv, {
+				center: {
+					lat: 29.689847,
+					lng: 52.470300
+				},
+				zoom: 14,
+				styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#5b6571"},{"lightness":"35"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"visibility":"on"},{"color":"#f3f4f4"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"weight":0.9},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#7FE67F"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"},{"color":"#3688BF"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway.controlled_access","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#7fc8ed"}]}]
+			});
+			var MarkerLatLng = {
+				lat: 29.689847,
+				lng: 52.470300
+			};
+			var marker = new google.maps.Marker({
+				position: MarkerLatLng,
+				map: map,
+				title: 'SpimeSenseLabs'
+			});
+			var infowindow = new google.maps.InfoWindow({
+				content: "<p>برای اطلاعات بیشتر با ما تماس بگیرید.</p>"
+			});
+			marker.addListener('click', function() {
+				infowindow.open(map, marker);
+			});
+		}
+		initMap();
+	</script>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script  src="js/scripts.js"></script>
+</body><!-- This templates was downloaded from (https://webrubik.com) -->
+</html>

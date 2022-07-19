@@ -1,4 +1,5 @@
-﻿@model IEnumerable<showfavoirateViewmodel>
+﻿<title>پنل کاربری  | محصولات محبوب</title>
+@model IEnumerable<showfavoirateViewmodel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var information = ViewBag.information as informationAccountViewmodel;
@@ -22,7 +23,8 @@
                                             <tr>
                                                 <th scope="col" width="50"> </th>
                                                 <th scope="col">نام محصول</th>
-                                                <th scope="col">قیمت</th>
+                                                <th scope="col"> قیمت اصلی</th>
+                                                <th scope="col"> قیمت اصلی</th>
                                                 <th class="actions-th"></th>
                                             </tr>
                                         </thead>
@@ -32,7 +34,7 @@
                                                 <tr>
                                                     <th scope="row">
                                                         <div class="favorites-product-img">
-                                                            <img src="/CssSite/ImageSite/@item.productimage">
+                                                            <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
                                                             <div class="product-rate">
                                                                 @for (int i = 1; i <= item.productstar; i++)
                                                                 {
@@ -50,6 +52,7 @@
                                                             item.productprice +" تومان ")
                                                         </span>
                                                     </td>
+
                                                     <td class="text-left actions">
                                                         <a href="/Product/RemoveFavourite/@item.productid" class="remove-product"><i class="mdi mdi-close"></i></a>
                                                     </td>
@@ -65,7 +68,7 @@
                                         <div class="profile-recent-fav">
 
                                             <a href="/product/detail/@item.productid" class="img-profile-favorites">
-                                                <img src="/CssSite/ImageSite/@item.productimage">
+                                                <img src="/CssSite/ImageSite/page-single-product/product-img/@item.productimage">
                                             </a>
                                             <div class="profile-recent-fav-col">
                                                 <a href="/product/detail/@item.productid">@item.productfatitle</a>

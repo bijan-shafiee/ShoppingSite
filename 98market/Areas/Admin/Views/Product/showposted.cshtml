@@ -1,4 +1,5 @@
-﻿@model IEnumerable<showpostedViewmodel>
+﻿<title>پنل مدیریت  | نمایش سفارشات</title>
+@model IEnumerable<showpostedViewmodel>
 @{
 
 }
@@ -119,12 +120,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">Showing 1 to 10 of 80 entries</div>
-                        </div>
-
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -134,12 +130,12 @@
 </div> <!-- end col-->
 
 @section SCripts {
-<script>
-    function SetTrackingCode(cartId) {
-        var code = $(event.target).prev().val();
-        $.get("/SetTrackingCode/" + cartId + "/" + code, function () {
-            alert("کد پستی با موفقیت ثبت شد.");
-        });
-    }
-</script>
+    <script>
+        function SetTrackingCode(cartId) {
+            var code = $(event.target).prev().val();
+            $.get("/SetTrackingCode/" + cartId + "/" + code, function () {
+                alert("کد پستی با موفقیت ثبت شد.");
+            });
+        }
+    </script>
 }

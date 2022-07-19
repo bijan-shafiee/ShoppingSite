@@ -61,12 +61,42 @@ namespace _98market.Core.Service
 
         public List<Category> ShowAllCategory()
         {
-            return _Context.categories.Where(c => !c.IsDelete && c.SubCategory == null).ToList();
+            return _Context.categories.Where(c => c.SubCategory == null).ToList();
+        }
+        public int activecategory(int categoryid)
+        {
+            try
+            {
+                Category category = _Context.categories.Find(categoryid);
+                category.IsDelete = false;
+                _Context.categories.Update(category);
+                _Context.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public int deactivecategory(int categoryid)
+        {
+            try
+            {
+                Category category = _Context.categories.Find(categoryid);
+                category.IsDelete = true;
+                _Context.categories.Update(category);
+                _Context.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public List<Category> showAllSubCategory(int categoryid)
         {
-            return _Context.categories.Where(c => !c.IsDelete && c.SubCategory == categoryid).ToList();
+            return _Context.categories.Where(c => c.SubCategory == categoryid).ToList();
         }
 
         public bool updatecategory(Category category)
@@ -111,6 +141,25 @@ namespace _98market.Core.Service
         {
             return _Context.categories
                 .Where(c => c.Slider != 0).ToList();
+        }
+
+
+        public Category FindCategoryById(int categoryid)
+        {
+            return _Context.categories.Find(categoryid);
+        }
+        public bool UpdateCategory(Category category)
+        {
+            try
+            {
+                _Context.categories.Update(category);
+                _Context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

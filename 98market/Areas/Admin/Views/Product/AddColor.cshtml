@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | افزودن رنگ</title>
 @model productColor
 
 @{
@@ -14,7 +14,7 @@
         <form asp-action="AddColor" method="post" style="margin-top:5%;">
 
             <div class="form-group">
-                <label asp-for="colorname" >اسم رنگ</label>
+                <label asp-for="colorname">اسم رنگ</label>
                 <input asp-for="colorname" type="text" parsley-trigger="change" placeholder="عنوان رنگ را وارد نمایید " class="form-control" id="emailAddress" data-parsley-id="6">
                 <span asp-validation-for="colorname" class="text-danger"></span>
             </div>

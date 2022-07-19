@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using _98market.Core.ZarinPal;
 
 namespace _98market.Controllers
 {
@@ -23,14 +25,16 @@ namespace _98market.Controllers
         private ICartService _CartService;
         private IDiscountService _Discountservice;
         private IAddressService _addressService;
+        private readonly IZarinPalFactory _zarinPalFactory;
         public ProductController(Iproductservice productservice, IBrandService Brandservice, IAddressService addressService,
-            ICategoryService Categoryservice, ICartService CartService, IDiscountService Discountservice)
+            ICategoryService Categoryservice, ICartService CartService, IDiscountService Discountservice, IZarinPalFactory zarinPalFactory)
         {
             _productservice = productservice;
             _Brandservice = Brandservice;
             _Categoryservice = Categoryservice;
             _CartService = CartService;
             _Discountservice = Discountservice;
+            _zarinPalFactory = zarinPalFactory;
             _addressService = addressService;
         }
 
@@ -315,8 +319,8 @@ namespace _98market.Controllers
         [Route("Checkout")]
         [HttpPost]
         public IActionResult Checkout(int chooseAddress, int addressId, string recepientName, string phone,
-            int postalCode, string fullAddress, string newRecepientName, string newPhone, string newLandLinePhone,
-            int newProvince, int newPlaque, int newCity, int newUnit, int newPostalCode, string newFullAddress
+            string postalCode, string fullAddress, string newRecepientName, string newPhone, string newLandLinePhone,
+            int newProvince, int newPlaque, int newCity, int newUnit, string newPostalCode, string newFullAddress
             , string cartDescription)
         {
             int userId = int.Parse(User.FindFirst("userid").Value);
@@ -344,7 +348,7 @@ namespace _98market.Controllers
             if (chooseAddress == 0)
             {
                 // validation
-                if (string.IsNullOrEmpty(recepientName) || string.IsNullOrEmpty(phone) || postalCode == 0)
+                if (string.IsNullOrEmpty(recepientName) || string.IsNullOrEmpty(phone) || postalCode == null)
                 {
                     ModelState.AddModelError("All", "جزئيات صورتحساب باید کامل باشند!");
                     return View(_CartService.DetailCart(userId));
@@ -360,9 +364,9 @@ namespace _98market.Controllers
             else
             {
                 // validation
-                if (string.IsNullOrEmpty(newRecepientName) || string.IsNullOrEmpty(newPhone) || newPostalCode == 0
+                if (string.IsNullOrEmpty(newRecepientName) || string.IsNullOrEmpty(newPhone) || newPostalCode == null
                     || newCity == 0 || newProvince == 0 || string.IsNullOrEmpty(newLandLinePhone) || newPlaque == 0
-                    || newPostalCode == 0 || string.IsNullOrEmpty(newFullAddress))
+                    || newPostalCode == null || string.IsNullOrEmpty(newFullAddress))
                 {
                     ModelState.AddModelError("All", "فیلد های ستاره دار ضروری هستند!");
                     return View(_CartService.DetailCart(userId));
@@ -499,24 +503,36 @@ namespace _98market.Controllers
             int userid = int.Parse(User.FindFirst("userid").Value);
             Cart cart = _CartService.FindCartBuyeuserid(userid);
 
-            var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
-            var result = zarinpal.PaymentRequest("پرداخت سبد خرید کالا مارکت", "https://localhost:44303/onlinepayment/" + cart.cartid);
+            //var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
+            //var result = zarinpal.PaymentRequest("پرداخت سبد خرید کالا مارکت", "https://localhost:44303/onlinepayment/" + cart.cartid);
 
-            if (result.Result.Status == 100)
-            {
-                //  var a = result.Result.Link;
-                //  var a1 = result.Result.Authority;
+            //if (result.Result.Status == 100)
+            //{
+            //    //  var a = result.Result.Link;
+            //    //  var a1 = result.Result.Authority;
 
-                return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + result.Result.Authority);
-                //  return Redirect(a);
-            }
+            //    return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + result.Result.Authority);
+            //    //  return Redirect(a);
+            //}
 
-            return null;
+          
+            var paymentResponse =
+                _zarinPalFactory.CreatePaymentRequest(cart.FinalPrice, "خرید از درگاه پرداخت بندر استور ", cart.cartid);
+
+
+            return Redirect(
+                $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
+
         }
 
-        [Route("onlinepayment/{cartid}")]
-        public IActionResult onlinepayment(int cartid)
+        
+        public IActionResult onlinepayment(string id="")
         {
+
+            var cartid = Convert.ToInt32(id);
+            var cart = _CartService.findcartbuyeid(cartid);
+
+
             bool res = false;
             ViewBag.RefId = 0;
             ViewBag.PaymentDate = DateTime.Now.MilatiToShamsi();
@@ -527,7 +543,7 @@ namespace _98market.Controllers
             {
                 var authority = HttpContext.Request.Query["Authority"];
 
-                var cart = _CartService.findcartbuyeid(cartid);
+
 
                 var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
                 var result = zarinpal.Verification(authority).Result;
@@ -547,12 +563,86 @@ namespace _98market.Controllers
                 ViewBag.PaymentTime = cart.PaymentDate.TimeOfDay.ToString();
             }
             ViewBag.res = res;
+
+
+
             return View(_CartService.DetailCartForOnlinePayment(cartid));
         }
+        public IActionResult CallBack([FromQuery] string authority, [FromQuery] string status,
+            [FromQuery] string cartId)
+        {
 
+            var cart = int.Parse(cartId);
+            var orderAmount = _productservice.GetAmountBy(cart).TotalPrice;
+            if (orderAmount == 0) return BadRequest();
+            
+            var verificationResponse =
+                _zarinPalFactory.CreateVerificationRequest(authority,
+                    orderAmount.ToString());
+
+            var result = new PaymentResult();
+            if (status == "OK" && verificationResponse.Status >= 100)
+            {
+                var issueTrackingNo = _productservice.PaymentSucceeded(int.Parse(cartId), verificationResponse.RefID);
+                result = result.Succeeded("پرداخت با موفقیت انجام شد.", issueTrackingNo,cartId);//تمامی پارامتر های که برای پرداخت موفق در ویو لازم داری رو از اینجا پاس بده به ویو
+                return RedirectToAction("ResultPayment", result);
+               
+            }
+
+            result = result.Failed(
+                "پرداخت با موفقیت انجام نشد. درصورت کسر وجه از حساب، مبلغ تا 24 ساعت دیگر به حساب شما بازگردانده خواهد شد.", cartId);
+
+            return RedirectToAction("ResultPayment", result);//تمامی پارامتر های که برای پرداخت ناموفق در ویو لازم داری رو از اینجا پاس بده به ویو
+        }
 
         #endregion
 
+
+       public IActionResult ResultPayment(PaymentResult resultPayment)
+        {
+            var cartId=int.Parse(resultPayment.CartId);
+            var cart = _CartService.findcartbuyeid(cartId);
+
+            //اینجا هیچ چیزیو چک نمیکنه فقط ویو رو نمایش بده
+            //همه شرط ها و چیز های که باید چک بشود در اکشن های بالا چک شده 
+           // اینجا فقط نتیجه پرداخت هست
+
+            bool res = false;
+            ViewBag.RefId = 0;
+            ViewBag.PaymentDate = DateTime.Now.MilatiToShamsi();
+            ViewBag.PaymentTime = DateTime.Now.TimeOfDay.ToString();
+            if (HttpContext.Request.Query["Status"] != "" &&
+                HttpContext.Request.Query["Status"].ToString().ToLower() == "ok"
+                && HttpContext.Request.Query["Authority"] != "")
+            {
+                var authority = HttpContext.Request.Query["Authority"];
+
+
+
+                var zarinpal = new ZarinpalSandbox.Payment(cart.FinalPrice);
+                var result = zarinpal.Verification(authority).Result;
+
+                if (result.Status == 100)
+                {
+                    res = true;
+                    _productservice.AddProductSell(cartId);
+                    _productservice.DecreaseProductCount(cartId);
+                    cart.ispay = true;
+                    cart.RefId = result.RefId.ToString();
+                    ViewBag.RefId = cart.RefId;
+                    _CartService.UpdateCart(cart);
+                }
+                cart.PaymentDate = DateTime.Now;
+                ViewBag.PaymentDate = cart.PaymentDate.MilatiToShamsi();
+                ViewBag.PaymentTime = cart.PaymentDate.TimeOfDay.ToString();
+            }
+            ViewBag.res = res;
+
+
+
+            return View(resultPayment);
+       
+        }
         #region rate
         public IActionResult ShowRates(int id)
         {

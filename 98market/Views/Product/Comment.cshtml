@@ -1,7 +1,8 @@
-﻿@model _98market.DataLayer.Entities.Entitieproduct.FaQ.comment
+﻿<title> بندر استور -  ثبت نظر    </title>
+@model _98market.DataLayer.Entities.Entitieproduct.FaQ.comment
 
 
-@{ 
+@{
     List<ValueViewmodel> Value = ViewBag.PropertyValue;
     Tuple<DetailProductViewmodel, List<productpricevm>> data = ViewBag.Model as Tuple<DetailProductViewmodel, List<productpricevm>>;
 }
@@ -32,7 +33,7 @@
                             <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
                                 <div class="comments-product-col-gallery mt-3 pt-3 text-center">
                                     <a href="#">
-                                        <img src="/CssSite/ImageSite/@data.Item1.productimage" style="max-width: 100%;">
+                                        <img src="/CssSite/ImageSite/page-single-product/product-img/@data.Item1.productimage" style="max-width: 100%;">
                                     </a>
                                 </div>
                             </div>
@@ -54,52 +55,53 @@
                                                        data-slider-min="1" data-slider-max="5" data-slider-step="1"
                                                        data-slider-value="3" data-slider-tooltip="hide" />
                                             </div>
-                                             <div class="col-sm-6 col-12 mb-3">
-                                                <div class="comments-product-attributes-title">ارزش خرید به نسبت قیمت
+                                            <div class="col-sm-6 col-12 mb-3">
+                                                <div class="comments-product-attributes-title">
+                                                    ارزش خرید به نسبت قیمت
                                                 </div>
                                                 <input asp-for="BuyWorth" id="ex19" type="text" data-provide="slider"
-                                                    data-slider-ticks="[1, 2, 3, 4, 5]"
-                                                    data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
-                                                    data-slider-min="1" data-slider-max="5" data-slider-step="1"
-                                                    data-slider-value="3" data-slider-tooltip="hide" />
-                                            </div> 
+                                                       data-slider-ticks="[1, 2, 3, 4, 5]"
+                                                       data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                                       data-slider-min="1" data-slider-max="5" data-slider-step="1"
+                                                       data-slider-value="3" data-slider-tooltip="hide" />
+                                            </div>
                                         </div>
-                                         <div class="row">
+                                        <div class="row">
                                             <div class="col-sm-6 col-12 mb-3">
                                                 <div class="comments-product-attributes-title">نوآوری</div>
                                                 <input asp-for="Innovation" id="ex19" type="text" data-provide="slider"
-                                                    data-slider-ticks="[1, 2, 3, 4, 5]"
-                                                    data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
-                                                    data-slider-min="1" data-slider-max="5" data-slider-step="1"
-                                                    data-slider-value="3" data-slider-tooltip="hide" />
+                                                       data-slider-ticks="[1, 2, 3, 4, 5]"
+                                                       data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                                       data-slider-min="1" data-slider-max="5" data-slider-step="1"
+                                                       data-slider-value="3" data-slider-tooltip="hide" />
                                             </div>
                                             <div class="col-sm-6 col-12 mb-3">
                                                 <div class="comments-product-attributes-title">امکانات و قابلیت ها</div>
                                                 <input asp-for="Abilities" id="ex19" type="text" data-provide="slider"
-                                                    data-slider-ticks="[1, 2, 3, 4, 5]"
-                                                    data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
-                                                    data-slider-min="1" data-slider-max="5" data-slider-step="1"
-                                                    data-slider-value="3" data-slider-tooltip="hide" />
+                                                       data-slider-ticks="[1, 2, 3, 4, 5]"
+                                                       data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                                       data-slider-min="1" data-slider-max="5" data-slider-step="1"
+                                                       data-slider-value="3" data-slider-tooltip="hide" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6 col-12 mb-3">
                                                 <div class="comments-product-attributes-title">سهولت استفاده</div>
                                                 <input asp-for="EaseOfUse" id="ex19" type="text" data-provide="slider"
-                                                    data-slider-ticks="[1, 2, 3, 4, 5]"
-                                                    data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
-                                                    data-slider-min="1" data-slider-max="5" data-slider-step="1"
-                                                    data-slider-value="3" data-slider-tooltip="hide" />
+                                                       data-slider-ticks="[1, 2, 3, 4, 5]"
+                                                       data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                                       data-slider-min="1" data-slider-max="5" data-slider-step="1"
+                                                       data-slider-value="3" data-slider-tooltip="hide" />
                                             </div>
                                             <div class="col-sm-6 col-12 mb-3">
                                                 <div class="comments-product-attributes-title">طراحی و ظاهر</div>
                                                 <input asp-for="Appearance" id="ex19" type="text" data-provide="slider"
-                                                    data-slider-ticks="[1, 2, 3, 4, 5]"
-                                                    data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
-                                                    data-slider-min="1" data-slider-max="5" data-slider-step="1"
-                                                    data-slider-value="3" data-slider-tooltip="hide" />
+                                                       data-slider-ticks="[1, 2, 3, 4, 5]"
+                                                       data-slider-ticks-labels='["خیلی بد", "بد", "معمولی","خوب","عالی"]'
+                                                       data-slider-min="1" data-slider-max="5" data-slider-step="1"
+                                                       data-slider-value="3" data-slider-tooltip="hide" />
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>

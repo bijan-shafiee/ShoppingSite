@@ -1,6 +1,6 @@
 ﻿
 
-@model RegisterViewmodel
+@model RegisteMobilerViewModel
 @{
     Layout = null;
 }
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثبت نام</title>
+    <title> بندر استور - ثبت نام </title>
     <!-- font---------------------------------------->
     <link rel="stylesheet" href="/CssSite/Css/vendor/font-awesome.min.css">
     <link rel="stylesheet" href="/CssSite/Css/vendor/materialdesignicons.css">
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <!-- login----------------------------------->
+
     <div class="container">
         <div class="row">
             <div class="col-lg">
@@ -32,47 +32,47 @@
                             <a href="#" class="account-box-logo">digismart</a>
                             <div class="account-box">
                                 <div class="account-box-headline">
-                                    <a href="login" class="login-ds">
+                                    <a href="LoginMobile" class="login-ds">
                                         <span class="title">ورود</span>
-                                        <span class="sub-title">به دیجی اسمارت</span>
+                                        <span class="sub-title">به بندر استور</span>
                                     </a>
-                                    <a href="register.html" class="register-ds active">
+                                    <a href="/Account/Register" class="register-ds active">
                                         <span class="title">ثبت نام</span>
-                                        <span class="sub-title">در دیجی اسمارت</span>
+                                        <span class="sub-title">در بندر استور</span>
                                     </a>
                                 </div>
                                 <div class="Login-to-account mt-4">
                                     <div class="account-box-content">
-                                        <h4>ثبت نام در دیجی اسمارت</h4>
+                                        <h4>ثبت نام در بندر استور </h4>
                                         <form asp-action="Register" method="post" class="form-account text-right">
                                             <div class="form-account-title">
-                                                <label for="email-phone" asp-for="email"></label>
-                                                <input type="text" class="number-email-input" asp-for="email">
-                                                <span asp-validation-for="email" class="text-danger"></span>
+                                                <label for="email-phone" asp-for="Mobile"></label>
+                                                <input type="text" class="number-email-input" asp-for="Mobile">
+                                                <span asp-validation-for="Mobile" class="text-danger"></span>
                                             </div>
                                             <div class="form-account-title">
-                                                <label for="email-phone" asp-for="accountname"></label>
-                                                <input type="text" class="number-email-input" asp-for="accountname">
-                                                <span asp-validation-for="accountname" class="text-danger"></span>
+                                                <label for="email-phone" asp-for="UserName"></label>
+                                                <input type="text" class="number-email-input" asp-for="UserName">
+                                                <span asp-validation-for="UserName" class="text-danger"></span>
                                             </div>
                                             <div class="form-account-title">
-                                                <label for="password" asp-for="password"></label>
-                                                <input class="password-input" asp-for="password">
-                                                <span asp-validation-for="password" class="text-danger"></span>
+                                                <label for="password" asp-for="Password"></label>
+                                                <input class="password-input" asp-for="Password">
+                                                <span asp-validation-for="Password" class="text-danger"></span>
                                             </div>
                                             <div class="form-account-title">
-                                                <label for="password" asp-for="confirmpassword"></label>
-                                                <input class="password-input" asp-for="confirmpassword">
-                                                <span asp-validation-for="confirmpassword" class="text-danger"></span>
+                                                <label for="password" asp-for="ConfirmPassword"></label>
+                                                <input class="password-input" asp-for="ConfirmPassword">
+                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                             </div>
-                                            <div class="form-auth-row">
+                                            @*<div class="form-auth-row">
                                                 <label for="#" class="ui-checkbox mt-1">
-                                                    <input asp-for="IsAccept" type="checkbox"id="remember">
+                                                    <input asp-for="IsAccept" type="checkbox" id="remember">
                                                     <span class="ui-checkbox-check"></span>
                                                 </label>
                                                 <label for="remember" class="remember-me mr-0"><a href="#">حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت دیجی‌اسمارت را مطالعه نموده و با کلیه موارد آن موافقم.</label>
                                                 <span class="text-danger" asp-validation-for="IsAccept"></span>
-                                            </div>
+                                            </div>*@
                                             <div class="form-row-account">
                                                 <button class="btn btn-primary btn-register">ثبت نام در دیجی اسمارت</button>
                                             </div>
@@ -86,6 +86,75 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+    <!-- login----------------------------------->
+    @*<div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <section class="page-account-box">
+                        <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
+                            <div class="ds-userlogin">
+                                <a href="#" class="account-box-logo">digismart</a>
+                                <div class="account-box">
+                                    <div class="account-box-headline">
+                                        <a href="login" class="login-ds">
+                                            <span class="title">ورود</span>
+                                            <span class="sub-title">به دیجی اسمارت</span>
+                                        </a>
+                                        <a href="register.html" class="register-ds active">
+                                            <span class="title">ثبت نام</span>
+                                            <span class="sub-title">در دیجی اسمارت</span>
+                                        </a>
+                                    </div>
+                                    <div class="Login-to-account mt-4">
+                                        <div class="account-box-content">
+                                            <h4>ثبت نام در دیجی اسمارت</h4>
+                                            <form asp-action="Register" method="post" class="form-account text-right">
+                                                <div class="form-account-title">
+                                                    <label for="email-phone" asp-for="PhoneOrEmail"></label>
+                                                    <input type="text" class="number-email-input" asp-for="PhoneOrEmail">
+                                                    <span asp-validation-for="PhoneOrEmail" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-account-title">
+                                                    <label for="email-phone" asp-for="accountname"></label>
+                                                    <input type="text" class="number-email-input" asp-for="accountname">
+                                                    <span asp-validation-for="accountname" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-account-title">
+                                                    <label for="password" asp-for="password"></label>
+                                                    <input class="password-input" asp-for="password">
+                                                    <span asp-validation-for="password" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-account-title">
+                                                    <label for="password" asp-for="confirmpassword"></label>
+                                                    <input class="password-input" asp-for="confirmpassword">
+                                                    <span asp-validation-for="confirmpassword" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-auth-row">
+                                                    <label for="#" class="ui-checkbox mt-1">
+                                                        <input asp-for="IsAccept" type="checkbox"id="remember">
+                                                        <span class="ui-checkbox-check"></span>
+                                                    </label>
+                                                    <label for="remember" class="remember-me mr-0"><a href="#">حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت دیجی‌اسمارت را مطالعه نموده و با کلیه موارد آن موافقم.</label>
+                                                    <span class="text-danger" asp-validation-for="IsAccept"></span>
+                                                </div>
+                                                <div class="form-row-account">
+                                                    <button class="btn btn-primary btn-register">ثبت نام در دیجی اسمارت</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>*@
     <!-- login----------------------------------->
     <!-- scroll_Progress------------------------->
     <div class="progress-wrap">

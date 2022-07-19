@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | افزودن محصول</title>
 @model product
 
 @{
@@ -16,18 +16,18 @@
         <form asp-action="AddProduct" method="post" style="margin-top:5%;" enctype="multipart/form-data">
 
             <div class="form-group">
-                <label asp-for="productFaTitle" > </label>
+                <label asp-for="productFaTitle"> </label>
                 <input asp-for="productFaTitle" type="text" parsley-trigger="change" placeholder="نام فارسی کالا را وارد نمایید " class="form-control" id="emailAddress" data-parsley-id="6">
                 <span asp-validation-for="productFaTitle" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="productEnTitle" > </label>
+                <label asp-for="productEnTitle"> </label>
                 <input asp-for="productEnTitle" type="text" parsley-trigger="change" placeholder="نام انگلیسی کالا را وارد نمایید " class="form-control" id="emailAddress" data-parsley-id="6">
                 <span asp-validation-for="productEnTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="productweith" > </label>
+                <label asp-for="productweith"> </label>
                 <input asp-for="productweith" type="number" parsley-trigger="change" class="form-control" id="emailAddress" data-parsley-id="6">
                 <span asp-validation-for="productweith" class="text-danger"></span>
             </div>
@@ -41,7 +41,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="productEnTitle" > </label>
+                <label asp-for="productEnTitle"> </label>
                 <textarea asp-for="productTag" class="form-control">
 
                         </textarea>

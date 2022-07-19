@@ -19,7 +19,16 @@ namespace _98market.DataLayer.Entities.Entitieproduct
         public string Image { get; set; }
 
         public DateTime CreateDate { get; set; }
+        public bool IsActive { get; set; }
+        public void Active()
+        {
+            IsActive = true;
+        }
 
+        public void DeActive()
+        {
+            IsActive = false;
+        }
 
         #region relation
 

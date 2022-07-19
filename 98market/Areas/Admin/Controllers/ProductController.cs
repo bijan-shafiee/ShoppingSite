@@ -112,6 +112,16 @@ namespace _98market.Areas.Admin.Controllers
             return View(_productservice.ShowAllProperty());
         }
 
+        public IActionResult ActiveFilter(int id)
+        {
+            _productservice.ActiveFelter(id);
+            return RedirectToAction("ShowAllPropertyname");//action index
+        }
+        public IActionResult DeActiveFilter(int id)
+        {
+            _productservice.DeActiveFelter(id);
+            return RedirectToAction("ShowAllPropertyname");//action index
+        }
         [HttpGet]
         public IActionResult AddPropertyname()
         {
@@ -297,6 +307,11 @@ namespace _98market.Areas.Admin.Controllers
             return RedirectToAction(nameof(ShowAllProduct));
 
         }
+        public IActionResult DeleteProduct(int id)
+        {
+            _productservice.DeleteProduct(id);
+            return RedirectToAction(nameof(ShowAllProduct));
+        }
 
         [HttpGet]
         public IActionResult ShowPropertynameForProduct(int id)
@@ -379,6 +394,16 @@ namespace _98market.Areas.Admin.Controllers
             TempData["Result"] = priceid > 0 ? "true" : "false";
             return RedirectToAction(nameof(ShowAllProduct));
 
+        }
+        public IActionResult ActivePrice(int id)
+        {
+            _productservice.ActivePrice(id);
+            return RedirectToAction(nameof(ShowAllPrice));//action index
+        }
+        public IActionResult DeActivePrice(int id)
+        {
+            _productservice.DeActivePrice(id);
+            return RedirectToAction(nameof(ShowAllPrice));//action index
         }
         #endregion
 

@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | نمایش برند ها </title>
 @model IEnumerable<brand>
 
 @{
@@ -44,6 +44,7 @@
 
                             @if (TempData["NotFoundSlider"] != null)
                             {
+                                
                                 <script>
 
                                     setTimeout(function () {
@@ -64,6 +65,8 @@
                                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 234px;" aria-sort="ascending" aria-label="موتور جستجو: activate to sort column descending">#</th>
                                         <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> نام برند </th>
                                         <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> عکس برند </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending"> وضعیت کامنت </th>
+                                        <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 443px;" aria-label="مرورگر: activate to sort column ascending">  عملیات </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,14 +77,24 @@
                                     <tr class="gradeX odd" role="row">
                                         <td class="sorting_1">@item.brandid</td>
                                         <td class="sorting_1">@item.brandname</td>
-                                        <td class="sorting_1"><a href="/CssSite/ImageSite/brand/@item.Image" target="_blank">نمایش</a></td>
-                                      
+                                        <td class="sorting_1"><img width="140" height="130" class="img-thumbnail" src="~/CssSite/ImageSite/brand/@item.Image" /></td>
 
-                                        <td class="actions">
+                                            @if (item.IsActive == false)
+                                            {
+                                            <td class="sorting_1" style="color:indianred">غیرفعال</td>
+                                        }
+                                        else if (item.IsActive == true)
+                                        {
+                                            <td class="sorting_1" style="color:forestgreen">فعال </td>
+                                        }
+                                        
+                                            <td class="actions">
+                                                <a href="/admin/Brand/ActiveBrand/@item.brandid" class="on-editing save-row" title="فعال کردن"><i class="fa ti-check"></i></a>
+                                                <a href="/admin/Brand/DeActiveBrand/@item.brandid" class="on-editing save-row" title="غیرفعال کردن"><i class="fa ti-na"></i></a>
                                             <a href="/Admin/brand/updatebrand/@item.brandid" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                           
                                         </td>
-                                    </tr>
+                                        </tr>
 
                                         }
                                     }

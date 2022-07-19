@@ -15,4 +15,12 @@ namespace _98market.Core.Viewmodel
 
         public bool Rememberme { get; set; }
     }
+
+    public class LoginMobileViewModel
+    {
+        [Required(ErrorMessage = "لطفا موبایل را وارد کنید")]
+        public string Mobile { get; set; }
+       
+    }
+
 }

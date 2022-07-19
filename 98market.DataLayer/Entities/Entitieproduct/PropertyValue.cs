@@ -14,7 +14,7 @@ namespace _98market.DataLayer.Entities.Entitieproduct
 
         [Display(Name = "مقدار خصوصیات")]
         [Required(ErrorMessage = "وارد کردن {0} اجباری می باشد .")]
-        [MinLength(10, ErrorMessage = "{0} نمیتواند کمتر از {1} باشد")]
+        [MinLength(2, ErrorMessage = "{0} نمیتواند کمتر از {1} باشد")]
         [MaxLength(1000, ErrorMessage = "{0} نمیتواند بیشتر از {1} باید")]
         public string propertyvalue { get; set; }
 

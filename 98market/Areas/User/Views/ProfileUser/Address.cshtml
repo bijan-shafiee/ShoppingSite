@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل کاربری  | آدرس ها</title>
 
 @model ShowAddressForUserViewmodel
 @{
@@ -56,13 +56,19 @@
                                                         <div class="profile-address-info-item location">
                                                             <i class="mdi mdi-map-outline"></i>
                                                             @Model.provincename، @Model.cityname
-                                                            
+
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="profile-address-info-item location">
                                                             <i class="mdi mdi-email-outline"></i>
                                                             @Model.phone
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="profile-address-info-item location">
+                                                            <i class="mdi mdi-email-outline"></i>
+                                                            @Model.postalCode
                                                         </div>
                                                     </li>
                                                     <li>

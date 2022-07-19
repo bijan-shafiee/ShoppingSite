@@ -93,7 +93,7 @@ namespace _98market.Core.Service
         {
             var cart = _Context.cart.Find(cartid);
             var detail = _Context.CartDetail.FirstOrDefault(c => c.Cartid == cartid && c.CartDetailid == detailid);
-            cart.TotalPrice += detail.count * detail.price;
+            cart.TotalPrice = detail.count * detail.price;
             cart.FinalPrice = cart.TotalPrice;
             _Context.Update(cart);
             _Context.SaveChanges();
@@ -416,7 +416,9 @@ namespace _98market.Core.Service
             user user = _Context.users.Find(cart.userid);
             useraddress address = _Context.useraddresses.Include(ua => ua.province).Include(ua => ua.city)
                 .FirstOrDefault(ua => ua.userid == user.userid);
-            return new ReceiverPostViewModel()
+            if (address != null) {    
+            return new ReceiverPostViewModel() 
+ 
             {
                 Name = user.userAccount,
                 Mobile = address.phone,
@@ -427,7 +429,13 @@ namespace _98market.Core.Service
                 Plaque = address.Plaque,
                 Unit = address.unit,
                 Address = address.FullAddress
+            
             };
-        }
+            } else
+            {
+                return null;
+            }
+        
+    }
     }
 }

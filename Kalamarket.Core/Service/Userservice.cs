@@ -1,4 +1,6 @@
 ﻿using _98market.Core.ExtentionMethod;
+using _98market.Core.Security;
+using _98market.Core.Sender;
 using _98market.Core.Service.Interface;
 using _98market.Core.Viewmodel;
 using _98market.DataLayer.Context;
@@ -20,6 +22,102 @@ namespace _98market.Core.Service
         {
             _Context = Context;
         }
+        public bool ActiveCodeTrue(ActiveCodeViewModel model)
+        {
+            return _Context.users.Any(u => u.phone == model.Mobile && u.ActiveCode == model.ActiveCode);
+        }
+
+        public user ActiveUser(ActiveCodeViewModel model)
+        {
+            user user = _Context.users.SingleOrDefault(u => u.phone == model.Mobile);           
+            user.isActive = true;
+            user.ActiveCode = CodeGenerators.ActiveCode();//بعد از فعالسازی کد تغییر می کند
+            _Context.users.Update(user);
+            _Context.SaveChanges();
+            return user;
+           
+           
+        }
+
+        public bool ExistMobile(string mobile)
+        {
+            bool user = _Context.users.Any(u => u.phone == mobile);
+            return user;
+        }
+
+
+
+        public void RegisterUser(RegisteMobilerViewModel model)
+        {
+            user user = new user()
+            {
+                ActiveCode = CodeGenerators.ActiveCode(),
+                phone = model.Mobile,
+                userAccount = model.UserName,
+                password = model.Password,
+                isActive = false,
+                CreateAccount = DateTime.Now
+            };
+
+            _Context.users.Add(user);
+            _Context.SaveChanges();
+            //SmsSender.VerifySend(model.Mobile, user.ActiveCode);//جهت ارسال پیامک
+
+            string to = model.Mobile;
+            string text = "کد فعالسازی شما  : " + user.ActiveCode ;
+            string url = "https://RayganSMS.com/SendMessageWithUrl.ashx?UserName=bijan98shafiee&Password=Shafiee98&PhoneNumber=50002210003000&MessageBody=" + text + "&RecNumber=" + to + "&Smsclass=1";
+            System.Net.WebClient wc = new System.Net.WebClient();
+            byte[] result = wc.DownloadData(url);
+            string response = System.Text.Encoding.ASCII.GetString(result);
+            if (response == "0")
+            {
+                // ok
+            }
+            else
+            {
+                // sms not sent - or error sms (maybe user mobile number of username-password are not correct)
+            }
+
+        }
+
+        public void SendSMSForLogin(LoginMobileViewModel model)
+        {
+            user user = _Context.users.SingleOrDefault(u => u.phone == model.Mobile);
+            //SmsSender.VerifySend(model.Mobile, user.ActiveCode);//جهت ارسال پیامک
+            //_98market.Program x = new _98market.Program();
+
+            string to = model.Mobile;
+            string text = "کد فعالسازی شما  : " + user.ActiveCode ;
+            string url = "https://RayganSMS.com/SendMessageWithUrl.ashx?UserName=bijan98shafiee&Password=Shafiee98&PhoneNumber=50002200889117&MessageBody=" + text + "&RecNumber=" + to + "&Smsclass=1";
+            System.Net.WebClient wc = new System.Net.WebClient();
+            byte[] result = wc.DownloadData(url);
+            string response = System.Text.Encoding.ASCII.GetString(result);
+            if (response == "0")
+            {
+                // ok
+            }
+            else
+            {
+                // sms not sent - or error sms (maybe user mobile number of username-password are not correct)
+            }
+
+        }
+        ///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int AddUser(user user)
         {
             try
@@ -53,6 +151,10 @@ namespace _98market.Core.Service
         {
             return _Context.users.Any(u => u.email == email && u.userid != id);
         }
+        public bool ExistPhone(string phone)
+        {
+            return _Context.users.Any(u => u.phone == phone);
+        }
 
         public bool updateuser(user user)
         {
@@ -79,7 +181,7 @@ namespace _98market.Core.Service
         }
 
 
-        public user LoginUser(string email,string Password)
+        public user LoginUser(string email, string Password)
         {
             return _Context.users.Where(u => u.password == Password && u.email == email).SingleOrDefault();
         }
@@ -203,7 +305,7 @@ namespace _98market.Core.Service
 
         public List<permission> GetPermissionsOfUser(int userId)
         {
-            var roleIds = _Context.UserRoles.Where(ur => ur.userid == userId).Select(ur=>ur.Roleid);
+            var roleIds = _Context.UserRoles.Where(ur => ur.userid == userId).Select(ur => ur.Roleid);
             var permissionIds = _Context.RolePermissions.Where(rp => roleIds.Contains(rp.RolPermissionid)).Select(rp => rp.Permissionid);
             return _Context.permissions.Include(p => p.rolePermissions).ThenInclude(rp => rp.role)
                 .Where(p => permissionIds.Contains(p.permissionid)).ToList();
@@ -247,5 +349,15 @@ namespace _98market.Core.Service
         {
             throw new NotImplementedException();
         }
+
+
+
+        public (string name, string mobile) GetUserBy(int id)
+        {
+            var user = _Context.users.Find(id);
+            return (user.userfamily, user.phone);
+        }
+
+      
     }
 }

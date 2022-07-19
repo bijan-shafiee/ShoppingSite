@@ -1,4 +1,4 @@
-﻿
+﻿<title>پنل مدیریت  | نمایش ویژگی های محصول</title>
 @{
     ViewData["Title"] = "ShowPropertynameForProduct";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="emailAddress">@item.PropertyTitle</label>
                     <input type="hidden" name="nameid" value="@item.PropertyNameId">
-                    <input class="form-control" name="value" type="text"value="@(propertyvalue.Where(p=>p.propertynameid==item.PropertyNameId).Select(p=>p.propertyvalue).FirstOrDefault())" />
+                    <input class="form-control" name="value" type="text" value="@(propertyvalue.Where(p=>p.propertynameid==item.PropertyNameId).Select(p=>p.propertyvalue).FirstOrDefault())" />
                 </div>
             }
 

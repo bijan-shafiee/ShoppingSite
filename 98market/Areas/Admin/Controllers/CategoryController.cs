@@ -1,6 +1,7 @@
 ﻿using _98market.Core.Security;
 using _98market.Core.Service.Interface;
 using _98market.DataLayer.Entities.Entitieproduct;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,50 @@ namespace _98market.Areas.Admin.Controllers
             ViewBag.id = id;
             return View(_Categoryservice.showAllSubCategory(id));
         }
+        public IActionResult activecategory(int id)
+        {
+            int result = _Categoryservice.activecategory(id);
+            TempData["Result"] = result > 0 ? "true" : "false";
+            return RedirectToAction(nameof(showAllCategory));
+        }
+        public IActionResult deactivecategory(int id)
+        {
+            int result = _Categoryservice.deactivecategory(id);
+            TempData["Result"] = result > 0 ? "false" : "true";
+            return RedirectToAction(nameof(showAllCategory));
+        }
 
+
+
+        [HttpGet]
+        public IActionResult UpdateCategory(int id)
+        {
+            Category category = _Categoryservice.FindCategoryById(id);
+            if (category == null)
+            {
+                TempData["NotFoundCategory"] = "true";
+                return RedirectToAction(nameof(showAllCategory));
+            }
+            else
+            {
+                return View(category);
+            }
+
+        }
+
+
+
+        [HttpPost]
+        public IActionResult UpdateCategory(Category category, IFormFile file)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+          
+            bool res = _Categoryservice.UpdateCategory(category);
+            TempData["Result"] = res ? "true" : "false";
+            return RedirectToAction(nameof(showAllCategory));
+        }
     }
 }

@@ -4,6 +4,7 @@ using _98market.DataLayer.Entities.Entitieproduct.FaQ;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using _98market.DataLayer.Entities;
 
 namespace _98market.Core.Service.Interface
 {
@@ -23,6 +24,8 @@ namespace _98market.Core.Service.Interface
         #region Propertyname
         List<PropertyName> ShowAllProperty();
         int AddPropertyname(PropertyName propertyName);
+        void ActiveFelter(int id);
+        void DeActiveFelter(int id);
         bool ExistPropertyname(string name, int id);
         bool AddPropertyForCategory(List<Propertyname_Category> categories);
         List<UpdatePropertynameViewmodel> ShowpropertynameForUpdate(int propertynameid);
@@ -34,6 +37,7 @@ namespace _98market.Core.Service.Interface
         #region Product
         List<product> ShowallProduct();
         int AddProduct(product product);
+        void DeleteProduct(int productid);
         product findproductbuyeid(int productid);
         bool UpdateProduct(product product);
         int FindCategoryForProduct(int product);
@@ -43,6 +47,8 @@ namespace _98market.Core.Service.Interface
         List<PropertyValue> showpropertyvalueforproduct(int productid);
         List<showPriceForProductViewmodel> ShowAllPriceForProduct(int Productid);
         int AddPriceForProduct(ProductPrice productPrice);
+        void ActivePrice(int id);
+        void DeActivePrice(int id);
         List<sepcialProductViewmoddel> ShowAllSepcialproduct();
         Tuple<string, List<SliderForCategoryViewmodel>> showproductForCategory(Category category);
         List<ShowDetailsProductViewmodel> ShowDetailsProduct(int productid);
@@ -121,5 +127,8 @@ namespace _98market.Core.Service.Interface
         void EditGallery(ProductGallery gallery);
         int DeleteGallery(int id);
         #endregion
+
+        Cart GetAmountBy(int cartId);
+        string PaymentSucceeded(int cartId, string refId);
     }
 }

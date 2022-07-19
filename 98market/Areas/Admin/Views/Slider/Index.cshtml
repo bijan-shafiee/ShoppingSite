@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MainSlider>
+﻿<title>پنل مدیریت  | نمایش اسلایدرها</title>
+@model IEnumerable<MainSlider>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -40,7 +41,7 @@
                             }
 
 
-                            @if (TempData["NotFoundSlider"] !=null)
+                            @if (TempData["NotFoundSlider"] != null)
                             {
                                 <script>
                                     setTimeout(function () {
@@ -96,29 +97,27 @@
                             </table>
                         </div>
                     </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="dataTables_info" id="datatable-editable_info" role="status" aria-live="polite">Showing 1 to 10 of 80 entries</div>
-                        </div>
-                    <div class="col-sm-6">
-                        <div class="dataTables_paginate paging_simple_numbers" id="datatable-editable_paginate">
-                            <ul class="pagination">
-                                <li class="paginate_button previous " aria-controls="datatable-editable" tabindex="0" id="datatable-editable_previous">
-                                    <a href="/admin/slider/index?Page=1">صفحه اول </a>
-                                </li>
-                                @for (int i = 1; i <= slidercount; i++)
-                                {
-                                    <li class="paginate_button @(i == Page?"active":"")" aria-controls="datatable-editable" tabindex="0">
-                                        <a href="/admin/slider/index?Page=@i">@i</a>
+                    <div class="row">
+                       
+                        <div class="col-sm-6">
+                            <div class="dataTables_paginate paging_simple_numbers" id="datatable-editable_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button previous " aria-controls="datatable-editable" tabindex="0" id="datatable-editable_previous">
+                                        <a href="/admin/slider/index?Page=1">صفحه اول </a>
                                     </li>
-                                }
-                                <li class="paginate_button next" aria-controls="datatable-editable" tabindex="0" id="datatable-editable_next">
-                                    <a href="/admin/slider/index?Page=@slidercount">صفحه آخر</a>
-                                </li>
-                            </ul>
-                             </div>
+                                    @for (int i = 1; i <= slidercount; i++)
+                                    {
+                                        <li class="paginate_button @(i == Page?"active":"")" aria-controls="datatable-editable" tabindex="0">
+                                            <a href="/admin/slider/index?Page=@i">@i</a>
+                                        </li>
+                                    }
+                                    <li class="paginate_button next" aria-controls="datatable-editable" tabindex="0" id="datatable-editable_next">
+                                        <a href="/admin/slider/index?Page=@slidercount">صفحه آخر</a>
+                                    </li>
+                                </ul>
                             </div>
-                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

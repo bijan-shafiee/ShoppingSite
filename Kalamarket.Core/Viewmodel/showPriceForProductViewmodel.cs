@@ -42,5 +42,17 @@ namespace _98market.Core.Viewmodel
 
         [Display(Name = "تاریخ پایان تخفیف")]
         public DateTime? EndDateDisCount { get; set; }
+        public bool IsActive { get; set; }
+
+
+        public void Active()
+        {
+            IsActive = true;
+        }
+
+        public void DeActive()
+        {
+            IsActive = false;
+        }
     }
 }

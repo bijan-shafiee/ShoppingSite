@@ -1,4 +1,5 @@
-﻿@model productColor
+﻿<title>پنل مدیریت  | حذف رنگ</title>
+@model productColor
 @{
     ViewData["Title"] = "حذف رنگ ";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -19,7 +20,7 @@
                 <label asp-for="ColorCode" for="userName">کد رنگ </label>
                 <input readonly="readonly" asp-for="ColorCode" type="text" parsley-trigger="change" placeholder="آلت اسلایدر را وارد کنید" class="form-control" id="userName" data-parsley-id="6">
             </div>
-           
+
 
             <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary waves-effect waves-light" type="submit">
